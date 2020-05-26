@@ -41,7 +41,7 @@ const navigationConfig = [
   },
   {
     id: "vendor",
-    title: "Vendor",
+    title: "Vendors",
     type: "collapse",
     icon: <Icon.Home size={16} />,
     children: [
