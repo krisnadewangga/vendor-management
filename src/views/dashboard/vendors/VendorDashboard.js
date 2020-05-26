@@ -1,8 +1,8 @@
 import React from "react"
 import { Row, Col } from "reactstrap"
-import SalesCard from "./SalesCard"
-import SuberscribersGained from "../../ui-elements/cards/statistics/SubscriberGained"
-import OrdersReceived from "../../ui-elements/cards/statistics/OrdersReceived"
+import DocumentCard from "./DocumentCard"
+import StockCard from "./StockCard"
+import OrderCard from "./OrderCard"
 import "../../../assets/scss/pages/dashboard-analytics.scss"
 
 let $primary = "#7367F0",
@@ -23,13 +23,13 @@ class VendorDashboard extends React.Component {
       <React.Fragment>
         <Row className="match-height">
           <Col lg="4" md="12">
-            <SuberscribersGained />
+            <DocumentCard />
           </Col>
           <Col lg="4" md="6" sm="12">
-            <SuberscribersGained />
+            <StockCard />
           </Col>
           <Col lg="4" md="6" sm="12">
-            <OrdersReceived />
+            <OrderCard />
           </Col>
         </Row>
       </React.Fragment>
