@@ -12,7 +12,11 @@ import {
   TabPane
 } from "reactstrap"
 import classnames from "classnames"
+<<<<<<< HEAD
 import loginImg from "../../../../assets/img/pages/login.png"
+=======
+import loginImg from "../../../../assets/img/pages//login/login-foto.png"
+>>>>>>> origin/dev
 import "../../../../assets/scss/pages/authentication.scss"
 import LoginAuth0 from "./LoginAuth0"
 import LoginFirebase from "./LoginFirebase"
@@ -45,18 +49,34 @@ class Login extends React.Component {
                 lg="6"
                 className="d-lg-block d-none text-center align-self-center px-1 py-0"
               >
+<<<<<<< HEAD
                 <img src={loginImg} alt="loginImg" />
+=======
+                {/* <img src={loginImg} alt="loginImg" /> */}
+>>>>>>> origin/dev
               </Col>
               <Col lg="6" md="12" className="p-0">
                 <Card className="rounded-0 mb-0 px-2 login-tabs-container">
                   <CardHeader className="pb-1">
                     <CardTitle>
+<<<<<<< HEAD
                       <h4 className="mb-0">Login</h4>
                     </CardTitle>
                   </CardHeader>
                   <p className="px-2 auth-title">
                     Welcome back, please login to your account.
                   </p>
+=======
+                      {/* <h4 className="mb-0">Login</h4> */}
+                    </CardTitle>
+                  </CardHeader>
+                  <h1 className="px-2 auth-title">
+                    Vendor <br />Management <br />System.
+                  </h1>
+                  <h1 className="px-2 py-1 auth-title">
+                    eCatalog.
+                  </h1>
+>>>>>>> origin/dev
                   <Nav tabs className="px-2">
                     <NavItem>
                       <NavLink
@@ -67,7 +87,11 @@ class Login extends React.Component {
                           this.toggle("1")
                         }}
                       >
+<<<<<<< HEAD
                         JWT
+=======
+                        APG
+>>>>>>> origin/dev
                       </NavLink>
                     </NavItem>
                     <NavItem>
@@ -79,6 +103,7 @@ class Login extends React.Component {
                           this.toggle("2")
                         }}
                       >
+<<<<<<< HEAD
                         Firebase
                       </NavLink>
                     </NavItem>
@@ -92,6 +117,9 @@ class Login extends React.Component {
                         }}
                       >
                         Auth0
+=======
+                        Vendor
+>>>>>>> origin/dev
                       </NavLink>
                     </NavItem>
                   </Nav>
@@ -100,10 +128,14 @@ class Login extends React.Component {
                       <LoginJWT />
                     </TabPane>
                     <TabPane tabId="2">
+<<<<<<< HEAD
                       <LoginFirebase />
                     </TabPane>
                     <TabPane tabId="3">
                       <LoginAuth0 />
+=======
+                    <LoginJWT />
+>>>>>>> origin/dev
                     </TabPane>
                   </TabContent>
                 </Card>
