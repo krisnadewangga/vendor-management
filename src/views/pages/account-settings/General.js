@@ -98,11 +98,7 @@ class General extends React.Component {
             </Col>
             <Col className="d-flex justify-content-start flex-wrap" sm="12">
               <Button.Ripple className="mr-50" type="submit" color="primary">
-<<<<<<< HEAD
-                Save Changessss
-=======
                 Save Changes
->>>>>>> origin/dev
               </Button.Ripple>
               <Button.Ripple type="submit" color="danger">
                 Cancel
