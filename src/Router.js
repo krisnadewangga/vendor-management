@@ -413,11 +413,7 @@ class AppRouter extends React.Component {
             path="/extensions/export-selected"
             component={ExportSelected}
           />
-<<<<<<< HEAD
           <AppRoute path="/extensions/pagination" component={reactPaginate} /> */}
-=======
-          <AppRoute path="/extensions/pagination" component={reactPaginate} />
->>>>>>> origin/dev
           <AppRoute component={error404} fullLayout />
         </Switch>
       </Router>
