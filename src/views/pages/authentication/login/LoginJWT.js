@@ -53,12 +53,12 @@ class LoginJWT extends React.Component {
               <Checkbox
                 color="primary"
                 icon={<Check className="vx-icon" size={16} />}
-                label="Remember me"
+                label="Ingatkan saya"
                 defaultChecked={false}
                 onChange={this.handleRemember}
               />
               <div className="float-right">
-                <Link to="/pages/forgot-password">Forgot Password?</Link>
+                <Link to="/pages/forgot-password">Lupa Password?</Link>
               </div>
             </FormGroup>
             <div className="d-flex justify-content-between">
@@ -69,10 +69,10 @@ class LoginJWT extends React.Component {
                   history.push("/pages/register")
                 }}
               >
-                Register
+                Daftar Rekanan
               </Button.Ripple>
               <Button.Ripple color="primary" type="submit">
-                Login
+                Masuk
               </Button.Ripple>
             </div>
           </Form>
