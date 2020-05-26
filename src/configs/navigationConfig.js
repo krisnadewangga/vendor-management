@@ -183,7 +183,23 @@ const navigationConfig = [
     navLink: "/akses",
     permissions: ["admin", "editor"]
   },
- 
+
+
+
+
+  {
+    type: "groupHeader",
+    groupTitle: "Vendor"
+  },
+  {
+    id: "dashboardVendor",
+    title: "Dashboard",
+    type: "item",
+    icon: <Icon.Mail size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/dashboard-vendor",
+  },
+
   // {
   //   type: "groupHeader",
   //   groupTitle: "APPS"

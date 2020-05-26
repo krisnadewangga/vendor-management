@@ -8,6 +8,12 @@ import knowledgeBaseCategory from "./views/pages/knowledge-base/Category"
 import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions"
 import { ContextLayout } from "./utility/context/Layout"
 
+
+
+// VENDOR ROUTES
+const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashboard"))
+
+
 // Route-based code splitting
 const analyticsDashboard = lazy(() =>
   import("./views/dashboard/analytics/AnalyticsDashboard")
@@ -218,7 +224,7 @@ class AppRouter extends React.Component {
       // Set the directory path if you are deploying in sub-folder
       <Router history={history}>
         <Switch>
-          <AppRoute path="/" component={analyticsDashboard} />
+          <AppRoute exact path="/" component={analyticsDashboard} />
           <AppRoute path="/review" component={calendar} />
           <AppRoute path="/kelas" component={chat} />
           <AppRoute path="/sbu" component={chat} />
@@ -232,11 +238,22 @@ class AppRouter extends React.Component {
           <AppRoute path="/po-expired" component={chat} />
           <AppRoute path="/pengguna" component={chat} />
           <AppRoute path="/akses" component={chat} />
+
+
+
+
+
+          {/* VENDOR */}
+          <AppRoute path="/dashboard-vendor" component={vendorDashboard} />
+          {/* END VENDOR */}
+
+
+
           {/* <AppRoute exact path="/" component={analyticsDashboard} />
           <AppRoute
             path="/ecommerce-dashboard"
             component={ecommerceDashboard}
-          />
+          /> */}
           <AppRoute
             path="/email"
             exact

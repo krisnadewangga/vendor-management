@@ -40,72 +40,31 @@ class Register extends React.Component {
           md="8"
           className="d-flex justify-content-center"
         >
-          <Card className="bg-authentication rounded-0 mb-0 w-100">
+          <Card className="bg-authentication register-card rounded-0 mb-0 w-100">
             <Row className="m-0">
               <Col
                 lg="6"
                 className="d-lg-block d-none text-center align-self-center px-1 py-0"
               >
-                <img className="mr-1" src={registerImg} alt="registerImg" />
+                {/* <img className="mr-1" src={registerImg} alt="registerImg" /> */}
               </Col>
               <Col lg="6" md="12" className="p-0">
                 <Card className="rounded-0 mb-0 p-2">
                   <CardHeader className="pb-1 pt-50">
                     <CardTitle>
-                      <h4 className="mb-0">Create Account</h4>
+                      {/* <h4 className="mb-0">Buat Akun</h4> */}
                     </CardTitle>
                   </CardHeader>
-                  <p className="px-2 auth-title mb-0">
-                    Fill the below form to create a new account.
-                  </p>
-                  <Nav tabs className="px-2">
-                    <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: this.state.activeTab === "1"
-                        })}
-                        onClick={() => {
-                          this.toggle("1")
-                        }}
-                      >
-                        JWT
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: this.state.activeTab === "2"
-                        })}
-                        onClick={() => {
-                          this.toggle("2")
-                        }}
-                      >
-                        Firebase
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        className={classnames({
-                          active: this.state.activeTab === "3"
-                        })}
-                        onClick={() => {
-                          this.toggle("3")
-                        }}
-                      >
-                        Auth0
-                      </NavLink>
-                    </NavItem>
-                  </Nav>
+                  <h1 className="px-2 auth-title">
+                    Vendor <br />Management <br />System.
+                  </h1>
+                  <h1 className="px-2 py-1 auth-title">
+                    eCatalog.
+                  </h1>
                   <CardBody className="pt-1 pb-50">
                     <TabContent activeTab={this.state.activeTab}>
                       <TabPane tabId="1">
                         <RegisterJWT />
-                      </TabPane>
-                      <TabPane tabId="2">
-                        <RegisterFirebase />
-                      </TabPane>
-                      <TabPane tabId="3">
-                        <RegisterAuth0 />
                       </TabPane>
                     </TabContent>
                   </CardBody>

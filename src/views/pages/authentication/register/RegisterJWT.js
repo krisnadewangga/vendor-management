@@ -29,12 +29,12 @@ class RegisterJWT extends React.Component {
         <FormGroup className="form-label-group">
           <Input
             type="text"
-            placeholder="Name"
+            placeholder="Nama Lengkap"
             required
             value={this.state.name}
             onChange={e => this.setState({ name: e.target.value })}
           />
-          <Label>Name</Label>
+          <Label>Nama</Label>
         </FormGroup>
         <FormGroup className="form-label-group">
           <Input
@@ -59,18 +59,18 @@ class RegisterJWT extends React.Component {
         <FormGroup className="form-label-group">
           <Input
             type="password"
-            placeholder="Confirm Password"
+            placeholder="Konfirmasi Password"
             required
             value={this.state.confirmPass}
             onChange={e => this.setState({ confirmPass: e.target.value })}
           />
-          <Label>Confirm Password</Label>
+          <Label>Konfirmasi Password</Label>
         </FormGroup>
         <FormGroup>
           <Checkbox
             color="primary"
             icon={<Check className="vx-icon" size={16} />}
-            label=" I accept the terms & conditions."
+            label=" Saya setuju dengan Syarat & Ketentuan."
             defaultChecked={true}
           />
         </FormGroup>
@@ -82,12 +82,13 @@ class RegisterJWT extends React.Component {
               history.push("/pages/login")
             }}
           >
-            Login
+            Masuk
           </Button.Ripple>
           <Button.Ripple color="primary" type="submit">
-            Register
+            Registrasi
           </Button.Ripple>
         </div>
+        
       </Form>
     )
   }
