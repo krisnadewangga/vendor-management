@@ -12,6 +12,7 @@ import { ContextLayout } from "./utility/context/Layout"
 
 // VENDOR ROUTES
 const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashboard"))
+const vendorProfile = lazy(() => import("./views/pages/profile/vendor/Profile"))
 
 
 // Route-based code splitting
@@ -244,7 +245,12 @@ class AppRouter extends React.Component {
 
 
           {/* VENDOR */}
-          <AppRoute path="/dashboard-vendor" component={vendorDashboard} />
+          <AppRoute path="/vendor/dashboard" component={vendorDashboard} />
+          <AppRoute path="/vendor/profil" component={vendorProfile} />
+          <AppRoute path="/vendor/list" component={userList} />
+          <AppRoute path="/vendor/edit" component={userEdit} />
+          <AppRoute path="/vendor/view" component={userView} />
+
           {/* END VENDOR */}
 
 

@@ -403,3 +403,21 @@ html {
     }
   }
 }
+
+
+// Show & Hide
+.show{
+  opacity: 1;
+}
+.hide{
+  opacity: 0;
+}
+.disabled{
+  display: none;
+}
+.inactive{
+  opacity: 0.5;
+}
+.active{
+  opacity: 1;
+}
