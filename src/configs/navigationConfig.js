@@ -33,11 +33,11 @@ const navigationConfig = [
     groupTitle: "APG"
   },
   {
-    id: "dashboard",
+    id: "dashboard-apg",
     title: "Dashboard",
     type: "item",
     icon: <Icon.Home size={20} />,
-    navLink: "/",
+    navLink: "/dashboard-apg",
     permissions: ["admin", "editor"]
   },
   {

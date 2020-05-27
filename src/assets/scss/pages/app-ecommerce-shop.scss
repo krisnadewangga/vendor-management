@@ -295,6 +295,70 @@ $wishlist-bg: #f6f6f6;
     }
   }
 
+  .grid-view-apg {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 28px;
+    .ecommerce-card {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      .card-content {
+        .item-img {
+          padding-top: 0.5rem;
+          min-height: 15.85rem;
+        }
+        .item-wrapper {
+          display: flex;
+          justify-content: space-between;
+          .item-price {
+            position: relative;
+            top: 5px;
+          }
+          .shipping {
+            display: none;
+          }
+        }
+        .item-company {
+          display: none;
+        }
+        .item-options {
+          display: flex;
+          flex-wrap: wrap;
+          .cart,
+          .wishlist {
+            flex-grow: 1;
+          }
+          .wishlist {
+            padding: 0.8rem 2rem;
+          }
+          .item-wrapper {
+            .item-rating {
+              display: none;
+            }
+            .item-price {
+              display: none;
+            }
+          }
+        }
+        .item-name {
+          margin-top: 1rem;
+        }
+        .item-name,
+        .item-description {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+      .card-body {
+        padding: 1rem;
+        padding-bottom: 0;
+      }
+    }
+  }
+
   // List View
   .list-view {
     display: grid;

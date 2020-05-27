@@ -26,7 +26,7 @@ const horizontalMenuConfig = [
       }
     ]
   },
-  
+
   {
     id: "apg",
     title: "APG",
@@ -34,11 +34,11 @@ const horizontalMenuConfig = [
     icon: <Icon.Grid size={16} />,
     children: [
       {
-        id: "dashboard",
+        id: "dashboard-apg",
         title: "Dashboard",
         type: "item",
         icon: <Icon.Home size={16} />,
-        navLink: "/",
+        navLink: "/dashboard-apg",
         permissions: ["admin", "editor"]
       },
       {
