@@ -195,9 +195,17 @@ const navigationConfig = [
     id: "dashboardVendor",
     title: "Dashboard",
     type: "item",
-    icon: <Icon.Mail size={20} />,
+    icon: <Icon.Home size={20} />,
     permissions: ["admin", "editor"],
-    navLink: "/dashboard-vendor",
+    navLink: "/vendor/dashboard",
+  },
+  {
+    id: "profileVendor",
+    title: "Profil",
+    type: "item",
+    icon: <Icon.User size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/vendor/profil",
   },
 
   // {
