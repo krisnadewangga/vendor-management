@@ -218,7 +218,7 @@ class AppRouter extends React.Component {
       // Set the directory path if you are deploying in sub-folder
       <Router history={history}>
         <Switch>
-          <AppRoute path="/" component={analyticsDashboard} />
+          {/* <AppRoute path="/" component={analyticsDashboard} /> */}
           <AppRoute path="/review" component={calendar} />
           <AppRoute path="/kelas" component={chat} />
           <AppRoute path="/sbu" component={chat} />
@@ -232,7 +232,8 @@ class AppRouter extends React.Component {
           <AppRoute path="/po-expired" component={chat} />
           <AppRoute path="/pengguna" component={chat} />
           <AppRoute path="/akses" component={chat} />
-          {/* <AppRoute exact path="/" component={analyticsDashboard} />
+
+          <AppRoute exact path="/" component={analyticsDashboard} />
           <AppRoute
             path="/ecommerce-dashboard"
             component={ecommerceDashboard}
@@ -413,7 +414,7 @@ class AppRouter extends React.Component {
             path="/extensions/export-selected"
             component={ExportSelected}
           />
-          <AppRoute path="/extensions/pagination" component={reactPaginate} /> */}
+          <AppRoute path="/extensions/pagination" component={reactPaginate} />
           <AppRoute component={error404} fullLayout />
         </Switch>
       </Router>
