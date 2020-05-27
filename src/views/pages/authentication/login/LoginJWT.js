@@ -69,7 +69,7 @@ class LoginJWT extends React.Component {
                   history.push("/pages/register")
                 }}
               >
-                Daftar Rekanan
+                Registerasi Rekanan
               </Button.Ripple>
               <Button.Ripple color="primary" type="submit">
                 Masuk

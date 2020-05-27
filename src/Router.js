@@ -8,6 +8,12 @@ import knowledgeBaseCategory from "./views/pages/knowledge-base/Category"
 import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions"
 import { ContextLayout } from "./utility/context/Layout"
 
+
+
+// VENDOR ROUTES
+const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashboard"))
+
+
 // Route-based code splitting
 const analyticsDashboard = lazy(() =>
   import("./views/dashboard/analytics/AnalyticsDashboard")
@@ -233,11 +239,17 @@ class AppRouter extends React.Component {
           <AppRoute path="/pengguna" component={chat} />
           <AppRoute path="/akses" component={chat} />
 
-          <AppRoute exact path="/" component={analyticsDashboard} />
+          {/* VENDOR */}
+          <AppRoute path="/dashboard-vendor" component={vendorDashboard} />
+          {/* END VENDOR */}
+
+
+
+          {/* <AppRoute exact path="/" component={analyticsDashboard} />
           <AppRoute
             path="/ecommerce-dashboard"
             component={ecommerceDashboard}
-          />
+          /> */}
           <AppRoute
             path="/email"
             exact
