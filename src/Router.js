@@ -9,6 +9,9 @@ import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions"
 import { ContextLayout } from "./utility/context/Layout"
 
 
+// APG ROUTES
+const apgDashboard = lazy(() => import("./views/dashboard/apg/ApgDashboard"))
+
 
 // VENDOR ROUTES
 const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashboard"))
@@ -225,7 +228,8 @@ class AppRouter extends React.Component {
       // Set the directory path if you are deploying in sub-folder
       <Router history={history}>
         <Switch>
-          <AppRoute exact path="/" component={analyticsDashboard} />
+          {/* APG */}
+          <AppRoute path="/dashboard-apg" component={apgDashboard} />
           <AppRoute path="/review" component={calendar} />
           <AppRoute path="/kelas" component={chat} />
           <AppRoute path="/sbu" component={chat} />
@@ -239,10 +243,7 @@ class AppRouter extends React.Component {
           <AppRoute path="/po-expired" component={chat} />
           <AppRoute path="/pengguna" component={chat} />
           <AppRoute path="/akses" component={chat} />
-
-
-
-
+          {/* END APG */}
 
           {/* VENDOR */}
           <AppRoute path="/vendor/dashboard" component={vendorDashboard} />
@@ -255,11 +256,11 @@ class AppRouter extends React.Component {
 
 
 
-          {/* <AppRoute exact path="/" component={analyticsDashboard} />
+          <AppRoute exact path="/" component={analyticsDashboard} />
           <AppRoute
             path="/ecommerce-dashboard"
             component={ecommerceDashboard}
-          /> */}
+          />
           <AppRoute
             path="/email"
             exact
@@ -436,7 +437,7 @@ class AppRouter extends React.Component {
             path="/extensions/export-selected"
             component={ExportSelected}
           />
-          <AppRoute path="/extensions/pagination" component={reactPaginate} /> */}
+          <AppRoute path="/extensions/pagination" component={reactPaginate} />
           <AppRoute component={error404} fullLayout />
         </Switch>
       </Router>
