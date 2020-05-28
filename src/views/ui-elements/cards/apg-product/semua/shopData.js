@@ -42,5 +42,57 @@ export const data = [
     Amazon Echo Dot voice-controlled device turns any home into a smart home with the Alexa app on a smartphone
     or tablet.`,
     price: "$49.99"
+  },
+  {
+    id: 5,
+    by: "Apple",
+    desc: `MacBook Air is a thin, lightweight laptop from Apple.
+    MacBook Air features up to 8GB of memory, a fifth-generation Intel Core processor, Thunderbolt 2, great
+    built-in apps, and all-day battery life.1 Its thin, light, and durable enough to take everywhere you go-and
+    powerful enough to do everything once you get there, better.`,
+    price: "$999.99",
+    img: require("../../../../../assets/img/pages/eCommerce/5.png"),
+    name: `Apple - MacBook Air® (Latest Model) - 13.3" Display - Silver`
+  },
+  {
+    id: 6,
+    by: "Sharp",
+    desc: `Only at Best Buy Sharp LC-50LB481U LED Roku TV: Get a TV that enjoys full Internet connectivity with this
+    Sharp 49.5-inch smart TV. Full HD resolutions give you plenty of detail whether you're streaming content
+    from the Internet using the integrated Roku player or watching via cable`,
+    price: "$429.99",
+    img: require("../../../../../assets/img/pages/eCommerce/6.png"),
+    name: `Sharp - 50" Class (49.5" Diag.) - LED - 1080p - Black`
+  },
+  {
+    id: 7,
+    img: require("../../../../../assets/img/pages/eCommerce/7.png"),
+    name: "Google - Google Home - White/Slate fabric",
+    by: "Google",
+    desc: `Simplify your everyday life with the Google Home, a voice-activated speaker powered by the Google Assistant.
+    Use voice commands to enjoy music, get answers from Google and manage everyday tasks. Google Home is
+    compatible with Android and iOS operating systems, and can control compatible smart devices such as
+    Chromecast or Nest.`,
+    price: "$129"
+  },
+  {
+    id: 8,
+    img: require("../../../../../assets/img/pages/eCommerce/8.png"),
+    name: "Apple - EarPods™ with Remote and Mic - White",
+    by: "Apple",
+    desc: `Apple EarPods are white in-ear headphones included with music players and smartphones designed and marketed
+    by Apple Inc. They are designed to fit the ear while retaining a new design pushed by Apple alongside the
+    iPod and iPod Touch products, with which they were sold together.`,
+    price: "$29.99"
+  },
+  {
+    id: 9,
+    name: "Philips - hue A19 Smart LED Light Bulb - White Only",
+    by: "Philips",
+    desc: `Philips hue A19 Smart LED Light Bulb: Get lighting that's as smart as you are. You can easily dim this light
+    bulb and set timers and alarms using your smartphone or tablet. Plus, LED technology offers lasting
+    illumination while using minimal energy.Get lighting that's as smart as you are.`,
+    price: "$14.99",
+    img: require("../../../../../assets/img/pages/eCommerce/9.png")
   }
 ]

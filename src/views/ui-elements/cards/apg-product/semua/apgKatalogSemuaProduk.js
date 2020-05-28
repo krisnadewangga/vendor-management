@@ -11,7 +11,7 @@ import {
 import { data } from "./shopData"
 import { Link } from "react-router-dom"
 import { ShoppingCart } from "react-feather"
-import "../../../../assets/scss/plugins/forms/react-select/_react-select.scss"
+import "../../../../../assets/scss/plugins/forms/react-select/_react-select.scss"
 
 class BasicCards extends React.Component {
   state = {
