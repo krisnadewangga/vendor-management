@@ -90,13 +90,13 @@ const horizontalMenuConfig = [
         ]
       },
       {
-        id: "item",
+        id: "items",
         title: "Item Barang",
         type: "dropdown",
         icon: <Icon.Home size={16} />,
         children: [
           {
-            id: "semua",
+            id: "semuaItem",
             title: "Semua Item",
             type: "item",
             icon: <Icon.Circle size={10} />,

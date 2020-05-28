@@ -89,13 +89,13 @@ const navigationConfig = [
     ]
   },
   {
-    id: "item",
+    id: "items",
     title: "Item Barang",
     type: "collapse",
     icon: <Icon.Briefcase size={20} />,
     children: [
       {
-        id: "semua",
+        id: "semuaItem",
         title: "Semua Item",
         type: "item",
         icon: <Icon.Circle size={10} />,
@@ -359,6 +359,46 @@ const navigationConfig = [
   {
     type: "groupHeader",
     groupTitle: "CHARTS & MAPS"
+  },
+  {
+    id: "eCommerce",
+    title: "Ecommerce",
+    type: "collapse",
+    icon: <Icon.ShoppingCart size={20} />,
+    children: [
+      {
+        id: "shop",
+        title: "Shop",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/ecommerce/shop"
+      },
+      {
+        id: "detail",
+        title: "Product Detail",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/ecommerce/product-detail"
+      },
+      {
+        id: "wishList",
+        title: "Wish List",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/ecommerce/wishlist"
+      },
+      {
+        id: "checkout",
+        title: "Checkout",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/ecommerce/checkout"
+      }
+    ]
   },
   {
     id: "charts",
