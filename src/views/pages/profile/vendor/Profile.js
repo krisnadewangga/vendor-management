@@ -39,8 +39,8 @@ class VendorProfile extends React.Component {
                           object
                           src={userImg}
                           alt="Foto Alt Image"
-                          height="112"
-                          width="112"
+                          height="128"
+                          width="128"
                         />
                       </Media>
                       <Media body>
@@ -103,7 +103,7 @@ class VendorProfile extends React.Component {
                   </Col>
                   <Col className="mt-1 pl-0" sm="12">
                     <Button.Ripple className="mr-1" color="primary" outline>
-                      <Link to="/app/user/edit">
+                      <Link to="/vendor/ubah-profil">
                         <Edit size={15} />
                         <span className="align-middle ml-50">Ubah Informasi</span>
                       </Link>

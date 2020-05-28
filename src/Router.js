@@ -13,6 +13,10 @@ import { ContextLayout } from "./utility/context/Layout"
 // VENDOR ROUTES
 const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashboard"))
 const vendorProfile = lazy(() => import("./views/pages/profile/vendor/Profile"))
+const vendorEditProfile = lazy(() => import("./views/pages/profile/vendor/EditProfile"))
+const vendorSemuaItem = lazy(() => import("./views/pages/item-barang/SemuaItem"))
+const vendorStokKurang = lazy(() => import("./views/pages/item-barang/StokKurang"))
+
 
 
 // Route-based code splitting
@@ -247,9 +251,11 @@ class AppRouter extends React.Component {
           {/* VENDOR */}
           <AppRoute path="/vendor/dashboard" component={vendorDashboard} />
           <AppRoute path="/vendor/profil" component={vendorProfile} />
-          <AppRoute path="/vendor/list" component={userList} />
-          <AppRoute path="/vendor/edit" component={userEdit} />
-          <AppRoute path="/vendor/view" component={userView} />
+          <AppRoute path="/vendor/ubah-profil" component={vendorEditProfile} />
+          <AppRoute path="/vendor/tambah-item" component={vendorSemuaItem} />
+          <AppRoute path="/vendor/semua-item" component={vendorSemuaItem} />
+          <AppRoute path="/vendor/stok-kurang" component={vendorStokKurang} />
+
 
           {/* END VENDOR */}
 
