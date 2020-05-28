@@ -204,6 +204,75 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/vendor/profil",
   },
+  // {
+  //   id: "profileVendor",
+  //   title: "Profil",
+  //   type: "collapse",
+  //   icon: <Icon.User size={20} />,
+  //   permissions: ["admin", "editor"],
+  //   navLink: "/vendor/profil",
+  //   children: [
+  //     {
+  //       id: "profile",
+  //       title: "Profil Akun",
+  //       type: "item",
+  //       icon: <Icon.Circle size={10} />,
+  //       navLink: "/vendor/profil",
+  //       permissions: ["admin", "editor"]
+  //     },
+  //     {
+  //       id: "editProfile",
+  //       title: "Ubah Profil",
+  //       type: "item",
+  //       icon: <Icon.Circle size={10} />,
+  //       navLink: "/vendor/ubah-profil",
+  //       permissions: ["admin", "editor"]
+  //     },
+  //     {
+  //       id: "dokumen",
+  //       title: "Dokumen",
+  //       type: "item",
+  //       icon: <Icon.Circle size={10} />,
+  //       navLink: "/vendor/dokumen",
+  //       permissions: ["admin", "editor"]
+  //     },
+  //   ]
+  // },
+
+{
+  id: "itemBarang",
+  title: "Item Barang",
+  type: "collapse",
+  icon: <Icon.Box size={20} />,
+  permissions: ["admin", "editor"],
+  navLink: "/vendor/semua-item",
+  children: [
+    // {
+    //   id: "tambahItem",
+    //   title: "Tambah Item",
+    //   type: "item",
+    //   icon: <Icon.Circle size={10} />,
+    //   navLink: "/vendor/tambah-item",
+    //   permissions: ["admin", "editor"]
+    // },
+    {
+      id: "semuaItem",
+      title: "Semua Barang",
+      type: "item",
+      icon: <Icon.Circle size={10} />,
+      navLink: "/vendor/semua-item",
+      permissions: ["admin", "editor"]
+    },
+    {
+      id: "stokKurang",
+      title: "Stok Kurang",
+      type: "item",
+      icon: <Icon.Circle size={10} />,
+      navLink: "/vendor/stok-kurang",
+      permissions: ["admin", "editor"]
+    },
+  ]
+  },
 
   {
     id: "knowledgeBase",
