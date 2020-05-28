@@ -49,7 +49,7 @@ class BasicCards extends React.Component {
         <Card className="ecommerce-card" key={i}>
           <div className="card-content">
             <div className="item-img text-center">
-              <Link to="/katalog">
+              <Link to="/apg/katalog-detail">
                 <img
                   className="img-fluid"
                   src={product.img}
@@ -64,7 +64,7 @@ class BasicCards extends React.Component {
                 </div>
               </div>
               <div className="item-name">
-                <Link to="/katalog">
+                <Link to="/apg/katalog-detail">
                   {" "}
                   <span>{product.name}</span>
                 </Link>

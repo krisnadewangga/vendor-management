@@ -1,6 +1,6 @@
 import React from "react"
 import { Row, Col } from "reactstrap"
-import MainCard from "../../ui-elements/cards/apg-items/MainCard"  
+import MainCard from "../../ui-elements/cards/apg-product/detail/apgMainCard"  
 import "../../../assets/scss/pages/dashboard-analytics.scss"
 
 let $primary = "#7367F0",

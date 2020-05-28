@@ -95,42 +95,42 @@ class DataTableCustom extends React.Component {
     ],
     data: [
       {
-        image: require("../../../../assets/img/portrait/small/avatar-s-2.jpg"),
+        image: require("../../../../../assets/img/portrait/small/avatar-s-2.jpg"),
         name: "Alyss Lillecrop",
         email: "alillecrop0@twitpic.com",
         revenue: "100%",
         ratings: "good"
       },
       {
-        image: require("../../../../assets/img/portrait/small/avatar-s-1.jpg"),
+        image: require("../../../../../assets/img/portrait/small/avatar-s-1.jpg"),
         name: "Shep Pentlow",
         email: "spentlow1@home.pl",
         revenue: "100%",
         ratings: "good"
       },
       {
-        image: require("../../../../assets/img/portrait/small/avatar-s-3.jpg"),
+        image: require("../../../../../assets/img/portrait/small/avatar-s-3.jpg"),
         name: "Gasper Morley",
         email: "gmorley2@chronoengine.com",
         revenue: "60%",
         ratings: "average"
       },
       {
-        image: require("../../../../assets/img/portrait/small/avatar-s-4.jpg"),
+        image: require("../../../../../assets/img/portrait/small/avatar-s-4.jpg"),
         name: "Phaedra Jerrard",
         email: "pjerrard3@blogs.com",
         revenue: "40%",
         ratings: "bad"
       },
       {
-        image: require("../../../../assets/img/portrait/small/avatar-s-5.jpg"),
+        image: require("../../../../../assets/img/portrait/small/avatar-s-5.jpg"),
         name: "Conn Plose",
         email: "cplose4@geocities.com",
         revenue: "60%",
         ratings: "average"
       },
       {
-        image: require("../../../../assets/img/portrait/small/avatar-s-6.jpg"),
+        image: require("../../../../../assets/img/portrait/small/avatar-s-6.jpg"),
         name: "Tootsie Brandsma",
         email: "tbrandsma5@theatlantic.com",
         revenue: "40%",

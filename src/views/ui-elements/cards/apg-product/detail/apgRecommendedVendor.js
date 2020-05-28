@@ -10,7 +10,7 @@ import {
 } from "reactstrap"
 import { Users, Briefcase } from 'react-feather'
 import DataTableCustom from './DataTableCustom'
-import StatisticsCard from '../../../../components/@vuexy/statisticsCard/StatisticsCard'
+import StatisticsCard from '../../../../../components/@vuexy/statisticsCard/StatisticsCard'
 
 
 class MoreItems extends React.Component {
