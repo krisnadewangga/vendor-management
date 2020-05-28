@@ -49,7 +49,7 @@ class BasicCards extends React.Component {
         <Card className="ecommerce-card" key={i}>
           <div className="card-content">
             <div className="item-img text-center">
-              <Link to="/ecommerce/product-detail">
+              <Link to="/katalog">
                 <img
                   className="img-fluid"
                   src={product.img}
@@ -64,7 +64,7 @@ class BasicCards extends React.Component {
                 </div>
               </div>
               <div className="item-name">
-                <Link to="/ecommerce/product-detail">
+                <Link to="/katalog">
                   {" "}
                   <span>{product.name}</span>
                 </Link>
@@ -109,104 +109,6 @@ class BasicCards extends React.Component {
           </div>
         </Col>
       </Row>
-
-
-      // <Row>
-      //   <Col lg="3" md="4" sm="12">
-      //   <Card>
-      //       <CardBody>
-      //         <CardImg
-      //           className="img-fluid mb-2"
-      //           src={img3}
-      //           alt="card image cap"
-      //         />
-      //         <h5>Vuexy Admin</h5>
-      //         <div className="d-flex justify-content-between mt-1">
-      //           <small className="float-left font-weight-bold mb-25">
-      //             $ 5975
-      //           </small>
-      //           <small className="float-left font-weight-bold mb-25">
-      //             $ 5975
-      //           </small>
-      //         </div>
-      //         <Progress className="box-shadow-6" value="75" />
-      //         <div className="card-btns d-flex justify-content-between mt-2">
-      //           <Button.Ripple className="gradient-light-primary text-white">
-      //             Masukkan ke keranjang
-      //           </Button.Ripple>
-      //         </div>
-      //       </CardBody>
-      //     </Card>
-      //   </Col>
-      //   <Col lg="3" md="4" sm="12">
-      //   <Card>
-      //       <CardBody>
-      //         <CardImg
-      //           className="img-fluid mb-2"
-      //           src={img3}
-      //           alt="card image cap"
-      //         />
-      //         <h5>Vuexy Admin</h5>
-      //         <div className="d-flex justify-content-between mt-1">
-      //           <small className="float-left font-weight-bold mb-25">
-      //             $ 5975
-      //           </small>
-      //           <small className="float-left font-weight-bold mb-25">
-      //             $ 5975
-      //           </small>
-      //         </div>
-      //         <Progress className="box-shadow-6" value="75" />
-      //         <div className="card-btns d-flex justify-content-between mt-2">
-      //           <Button.Ripple className="gradient-light-primary text-white">
-      //             Masukkan ke keranjang
-      //           </Button.Ripple>
-      //         </div>
-      //       </CardBody>
-      //     </Card>
-      //   </Col>
-      //   <Col lg="3" md="4" sm="12">
-      //   <Card>
-      //       <CardBody>
-      //         <CardImg
-      //           className="img-fluid mb-2"
-      //           src={img3}
-      //           alt="card image cap"
-      //         />
-      //         <h5>Vuexy Admin</h5>
-      //         <div className="d-flex justify-content-between mt-1">
-      //           <small className="float-left font-weight-bold mb-25">
-      //             $ 5975
-      //           </small>
-      //           <small className="float-left font-weight-bold mb-25">
-      //             $ 5975
-      //           </small>
-      //         </div>
-      //         <Progress className="box-shadow-6" value="75" />
-      //         <div className="card-btns d-flex justify-content-between mt-2">
-      //           <Button.Ripple className="gradient-light-primary text-white">
-      //             Masukkan ke keranjang
-      //           </Button.Ripple>
-      //         </div>
-      //       </CardBody>
-      //     </Card>
-      //   </Col>
-      //   <Col lg="3" md="4" sm="12">
-      //   <Card>
-      //       <CardBody>
-      //         <CardImg
-      //           className="img-fluid mb-2"
-      //           src={img3}
-      //           alt="card image cap"
-      //         />
-      //         <h5>Nama Items</h5>
-      //         <h6>Nama Vendor</h6>
-      //         <Button.Ripple block className="gradient-light-primary text-white mt-3 btn-block">
-      //           Masukkan ke keranjang
-      //         </Button.Ripple>
-      //       </CardBody>
-      //     </Card>
-      //   </Col>
-      // </Row>
     )
   }
 }

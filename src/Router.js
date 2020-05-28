@@ -11,6 +11,7 @@ import { ContextLayout } from "./utility/context/Layout"
 
 // APG ROUTES
 const apgDashboard = lazy(() => import("./views/dashboard/apg/ApgDashboard"))
+const itemDetail = lazy(() => import("./views/apps/apg/ItemDetail"))
 
 
 // VENDOR ROUTES
@@ -234,15 +235,16 @@ class AppRouter extends React.Component {
         <Switch>
           {/* APG */}
           <AppRoute path="/dashboard-apg" component={apgDashboard} />
+          <AppRoute path="/katalog-detail" component={itemDetail} />
+          <AppRoute path="/katalog" component={itemDetail} />
+          <AppRoute path="/items" component={chat} />
           <AppRoute path="/review" component={calendar} />
           <AppRoute path="/kelas" component={chat} />
           <AppRoute path="/sbu" component={chat} />
-          <AppRoute path="/items" component={chat} />
           <AppRoute path="/tambah" component={chat} />
           <AppRoute path="/kategori-barang" component={chat} />
           <AppRoute path="/sub-kategori" component={chat} />
           <AppRoute path="/satuan" component={chat} />
-          <AppRoute path="/katalog" component={chat} />
           <AppRoute path="/pemesanan" component={chat} />
           <AppRoute path="/po-expired" component={chat} />
           <AppRoute path="/pengguna" component={chat} />
