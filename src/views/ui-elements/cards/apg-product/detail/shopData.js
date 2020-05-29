@@ -8,12 +8,12 @@ export const data = [
     quad-core processor, 1GB internal memory and 8GB of storage, this portable Amazon Fire TV stick works fast
     for buffer-free streaming.`,
     price: "$39.99",
-    img: require("../../../../assets/img/pages/eCommerce/1.png")
+    img: require("../../../../../assets/img/pages/eCommerce/1.png")
   },
   {
     id: 2,
     price: "$35",
-    img: require("../../../../assets/img/pages/eCommerce/2.png"),
+    img: require("../../../../../assets/img/pages/eCommerce/2.png"),
     name: "Google - Chromecast - Black",
     by: "Google",
     desc: `Google Chromecast: Enjoy a world of entertainment with Google Chromecast. Just connect to your HDTV's HDMI
@@ -27,13 +27,13 @@ export const data = [
     applications without lag. The 1TB hard drive in this Dell Inspiron laptop lets you store multiple music,
     video and document files.`,
     price: "$499.99",
-    img: require("../../../../assets/img/pages/eCommerce/3.png"),
+    img: require("../../../../../assets/img/pages/eCommerce/3.png"),
     name: `Dell - Inspiron 15.6" Touch-Screen Laptop - Black`,
     by: "Dell"
   },
   {
     id: 4,
-    img: require("../../../../assets/img/pages/eCommerce/4.png"),
+    img: require("../../../../../assets/img/pages/eCommerce/4.png"),
     name: "Amazon - Echo Dot",
     by: "Amazon",
     desc: `Echo Dot is the latest addition to Amazon's voice-controlled devices.

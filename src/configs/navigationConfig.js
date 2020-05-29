@@ -37,59 +37,59 @@ const navigationConfig = [
     title: "Dashboard",
     type: "item",
     icon: <Icon.Home size={20} />,
-    navLink: "/dashboard-apg",
+    navLink: "/apg/dashboard",
     permissions: ["admin", "editor"]
   },
   {
-    id: "vendor",
+    id: "vendor-apg",
     title: "Vendor",
     type: "collapse",
     icon: <Icon.Users size={20} />,
     children: [
       {
-        id: "aktif",
+        id: "vendor-apg-aktif",
         title: "Aktif",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/aktif",
+        navLink: "/apg/vendor-aktif",
         permissions: ["admin", "editor"]
       },
       {
-        id: "review",
+        id: "vendor-apg-review",
         title: "Dalam Review",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/review",
+        navLink: "/apg/vendor-review",
         permissions: ["admin"]
       },
       {
-        id: "kategori",
+        id: "vendor-apg-kategori",
         title: "Kategori",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/kategori",
+        navLink: "/apg/vendor-kategori",
         permissions: ["admin"]
       },
       {
-        id: "kelas",
+        id: "vendor-apg-kelas",
         title: "Kelas",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/kelas",
+        navLink: "/apg/vendor-kelas",
         permissions: ["admin"]
       },
       {
-        id: "sbu",
+        id: "vendor-apg-sbu",
         title: "SBU",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/sbu",
+        navLink: "/apg/vendor-sbu",
         permissions: ["admin"]
       }
     ]
   },
   {
-    id: "items",
+    id: "items-apg",
     title: "Item Barang",
     type: "collapse",
     icon: <Icon.Briefcase size={20} />,
@@ -99,63 +99,71 @@ const navigationConfig = [
         title: "Semua Item",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/items",
+        navLink: "/apg/items-semua",
         permissions: ["admin", "editor"]
       },
       {
-        id: "tambah",
+        id: "tambahItem",
         title: "Tambah Item",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/tambah",
+        navLink: "/apg/items-tambah",
         permissions: ["admin"]
       },
       {
-        id: "kategoribarang",
+        id: "kategoriItem",
         title: "Kategori",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/kategori-barang",
+        navLink: "/apg/items-kategori",
         permissions: ["admin"]
       },
       {
-        id: "subkategori",
+        id: "subKategoriItem",
         title: "Sub Kategori",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/sub-kategori",
+        navLink: "/apg/items-sub-kategori",
         permissions: ["admin"]
       },
       {
-        id: "satuan",
+        id: "satuanItem",
         title: "Satuan",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/satuan",
+        navLink: "/apg/items-satuan",
         permissions: ["admin"]
       }
     ]
   },
   {
-    id: "katalog",
+    id: "katalog-apg",
     title: "Katalog",
     type: "collapse",
     icon: <Icon.Archive size={20} />,
     children: [
       {
-        id: "katalogitem",
-        title: "Katalog",
+        id: "semuaKatalog",
+        title: "Semua Katalog",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/katalog",
+        navLink: "/apg/katalog-semua",
         permissions: ["admin", "editor"]
       },
       {
-        id: "pemesanan",
+        id: "detailKatalog",
+        title: "Detail Katalog",
+        type: "item",
+        icon: <Icon.Circle size={10} />,
+        navLink: "/apg/katalog-detail",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "pemesananKatalog",
         title: "Pemesanan",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/pemesanan",
+        navLink: "/apg/katalog-pemesanan",
         permissions: ["admin"]
       },
       {
@@ -163,25 +171,25 @@ const navigationConfig = [
         title: "PO Expired",
         type: "item",
         icon: <Icon.Circle size={10} />,
-        navLink: "/po-expired",
+        navLink: "/apg/katalog-po-expired",
         permissions: ["admin"]
       }
     ]
   },
   {
-    id: "pengguna",
+    id: "pengguna-apg",
     title: "Pengguna",
     type: "item",
-    icon: <Icon.User size={20} />,
-    navLink: "/pengguna",
+    icon: <Icon.Home size={16} />,
+    navLink: "/apg/pengguna-apg",
     permissions: ["admin", "editor"]
   },
   {
-    id: "akses",
+    id: "hak-akses-apg",
     title: "Hak Akses",
     type: "item",
-    icon: <Icon.Lock size={20} />,
-    navLink: "/akses",
+    icon: <Icon.Home size={16} />,
+    navLink: "/apg/hak-akses-apg",
     permissions: ["admin", "editor"]
   },
   {
@@ -303,7 +311,6 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/pages/invoice"
   },
-
   {
     id: "authentication",
     title: "Authentication",
@@ -424,308 +431,6 @@ const navigationConfig = [
         newTab: true
       }
     ]
-  },
-  {
-    type: "groupHeader",
-    groupTitle: "CHARTS & MAPS"
-  },
-  {
-    id: "eCommerce",
-    title: "Ecommerce",
-    type: "collapse",
-    icon: <Icon.ShoppingCart size={20} />,
-    children: [
-      {
-        id: "shop",
-        title: "Shop",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/ecommerce/shop"
-      },
-      {
-        id: "detail",
-        title: "Product Detail",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/ecommerce/product-detail"
-      },
-      {
-        id: "wishList",
-        title: "Wish List",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/ecommerce/wishlist"
-      },
-      {
-        id: "checkout",
-        title: "Checkout",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/ecommerce/checkout"
-      }
-    ]
-  },
-  {
-    id: "charts",
-    title: "Charts",
-    type: "collapse",
-    badge: "success",
-    badgeText: "3",
-    icon: <Icon.PieChart size={20} />,
-    children: [
-      {
-        id: "apex",
-        title: "Apex",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/charts/apex"
-      },
-      {
-        id: "chartJs",
-        title: "ChartJS",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/charts/chartjs"
-      },
-      {
-        id: "recharts",
-        title: "Recharts",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/charts/recharts"
-      }
-    ]
-  },
-  {
-    id: "leafletMaps",
-    title: "Leaflet Maps",
-    icon: <Icon.Map size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/maps/leaflet"
-  },
-  {
-    type: "groupHeader",
-    groupTitle: "EXTENSIONS"
-  },
-  {
-    id: "sweetAlert",
-    title: "Sweet Alerts",
-    icon: <Icon.AlertCircle size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/sweet-alert"
-  },
-  {
-    id: "toastr",
-    title: "Toastr",
-    icon: <Icon.Zap size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/toastr"
-  },
-  {
-    id: "rcSlider",
-    title: "Rc Slider",
-    icon: <Icon.Sliders size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/slider"
-  },
-  {
-    id: "fileUploader",
-    title: "File Uploader",
-    icon: <Icon.UploadCloud size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/file-uploader"
-  },
-  {
-    id: "wysiwygEditor",
-    title: "Wysiwyg Editor",
-    icon: <Icon.Edit size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/wysiwyg-editor"
-  },
-  {
-    id: "drag_&_drop",
-    title: "Drag & Drop",
-    icon: <Icon.Droplet size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/drag-and-drop"
-  },
-  {
-    id: "tour",
-    title: "Tour",
-    icon: <Icon.Info size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/tour"
-  },
-  {
-    id: "clipBoard",
-    title: "Clipboard",
-    icon: <Icon.Copy size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/clipboard"
-  },
-  {
-    id: "contentMenu",
-    title: "Context Menu",
-    icon: <Icon.Menu size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/context-menu"
-  },
-  {
-    id: "swiper",
-    title: "Swiper",
-    icon: <Icon.Smartphone size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/swiper"
-  },
-  {
-    id: "access-control",
-    title: "Access Control",
-    icon: <Icon.Lock size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/access-control"
-  },
-  {
-    id: "i18n",
-    title: "I18n",
-    icon: <Icon.Globe size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/i18n"
-  },
-  {
-    id: "treeView",
-    title: "Tree",
-    icon: <Icon.GitPullRequest size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/tree"
-  },
-  {
-    id: "extPagination",
-    title: "Pagination",
-    icon: <Icon.MoreHorizontal size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/pagination"
-  },
-  {
-    id: "extImport",
-    title: "Import",
-    icon: <Icon.DownloadCloud size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/import"
-  },
-  {
-    id: "extExport",
-    title: "Export",
-    icon: <Icon.UploadCloud size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "/extensions/export"
-  },
-  {
-    id: "extExportSelected",
-    title: "Export Selected",
-    icon: <Icon.CheckSquare size={20} />,
-    type: "item",
-    navLink: "/extensions/export-selected",
-    permissions: ["admin", "editor"]
-  },
-  {
-    type: "groupHeader",
-    groupTitle: "OTHERS"
-  },
-  {
-    id: "menuLevels",
-    title: "Menu Levels",
-    icon: <Icon.Menu size={20} />,
-    type: "collapse",
-    children: [
-      {
-        id: "secondLevel",
-        title: "Second Level",
-        icon: <Icon.Circle size={12} />,
-        type: "item",
-        permissions: ["admin", "editor"],
-        navlink: ""
-      },
-      {
-        id: "secondLevel1",
-        title: "Second Level",
-        icon: <Icon.Circle size={12} />,
-        type: "collapse",
-
-        children: [
-          {
-            id: "ThirdLevel",
-            title: "Third Level",
-            icon: <Icon.Circle size={12} />,
-            type: "item",
-            permissions: ["admin", "editor"],
-            navLink: ""
-          },
-          {
-            id: "ThirdLevel1",
-            title: "Third Level",
-            icon: <Icon.Circle size={12} />,
-            type: "item",
-            permissions: ["admin", "editor"],
-            navLink: ""
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: "disabledMenu",
-    title: "Disabled Menu",
-    icon: <Icon.EyeOff size={20} />,
-    type: "item",
-    permissions: ["admin", "editor"],
-    navLink: "#",
-    disabled: true
-  },
-  {
-    type: "groupHeader",
-    groupTitle: "SUPPORT"
-  },
-  {
-    id: "documentation",
-    title: "Documentation",
-    icon: <Icon.Folder size={20} />,
-    type: "external-link",
-    permissions: ["admin", "editor"],
-    navLink:
-      "https://pixinvent.com/demo/vuexy-react-admin-dashboard-template/documentation"
-  },
-  {
-    id: "raiseSupport",
-    title: "Raise Support",
-    icon: <Icon.LifeBuoy size={20} />,
-    type: "external-link",
-    newTab: true,
-    permissions: ["admin", "editor"],
-    navLink: "https://pixinvent.ticksy.com/"
   }
 ]
 

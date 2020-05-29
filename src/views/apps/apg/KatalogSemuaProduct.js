@@ -1,7 +1,8 @@
 import React from "react"
 import { Row, Col } from "reactstrap"
-import MainCard from "../../ui-elements/cards/apg-product/detail/apgMainCard"  
+import MainCard from "../../ui-elements/cards/apg-product/semua/apgMainCardSemuaProduk"  
 import "../../../assets/scss/pages/dashboard-analytics.scss"
+import Breacrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb"
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -15,10 +16,15 @@ let $primary = "#7367F0",
   $label_color = "#e7eef7",
   $white = "#fff"
 
-class VendorDashboard extends React.Component {
+class KatalogSemuaProduct extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <Breacrumbs
+          breadCrumbTitle="Semua Produk"
+          breadCrumbParent="Katalog"
+          breadCrumbActive="Semua Produk"
+        />
         <Row className="match-height">
           <MainCard />
         </Row>
@@ -27,4 +33,4 @@ class VendorDashboard extends React.Component {
   }
 }
 
-export default VendorDashboard
+export default KatalogSemuaProduct
