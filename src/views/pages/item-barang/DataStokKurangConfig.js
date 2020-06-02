@@ -29,7 +29,7 @@ import {
   updateData,
   addData,
   filterData
-} from "../../../redux/actions/data-list/"
+} from "../../../redux/actions/data-list"
 import Sidebar from "./DataListSidebar"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
@@ -325,7 +325,7 @@ class DataStokKurangConfig extends Component {
   handleRowsPerPage = value => {
     let { parsedFilter, getData } = this.props
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
-    history.push(`/data-list/list-view?page=${page}&perPage=${value}`)
+    history.push(`/apg/items-semua/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
     getData({ page: parsedFilter.page, perPage: value })
   }
@@ -339,9 +339,7 @@ class DataStokKurangConfig extends Component {
     this.props.deleteData(row)
     this.props.getData(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
-      let urlPrefix = this.props.thumbView
-        ? "/data-list/thumb-view/"
-        : "/data-list/list-view/"
+      let urlPrefix = "/apg/items-semua/"
       history.push(
         `${urlPrefix}list-view?page=${parseInt(
           this.props.parsedFilter.page - 1
@@ -362,9 +360,7 @@ class DataStokKurangConfig extends Component {
   handlePagination = page => {
     let { parsedFilter, getData } = this.props
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
-    let urlPrefix = this.props.thumbView
-      ? "/data-list/thumb-view/"
-      : "/data-list/list-view/"
+    let urlPrefix = "/apg/items-semua/"
     history.push(
       `${urlPrefix}list-view?page=${page.selected + 1}&perPage=${perPage}`
     )

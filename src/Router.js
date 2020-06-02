@@ -13,6 +13,7 @@ import { ContextLayout } from "./utility/context/Layout"
 const apgDashboard = lazy(() => import("./views/dashboard/apg/ApgDashboard"))
 const apgSemuaProduct = lazy(() => import("./views/apps/apg/KatalogSemuaProduct"))
 const apgDetailProduct = lazy(() => import("./views/apps/apg/KatalogProductDetail"))
+const apgItemBarangSemua = lazy(() => import("./views/pages/item-barang/SemuaItem"))
 
 
 // VENDOR ROUTES
@@ -238,6 +239,7 @@ class AppRouter extends React.Component {
           <AppRoute path="/apg/dashboard" component={apgDashboard} />
           <AppRoute path="/apg/katalog-semua" component={apgSemuaProduct} />
           <AppRoute path="/apg/katalog-detail" component={apgDetailProduct} />
+          <AppRoute path="/apg/items-semua" component={apgItemBarangSemua} />
           {/* END APG */}
 
           {/* VENDOR */}
