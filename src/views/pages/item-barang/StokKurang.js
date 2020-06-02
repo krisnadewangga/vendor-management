@@ -22,4 +22,8 @@ class StokKurang extends React.Component {
   }
 }
 
+<<<<<<< HEAD
 export default StokKurang
+=======
+export default StokKurang
+>>>>>>> origin/dev

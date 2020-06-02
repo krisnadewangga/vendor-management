@@ -196,14 +196,14 @@ const navigationConfig = [
     type: "groupHeader",
     groupTitle: "APPS"
   },
-  {
-    id: "email",
-    title: "Email",
-    type: "item",
-    icon: <Icon.Home size={20} />,
-    permissions: ["admin", "editor"],
-    navLink: "/vendor/dashboard",
-  },
+  // {
+  //   id: "email",
+  //   title: "Email",
+  //   type: "item",
+  //   icon: <Icon.Home size={20} />,
+  //   permissions: ["admin", "editor"],
+  //   navLink: "/vendor/dashboard",
+  // },
   {
     id: "profileVendor",
     title: "Profil",
@@ -212,157 +212,226 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/vendor/profil",
   },
+  // {
+  //   id: "profileVendor",
+  //   title: "Profil",
+  //   type: "collapse",
+  //   icon: <Icon.User size={20} />,
+  //   permissions: ["admin", "editor"],
+  //   navLink: "/vendor/profil",
+  //   children: [
+  //     {
+  //       id: "profile",
+  //       title: "Profil Akun",
+  //       type: "item",
+  //       icon: <Icon.Circle size={10} />,
+  //       navLink: "/vendor/profil",
+  //       permissions: ["admin", "editor"]
+  //     },
+  //     {
+  //       id: "editProfile",
+  //       title: "Ubah Profil",
+  //       type: "item",
+  //       icon: <Icon.Circle size={10} />,
+  //       navLink: "/vendor/ubah-profil",
+  //       permissions: ["admin", "editor"]
+  //     },
+  //     {
+  //       id: "dokumen",
+  //       title: "Dokumen",
+  //       type: "item",
+  //       icon: <Icon.Circle size={10} />,
+  //       navLink: "/vendor/dokumen",
+  //       permissions: ["admin", "editor"]
+  //     },
+  //   ]
+  // },
 
-  {
-    id: "knowledgeBase",
-    title: "Knowledge Base",
-    type: "item",
-    icon: <Icon.Info size={20} />,
-    permissions: ["admin", "editor"],
-    navLink: "/pages/knowledge-base",
-    parentOf: [
-      "/pages/knowledge-base/category/questions",
-      "/pages/knowledge-base/category"
-    ]
+{
+  id: "itemBarang",
+  title: "Item Barang",
+  type: "collapse",
+  icon: <Icon.Box size={20} />,
+  permissions: ["admin", "editor"],
+  navLink: "/vendor/semua-item",
+  children: [
+    // {
+    //   id: "tambahItem",
+    //   title: "Tambah Item",
+    //   type: "item",
+    //   icon: <Icon.Circle size={10} />,
+    //   navLink: "/vendor/tambah-item",
+    //   permissions: ["admin", "editor"]
+    // },
+    {
+      id: "semuaItem",
+      title: "Semua Barang",
+      type: "item",
+      icon: <Icon.Circle size={10} />,
+      navLink: "/vendor/semua-item",
+      permissions: ["admin", "editor"]
+    },
+    {
+      id: "stokKurang",
+      title: "Stok Kurang",
+      type: "item",
+      icon: <Icon.Circle size={10} />,
+      navLink: "/vendor/stok-kurang",
+      permissions: ["admin", "editor"]
+    },
+  ]
   },
-  {
-    id: "search",
-    title: "Search",
-    type: "item",
-    icon: <Icon.Search size={20} />,
-    permissions: ["admin", "editor"],
-    navLink: "/pages/search"
-  },
 
-  {
-    id: "invoice",
-    title: "Invoice",
-    type: "item",
-    icon: <Icon.File size={20} />,
-    permissions: ["admin", "editor"],
-    navLink: "/pages/invoice"
-  },
-  {
-    id: "authentication",
-    title: "Authentication",
-    type: "collapse",
-    icon: <Icon.Unlock size={20} />,
-    children: [
-      {
-        id: "login",
-        title: "Login",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/pages/login",
-        newTab: true
-      },
-      {
-        id: "register",
-        title: "Register",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/pages/register",
-        newTab: true
-      },
-      {
-        id: "forgotPassword",
-        title: "Forgot Password",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/pages/forgot-password",
-        newTab: true
-      },
-      {
-        id: "resetPassword",
-        title: "Reset Password",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/pages/reset-password",
-        newTab: true
-      },
-      {
-        id: "lockScreen",
-        title: "Lock Screen",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/pages/lock-screen",
-        newTab: true
-      }
-    ]
-  },
-  {
-    id: "miscellaneous",
-    title: "Miscellaneous",
-    type: "collapse",
-    icon: <Icon.FileText size={20} />,
-    children: [
-      {
-        id: "comingSoon",
-        title: "Coming Soon",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/misc/coming-soon",
+  // {
+  //   id: "knowledgeBase",
+  //   title: "Knowledge Base",
+  //   type: "item",
+  //   icon: <Icon.Info size={20} />,
+  //   permissions: ["admin", "editor"],
+  //   navLink: "/pages/knowledge-base",
+  //   parentOf: [
+  //     "/pages/knowledge-base/category/questions",
+  //     "/pages/knowledge-base/category"
+  //   ]
+  // },
+  // {
+  //   id: "search",
+  //   title: "Search",
+  //   type: "item",
+  //   icon: <Icon.Search size={20} />,
+  //   permissions: ["admin", "editor"],
+  //   navLink: "/pages/search"
+  // },
 
-        newTab: true
-      },
-      {
-        id: "error",
-        title: "Error",
-        type: "collapse",
-        icon: <Icon.Circle size={12} />,
-        children: [
-          {
-            id: "404",
-            title: "404",
-            type: "item",
+  // {
+  //   id: "invoice",
+  //   title: "Invoice",
+  //   type: "item",
+  //   icon: <Icon.File size={20} />,
+  //   permissions: ["admin", "editor"],
+  //   navLink: "/pages/invoice"
+  // },
+  // {
+  //   id: "authentication",
+  //   title: "Authentication",
+  //   type: "collapse",
+  //   icon: <Icon.Unlock size={20} />,
+  //   children: [
+  //     {
+  //       id: "login",
+  //       title: "Login",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/pages/login",
+  //       newTab: true
+  //     },
+  //     {
+  //       id: "register",
+  //       title: "Register",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/pages/register",
+  //       newTab: true
+  //     },
+  //     {
+  //       id: "forgotPassword",
+  //       title: "Forgot Password",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/pages/forgot-password",
+  //       newTab: true
+  //     },
+  //     {
+  //       id: "resetPassword",
+  //       title: "Reset Password",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/pages/reset-password",
+  //       newTab: true
+  //     },
+  //     {
+  //       id: "lockScreen",
+  //       title: "Lock Screen",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/pages/lock-screen",
+  //       newTab: true
+  //     }
+  //   ]
+  // },
+  // {
+  //   id: "miscellaneous",
+  //   title: "Miscellaneous",
+  //   type: "collapse",
+  //   icon: <Icon.FileText size={20} />,
+  //   children: [
+  //     {
+  //       id: "comingSoon",
+  //       title: "Coming Soon",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/misc/coming-soon",
 
-            icon: <Icon.Circle size={12} />,
-            permissions: ["admin", "editor"],
-            navLink: "/misc/error/404",
+  //       newTab: true
+  //     },
+  //     {
+  //       id: "error",
+  //       title: "Error",
+  //       type: "collapse",
+  //       icon: <Icon.Circle size={12} />,
+  //       children: [
+  //         {
+  //           id: "404",
+  //           title: "404",
+  //           type: "item",
 
-            newTab: true
-          },
-          {
-            id: "500",
-            title: "500",
-            type: "item",
+  //           icon: <Icon.Circle size={12} />,
+  //           permissions: ["admin", "editor"],
+  //           navLink: "/misc/error/404",
 
-            icon: <Icon.Circle size={12} />,
-            permissions: ["admin", "editor"],
-            navLink: "/misc/error/500",
+  //           newTab: true
+  //         },
+  //         {
+  //           id: "500",
+  //           title: "500",
+  //           type: "item",
 
-            newTab: true
-          }
-        ]
-      },
-      {
-        id: "notAuthorized",
-        title: "Not Authorized",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/misc/not-authorized",
+  //           icon: <Icon.Circle size={12} />,
+  //           permissions: ["admin", "editor"],
+  //           navLink: "/misc/error/500",
 
-        newTab: true
-      },
-      {
-        id: "maintenance",
-        title: "Maintenance",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/misc/maintenance",
+  //           newTab: true
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       id: "notAuthorized",
+  //       title: "Not Authorized",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/misc/not-authorized",
 
-        newTab: true
-      }
-    ]
-  }
+  //       newTab: true
+  //     },
+  //     {
+  //       id: "maintenance",
+  //       title: "Maintenance",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/misc/maintenance",
+
+  //       newTab: true
+  //     }
+  //   ]
+  // }
 ]
 
 export default navigationConfig
