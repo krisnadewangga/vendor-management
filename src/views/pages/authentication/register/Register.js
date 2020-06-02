@@ -56,10 +56,7 @@ class Register extends React.Component {
                     </CardTitle>
                   </CardHeader>
                   <h1 className="px-2 auth-title">
-                    Vendor <br />Management <br />System.
-                  </h1>
-                  <h1 className="px-2 py-1 auth-title">
-                    eCatalog.
+                    Registrasi <br />Vendor.
                   </h1>
                   <CardBody className="pt-1 pb-50">
                     <TabContent activeTab={this.state.activeTab}>

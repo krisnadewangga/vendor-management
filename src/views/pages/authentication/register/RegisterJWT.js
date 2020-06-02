@@ -1,7 +1,7 @@
 import React from "react"
 import { Form, FormGroup, Input, Label, Button } from "reactstrap"
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
-import { Check } from "react-feather"
+import { Check, Phone, File } from "react-feather"
 import { connect } from "react-redux"
 import { signupWithJWT } from "../../../../redux/actions/auth/registerActions"
 import { history } from "../../../../history"
@@ -26,55 +26,64 @@ class RegisterJWT extends React.Component {
   render() {
     return (
       <Form action="/" onSubmit={this.handleRegister}>
-        <FormGroup className="form-label-group">
+        <FormGroup className="position-relative has-icon-left">
+          <Label>Nama Perusahaan*</Label>
           <Input
             type="text"
-            placeholder="Nama Lengkap"
+            required
+            value={this.state.company}
+            onChange={e => this.setState({ name: e.target.value })}
+          />
+          {/* <div className="form-control-position"><Phone size={15} /></div> */}
+        </FormGroup>
+        <FormGroup>
+          <Label>Nama Lengkap*</Label>
+          <Input
+            type="text"
             required
             value={this.state.name}
             onChange={e => this.setState({ name: e.target.value })}
           />
-          <Label>Nama</Label>
         </FormGroup>
-        <FormGroup className="form-label-group">
+        <FormGroup>
+          <Label>Email*</Label>
           <Input
             type="email"
-            placeholder="Email"
             required
             value={this.state.email}
             onChange={e => this.setState({ email: e.target.value })}
           />
-          <Label>Email</Label>
         </FormGroup>
-        <FormGroup className="form-label-group">
+        <FormGroup>
+          <Label>Kata Sandi*</Label>
           <Input
             type="password"
-            placeholder="Password"
             required
             value={this.state.password}
             onChange={e => this.setState({ password: e.target.value })}
           />
-          <Label>Password</Label>
         </FormGroup>
-        <FormGroup className="form-label-group">
+        <FormGroup>
+          <Label>Konfirmasi Kata Sandi*</Label>
           <Input
             type="password"
-            placeholder="Konfirmasi Password"
             required
             value={this.state.confirmPass}
             onChange={e => this.setState({ confirmPass: e.target.value })}
           />
-          <Label>Konfirmasi Password</Label>
         </FormGroup>
         <FormGroup>
           <Checkbox
             color="primary"
             icon={<Check className="vx-icon" size={16} />}
-            label=" Saya setuju dengan Syarat & Ketentuan."
+            label={<span>Saya sudah membaca <a href="/">Kebijakan SCM/ Procurement</a>.</span>}
             defaultChecked={true}
           />
         </FormGroup>
         <div className="d-flex justify-content-between">
+          <Button.Ripple color="primary" type="submit">
+            Registrasi
+          </Button.Ripple>
           <Button.Ripple
             color="primary"
             outline
@@ -83,9 +92,6 @@ class RegisterJWT extends React.Component {
             }}
           >
             Masuk
-          </Button.Ripple>
-          <Button.Ripple color="primary" type="submit">
-            Registrasi
           </Button.Ripple>
         </div>
         
