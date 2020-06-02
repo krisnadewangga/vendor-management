@@ -22,8 +22,4 @@ class ThumbView extends React.Component {
   }
 }
 
-<<<<<<< HEAD
 export default ThumbView
-=======
-export default ThumbView
->>>>>>> origin/dev

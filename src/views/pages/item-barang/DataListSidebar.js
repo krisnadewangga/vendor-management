@@ -227,8 +227,4 @@ class DataListSidebar extends Component {
     )
   }
 }
-<<<<<<< HEAD
 export default DataListSidebar
-=======
-export default DataListSidebar
->>>>>>> origin/dev

@@ -22,8 +22,4 @@ class ListView extends React.Component {
   }
 }
 
-<<<<<<< HEAD
 export default ListView
-=======
-export default ListView
->>>>>>> origin/dev
