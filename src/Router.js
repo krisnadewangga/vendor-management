@@ -14,6 +14,9 @@ const apgDashboard = lazy(() => import("./views/dashboard/apg/ApgDashboard"))
 const apgSemuaProduct = lazy(() => import("./views/apps/apg/KatalogSemuaProduct"))
 const apgDetailProduct = lazy(() => import("./views/apps/apg/KatalogProductDetail"))
 const apgItemBarangSemua = lazy(() => import("./views/pages/item-barang/SemuaItem"))
+const apgItemTambahBarang = lazy(() => import("./views/pages/item-barang/apgTambahItem"))
+const apgKatalogPemesanan = lazy(() => import("./views/pages/katalog/Pemesanan"))
+const apgKatalogPOExpired = lazy(() => import("./views/pages/katalog/POExpired"))
 
 
 // VENDOR ROUTES
@@ -240,6 +243,10 @@ class AppRouter extends React.Component {
           <AppRoute path="/apg/katalog-semua" component={apgSemuaProduct} />
           <AppRoute path="/apg/katalog-detail" component={apgDetailProduct} />
           <AppRoute path="/apg/items-semua" component={apgItemBarangSemua} />
+          <AppRoute path="/apg/items-tambah" component={apgItemTambahBarang} />
+          <AppRoute path="/apg/katalog-pemesanan" component={apgKatalogPemesanan} />
+          <AppRoute path="/apg/katalog-po-expired" component={apgKatalogPOExpired} />
+          
           {/* END APG */}
 
           {/* VENDOR */}
