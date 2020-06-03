@@ -1,7 +1,7 @@
 import React from "react"
 import { Row, Col } from "reactstrap"
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb"
-import ListViewConfig from "./DataListConfigPemesanan"
+import ListViewConfig from "./DataListConfigPOExpired"
 import queryString from "query-string"
 class ListView extends React.Component {
   render() {
