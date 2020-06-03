@@ -17,21 +17,18 @@ class MainCards extends React.Component {
             breadCrumbActive="Tambah Item"
           />
         <Card>
-          <CardHeader>
-            <CardTitle>Vertical Form With Floating Labels</CardTitle>
-          </CardHeader>
-          <CardBody>
-            <Form className="mt-2">
-              <Row>
-                <Col lg="6" sm="12">
-                    <ImageUpload />
-                </Col>
-                <Col lg="6" sm="12">
-                    <InputForm />
-                </Col>
-              </Row>
-            </Form>
-          </CardBody>
+        <CardBody>
+          <Form className="mt-2">
+            <Row>
+              <Col lg="6" sm="12">
+                  <ImageUpload />
+              </Col>
+              <Col lg="6" sm="12">
+                  <InputForm />
+              </Col>
+            </Row>
+          </Form>
+        </CardBody>
         </Card>
       </React.Fragment>
     )
