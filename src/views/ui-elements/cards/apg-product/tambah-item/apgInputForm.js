@@ -90,7 +90,7 @@ class FloatingLabels extends React.Component {
           </FormGroup>
         </Col>
         <Col sm="12">
-          <FormGroup>
+          <FormGroup className="float-right">
             <Button.Ripple
               outline
               color="warning"
