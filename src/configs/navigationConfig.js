@@ -1,32 +1,32 @@
 import React from "react"
 import * as Icon from "react-feather"
 const navigationConfig = [
-  {
-    id: "dashboard",
-    title: "Dashboard",
-    type: "collapse",
-    icon: <Icon.Home size={20} />,
-    badge: "warning",
-    badgeText: "2",
-    children: [
-      {
-        id: "analyticsDash",
-        title: "Analytics",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/"
-      },
-      {
-        id: "eCommerceDash",
-        title: "eCommerce",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin"],
-        navLink: "/ecommerce-dashboard"
-      }
-    ]
-  },
+  // {
+  //   id: "dashboard",
+  //   title: "Dashboard",
+  //   type: "collapse",
+  //   icon: <Icon.Home size={20} />,
+  //   badge: "warning",
+  //   badgeText: "2",
+  //   children: [
+  //     {
+  //       id: "analyticsDash",
+  //       title: "Analytics",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/"
+  //     },
+  //     {
+  //       id: "eCommerceDash",
+  //       title: "eCommerce",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin"],
+  //       navLink: "/ecommerce-dashboard"
+  //     }
+  //   ]
+  // },
 
   {
     type: "groupHeader",
@@ -192,10 +192,6 @@ const navigationConfig = [
     navLink: "/apg/hak-akses-apg",
     permissions: ["admin", "editor"]
   },
-  {
-    type: "groupHeader",
-    groupTitle: "APPS"
-  },
   // {
   //   id: "email",
   //   title: "Email",
@@ -204,6 +200,11 @@ const navigationConfig = [
   //   permissions: ["admin", "editor"],
   //   navLink: "/vendor/dashboard",
   // },
+
+  {
+    type: "groupHeader",
+    groupTitle: "VENDOR"
+  },
   {
     id: "profileVendor",
     title: "Profil",
