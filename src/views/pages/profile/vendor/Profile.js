@@ -13,7 +13,7 @@ import {
   ListGroupItem,
   Badge,
 } from "reactstrap"
-import { Edit, Trash, FileText, CheckCircle, Upload, FileMinus, FilePlus, AlertTriangle, Star } from "react-feather"
+import { Edit, Trash, FileText, CheckCircle, Upload, FileMinus, FilePlus, AlertTriangle, Star, Check } from "react-feather"
 import { Link } from "react-router-dom"
 import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import userImg from "../../../../assets/img/portrait/small/avatar-s-19.jpg"
@@ -237,8 +237,8 @@ class VendorProfile extends React.Component {
 
                 <Button.Ripple className="mt-2 inactive" color="primary">
                   <Link to="/app/user/edit">
-                    <Edit size={15} color="white" />
-                    <span className="align-middle ml-50 white">Registrasi</span>
+                    <CheckCircle size={15} color="white" />
+                    <span className="align-middle ml-50 white">Ajukan Verifikasi Vendor</span>
                   </Link>
                 </Button.Ripple>
               </CardBody>
