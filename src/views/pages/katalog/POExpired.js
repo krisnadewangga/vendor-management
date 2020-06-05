@@ -8,9 +8,9 @@ class ListView extends React.Component {
     return (
       <React.Fragment>
         <Breadcrumbs
-          breadCrumbTitle="Pesanan Pembelian"
+          breadCrumbTitle="Pesanan Kadaluwarsa"
           breadCrumbParent="Katalog"
-          breadCrumbActive="Pesanan Pembelian"
+          breadCrumbActive="Pesanan Kadaluwarsa"
         />
         <Row>
           <Col sm="12">

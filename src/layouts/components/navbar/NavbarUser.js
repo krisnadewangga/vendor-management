@@ -480,7 +480,7 @@ class NavbarUser extends React.PureComponent {
             >
               <div
                 className="dropdown-item p-1 text-center text-primary"
-                onClick={() => history.push("/ecommerce/checkout")}
+                onClick={() => history.push("/apg/checkout")}
               >
                 <Icon.ShoppingCart size={15} />
                 <span className="align-middle text-bold-600 ml-50">
