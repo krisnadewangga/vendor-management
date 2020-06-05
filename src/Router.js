@@ -25,6 +25,7 @@ const apgKatalogPOExpired = lazy(() => import("./views/pages/katalog/POExpired")
 // VENDOR ROUTES
 const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashboard"))
 const vendorProfile = lazy(() => import("./views/pages/profile/vendor/Profile"))
+// const vendorProfile = lazy(() => import("./views/pages/profile/vendor/account-settings/AccountSettings"))
 const vendorEditProfile = lazy(() => import("./views/pages/profile/vendor/EditProfile"))
 const vendorSemuaItem = lazy(() => import("./views/pages/item-barang/SemuaItem"))
 const vendorStokKurang = lazy(() => import("./views/pages/item-barang/StokKurang"))

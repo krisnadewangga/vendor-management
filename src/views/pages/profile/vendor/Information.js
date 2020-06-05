@@ -11,12 +11,20 @@ import "flatpickr/dist/themes/light.css";
 import "../../../../assets/scss/plugins/forms/flatpickr/flatpickr.scss"
 
 
-const languages = [
-  { value: "english", label: "English", color: "#7367f0" },
-  { value: "french", label: "French", color: "#7367f0" },
-  { value: "spanish", label: "Spanish", color: "#7367f0" },
-  { value: "russian", label: "Russian", color: "#7367f0" },
-  { value: "italian", label: "Italian", color: "#7367f0" }
+const industri = [
+  { value: "listrik", label: "Listrik", color: "#BF1E2E" },
+  { value: "bahan-bangunan", label: "Bahan Bangunan", color: "#BF1E2E" },
+  { value: "pipa", label: "Spanish", color: "#BF1E2E" },
+  { value: "besi", label: "Besi", color: "#BF1E2E" },
+  { value: "batu", label: "Batu", color: "#BF1E2E" }
+]
+
+const kelas = [
+  { value: "listrik", label: "Listrik", color: "#BF1E2E" },
+  { value: "bahan-bangunan", label: "Bahan Bangunan", color: "#BF1E2E" },
+  { value: "pipa", label: "Spanish", color: "#BF1E2E" },
+  { value: "besi", label: "Besi", color: "#BF1E2E" },
+  { value: "batu", label: "Batu", color: "#BF1E2E" }
 ]
 
 const colourStyles = {
@@ -81,150 +89,111 @@ class UserInfoTab extends React.Component {
       <Form onSubmit={e => e.preventDefault()}>
         <Row className="mt-1">
           <Col className="mt-1" md="6" sm="12">
-            <h5 className="mb-1">
-              <User className="mr-50" size={16} />
-              <span className="align-middle">Personal Info</span>
-            </h5>
             <FormGroup>
-              <Label className="d-block" for="dob">
-                Date of birth
-              </Label>
-              <Flatpickr
-                id="dob"
-                className="form-control"
-                options={{ dateFormat: "Y-m-d" }}
-                value={this.state.dob}
-                onChange={date => this.handledob(date)}
-              />
+              <Label for="namaperusahaan">Nama Perusahaan*</Label>
+              <Input type="url" id="namaperusahaan" />
             </FormGroup>
             <FormGroup>
-              <Label for="contactnumber">Contact Number</Label>
-              <Input
-                type="number"
-                id="contactnumber"
-                placeholder="Contact Number"
-              />
+              <Label for="kontakperson">Kontak Person*</Label>
+              <Input type="number" id="kontakperson"/>
             </FormGroup>
             <FormGroup>
-              <Label for="website">Website</Label>
-              <Input type="url" id="website" placeholder="Web Address" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="languages">Languages</Label>
+              <Label for="industri">Industri Vendor*</Label>
               <Select
                 isMulti
-                defaultValue={[languages[0], languages[1], languages[2]]}
+                defaultValue={[industri[0], industri[1], industri[2]]}
                 isClearable={true}
                 styles={colourStyles}
-                options={languages}
+                options={industri}
                 className="React"
                 classNamePrefix="select"
-                id="languages"
+                id="industri"
               />
             </FormGroup>
             <FormGroup>
-              <Label className="d-block mb-50">Gender</Label>
-              <div className="d-inline-block mr-1">
-                <Radio
-                  label="Male"
-                  color="primary"
-                  defaultChecked={false}
-                  name="gender"
-                />
-              </div>
-              <div className="d-inline-block mr-1">
-                <Radio
-                  label="Female"
-                  color="primary"
-                  defaultChecked={true}
-                  name="gender"
-                />
-              </div>
-              <div className="d-inline-block">
-                <Radio
-                  label="Others"
-                  color="primary"
-                  defaultChecked={false}
-                  name="gender"
-                />
-              </div>
+              <Label for="industri">Kelas Vendor*</Label>
+              <Select
+                isClearable={true}
+                styles={colourStyles}
+                options={industri}
+                className="React"
+                classNamePrefix="select"
+                id="industri"
+              />
             </FormGroup>
             <FormGroup>
-              <Label className="d-block mb-50" for="communication">
-                Communication
-              </Label>
-              <div className="d-inline-block mr-1">
-                <Checkbox
-                  color="primary"
-                  icon={<Check className="vx-icon" size={16} />}
-                  label="Email"
-                  defaultChecked={false}
-                />
-              </div>
-              <div className="d-inline-block mr-1">
-                <Checkbox
-                  color="primary"
-                  icon={<Check className="vx-icon" size={16} />}
-                  label="SMS"
-                  defaultChecked={false}
-                />
-              </div>
-              <div className="d-inline-block">
-                <Checkbox
-                  color="primary"
-                  icon={<Check className="vx-icon" size={16} />}
-                  label="Phone"
-                  defaultChecked={false}
-                />
-              </div>
-            </FormGroup>
+              <Label for="industri">Sertifikasi Badan Usaha (SBU)</Label>
+              <Select
+                isClearable={true}
+                styles={colourStyles}
+                options={industri}
+                className="React"
+                classNamePrefix="select"
+                id="industri"
+              />
+            </FormGroup>            
           </Col>
+
+
+          {/* ALAMAT */}
+
           <Col className="mt-1" md="6" sm="12">
-            <h5 className="mb-1">
-              <MapPin className="mr-50" size={16} />
-              <span className="align-middle">Address</span>
-            </h5>
             <FormGroup>
-              <Label for="address1">Address Line 1</Label>
-              <Input type="text" id="address1" placeholder="Last Name Here" />
+              <Label for="alamat">Alamat</Label>
+              <Input type="text" id="alamat" />
             </FormGroup>
             <FormGroup>
-              <Label for="address1">Address Line 2</Label>
-              <Input type="text" id="address1" placeholder="Address Line 2" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="pincode">Pincode</Label>
-              <Input type="text" id="pincode" placeholder="Pincode" />
-            </FormGroup>
-            <FormGroup>
-              <Label for="city">City</Label>
-              <Input
-                type="text"
-                defaultValue="Camden Town"
-                id="city"
-                placeholder="City"
+              <Label for="industri">Kota*</Label>
+              <Select
+                isClearable={true}
+                styles={colourStyles}
+                options={industri}
+                className="React"
+                classNamePrefix="select"
+                id="kota"
               />
             </FormGroup>
             <FormGroup>
-              <Label for="State">State</Label>
-              <Input
-                type="text"
-                defaultValue="London"
-                id="State"
-                placeholder="State"
+              <Label for="industri">Provinsi*</Label>
+              <Select
+                isClearable={true}
+                styles={colourStyles}
+                options={industri}
+                className="React"
+                classNamePrefix="select"
+                id="provinsi"
               />
             </FormGroup>
-            <FormGroup>
-              <Label for="Country">Country</Label>
-              <Input
-                type="text"
-                defaultValue="UK"
-                id="Country"
-                placeholder="Country"
-              />
-            </FormGroup>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <Label for="telepon">Nomor telepon*</Label>
+                  <Input type="number" id="telepon"/>
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <Label for="fax">Nomor Fax</Label>
+                  <Input type="number" id="fax"/>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <Label for="email">Email*</Label>
+                  <Input type="text" id="email" />
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <Label for="website">Website</Label>
+                  <Input type="text" id="website" />
+                </FormGroup>
+              </Col>
+            </Row>
           </Col>
-          <Col className="d-flex justify-content-end flex-wrap" sm="12">
+          <Col className="d-flex flex-wrap mt-3" sm="12">
             <Button.Ripple className="mr-1" color="primary">
               Simpan Perubahan
             </Button.Ripple>
