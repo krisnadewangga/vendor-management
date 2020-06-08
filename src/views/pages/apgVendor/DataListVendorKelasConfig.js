@@ -95,12 +95,19 @@ const CustomHeader = props => {
             </DropdownMenu>
           </UncontrolledDropdown>
           <Button
-            className="add-new-btn"
+            className="add-new-btn mr-1"
             color="primary"
             onClick={() => props.handleSidebar(true, true)}
             outline>
             <Plus size={15} />
-            <span className="align-middle">Tambah Kategori</span>
+            <span className="align-middle">Tambah Kelas</span>
+          </Button>
+          <Button
+            className="add-new-btn"
+            color="primary"
+            onClick={() => props.handleSidebar(true, true)}
+            outline>
+            <span className="align-middle">Import Data Excel</span>
           </Button>
         </div>
         <div className="actions-right float-right d-flex flex-wrap mt-sm-0 mt-2">
@@ -162,7 +169,7 @@ class DataListConfig extends Component {
     currentPage: 0,
     columns : [
       {
-        name: "Id",
+        name: "KBLI",
         selector: "id",
         sortable: true,
         minWidth: "250px",
@@ -173,8 +180,8 @@ class DataListConfig extends Component {
         )
       },
       {
-        name: "Kategori",
-        selector: "category",
+        name: "Kegiatan",
+        selector: "name",
         sortable: true
       },
       {
@@ -215,7 +222,7 @@ class DataListConfig extends Component {
       this.thumbView = false
       let columns = [
         {
-          name: "Id",
+          name: "KBLI",
           selector: "id",
           sortable: true,
           minWidth: "250px",
@@ -226,8 +233,8 @@ class DataListConfig extends Component {
           )
         },
         {
-          name: "Kategori",
-          selector: "category",
+          name: "Kegiatan",
+          selector: "name",
           sortable: true
         },
         {
@@ -257,7 +264,7 @@ class DataListConfig extends Component {
   handleRowsPerPage = value => {
     let { parsedFilter, getData } = this.props
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
-    history.push(`/apg/vendor-kategori/list-view?page=${page}&perPage=${value}`)
+    history.push(`/apg/vendor-kelas/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
     getData({ page: parsedFilter.page, perPage: value })
   }
@@ -271,7 +278,7 @@ class DataListConfig extends Component {
     this.props.deleteData(row)
     this.props.getData(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
-      let urlPrefix = "/apg/vendor-kategori/"
+      let urlPrefix = "/apg/vendor-kelas/"
       history.push(
         `${urlPrefix}list-view?page=${parseInt(
           this.props.parsedFilter.page - 1
@@ -292,7 +299,7 @@ class DataListConfig extends Component {
   handlePagination = page => {
     let { parsedFilter, getData } = this.props
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
-    let urlPrefix = "/apg/vendor-kategori/"
+    let urlPrefix = "/apg/vendor-kelas/"
     history.push(
       `${urlPrefix}list-view?page=${page.selected + 1}&perPage=${perPage}`
     )
@@ -349,6 +356,7 @@ class DataListConfig extends Component {
           )}
           noHeader
           subHeader
+          selectableRows
           responsive
           pointerOnHover
           selectableRowsHighlight
