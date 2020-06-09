@@ -432,7 +432,7 @@ class DataListConfig extends Component {
           pointerOnHover
           selectableRowsHighlight
           onRowClicked={data => {
-            history.push("/apg/vendor-aktif-detail");
+            history.push(this.props.inreview ? "/apg/vendor-in-review-detail" : "/apg/vendor-aktif-detail")
             console.log(data)
           }}
           onSelectedRowsChange={data =>
