@@ -63,6 +63,14 @@ const navigationConfig = [
         permissions: ["admin"]
       },
       {
+        id: "vendor-apg-bermasalah",
+        title: "Bermasalah",
+        type: "item",
+        icon: <Icon.Circle size={10} />,
+        navLink: "/apg/vendor-bermasalah",
+        permissions: ["admin"]
+      },
+      {
         id: "vendor-apg-kategori",
         title: "Kategori",
         type: "item",

@@ -1,7 +1,7 @@
 import React from "react"
 import { Col } from "reactstrap"
-import KatalogDetail from "../semua/apgKatalogSemuaProduk"
-import KatalogFilter from "../semua/apgKatalogFilter"
+import KatalogDetail from "./apgKatalogSemuaProduk"
+import KatalogFilter from "./apgKatalogFilter"
 
 import "../../../../../assets/scss/pages/app-ecommerce-shop.scss"
 

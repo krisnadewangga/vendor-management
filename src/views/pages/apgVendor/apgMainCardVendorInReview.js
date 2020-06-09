@@ -1,16 +1,16 @@
 import React from "react"
 import { Row, Col } from "reactstrap"
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb"
-import ListViewConfig from "./DataListConfigPOExpired"
+import ListViewConfig from "./DataListConfigVendor"
 import queryString from "query-string"
 class ListView extends React.Component {
   render() {
     return (
       <React.Fragment>
         <Breadcrumbs
-          breadCrumbTitle="Pesanan Kadaluwarsa"
-          breadCrumbParent="Katalog"
-          breadCrumbActive="Pesanan Kadaluwarsa"
+          breadCrumbTitle="Vendor Belum Terverifikasi"
+          breadCrumbParent="Vendor"
+          breadCrumbActive="Vendor Belum Terverifikasi"
         />
         <Row>
           <Col sm="12">

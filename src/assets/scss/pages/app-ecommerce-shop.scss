@@ -468,6 +468,11 @@ $wishlist-bg: #f6f6f6;
           .quantity-counter-wrapper {
             margin-left: -10px;
           }
+          .react-numeric-input {
+            b {
+              background: #bf1e2e !important;
+            }
+          }
         }
         .delivery-date,
         .offers {
