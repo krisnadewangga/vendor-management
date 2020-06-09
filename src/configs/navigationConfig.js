@@ -44,6 +44,8 @@ const navigationConfig = [
     id: "vendor-apg",
     title: "Vendor",
     type: "collapse",
+    badge: "primary",
+    badgeText: "3",
     icon: <Icon.Users size={20} />,
     children: [
       {
@@ -148,6 +150,8 @@ const navigationConfig = [
     id: "katalog-apg",
     title: "Katalog",
     type: "collapse",
+    badge: "primary",
+    badgeText: "5",
     icon: <Icon.Archive size={20} />,
     children: [
       {
