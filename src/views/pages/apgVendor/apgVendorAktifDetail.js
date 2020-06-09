@@ -50,7 +50,7 @@ class VendorProfile extends React.Component {
                                   <Row>
                                   <Col sm={8}>
                                     <Button.Ripple className="mr-1" color="primary" outline>
-                                      <Link to="/vendor/ubah-profil">
+                                      <Link to="/apg/vendor-aktif-detail-information">
                                         <Edit size={15} />
                                         <span className="align-middle ml-50">Informasi Vendor</span>
                                       </Link>
