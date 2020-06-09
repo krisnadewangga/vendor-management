@@ -431,6 +431,10 @@ class DataListConfig extends Component {
           responsive
           pointerOnHover
           selectableRowsHighlight
+          onRowClicked={data => {
+            history.push("/apg/vendor-aktif-detail");
+            console.log(data)
+          }}
           onSelectedRowsChange={data =>
             this.setState({ selected: data.selectedRows })
           }
