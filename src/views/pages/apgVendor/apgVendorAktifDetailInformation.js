@@ -56,7 +56,7 @@ class VendorProfile extends React.Component {
                                     </Link>
                                   </Button.Ripple>
                                   <span className="align-middle ml-50 mr-1">Skor:</span>
-                                  <span className="align-middle ml-50 mr-1">{this.props.inreview ? "10%" : "60 %"}</span>
+                                  <span className="align-middle ml-50 mr-1">{this.props.inreview ? "-" : "60 %"}</span>
                                   <span className="align-middle ml-50 mr-1">Rating:</span>
                                   <span>
                                     <Star size={20} fill="#ff9f43" stroke="#ff9f43" />
