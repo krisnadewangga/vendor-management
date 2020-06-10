@@ -33,6 +33,8 @@ const VendorAktifDetailInformation = lazy(() => import("./views/pages/apgVendor/
 const VendorInReviewDetail = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReviewDetail"))
 const VendorInReviewDetailInformation = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReviewInformation"))
 
+const ListPengguna = lazy(() => import("./views/apps/apg/UserList"))
+
 
 // VENDOR ROUTES
 const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashboard"))
@@ -278,7 +280,8 @@ class AppRouter extends React.Component {
           <AppRoute path="/apg/vendor-aktif-detail-information" component={VendorAktifDetailInformation} />
           <AppRoute path="/apg/vendor-in-review-detail" component={VendorInReviewDetail} />
           <AppRoute path="/apg/vendor-in-review-detail-information" component={VendorInReviewDetailInformation} />
-
+          
+          <AppRoute path="/apg/pengguna-apg" component={ListPengguna} />
           
           {/* END APG */}
 
