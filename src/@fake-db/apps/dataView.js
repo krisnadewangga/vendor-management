@@ -3,7 +3,7 @@ export let dataList = [
   {
     id: 1,
     order_status: "on hold",
-    name: "Apple Watch series 4 GPS",
+    name: "58/PO/STASIUN LRT/APG/II/2020",
     category: "Computers",
     price: "69.99",
     popularity: { popValue: "97", color: "success" },
@@ -14,7 +14,7 @@ export let dataList = [
     popularity: { popValue: "83", color: "success" },
     img: require("../../assets/img/elements/iphone-x.png"),
     order_status: "delivered",
-    name: "Beats HeadPhones",
+    name: "58/PO/STASIUN LRT/APG/II/2020",
     category: "Computers",
     price: "69.99"
   },
@@ -24,14 +24,14 @@ export let dataList = [
     popularity: { popValue: "57", color: "warning" },
     img: require("../../assets/img/elements/homepod.png"),
     order_status: "canceled",
-    name: "Altec Lansing - Bluetooth Speaker",
+    name: "58/PO/STASIUN LRT/APG/II/2020",
     category: "Audio"
   },
   {
     id: 4,
     img: require("../../assets/img/elements/ipad-pro.png"),
     order_status: "delivered",
-    name: "Altec Lansing - Bluetooth Speaker",
+    name: "58/PO/STASIUN LRT/APG/II/2020",
     category: "Computers",
     price: "199.99",
     popularity: { popValue: "65", color: "primary" }
@@ -43,7 +43,7 @@ export let dataList = [
     popularity: { popValue: "87", color: "success" },
     img: require("../../assets/img/elements/homepod.png"),
     order_status: "canceled",
-    name: "Altec Lansing - Portable Bluetooth Speaker"
+    name: "58/PO/STASIUN LRT/APG/II/2020",
   },
   {
     id: 6,
@@ -52,13 +52,13 @@ export let dataList = [
     popularity: { popValue: "55", color: "warning" },
     img: require("../../assets/img/elements/ipad-pro.png"),
     order_status: "canceled",
-    name: "Altec Lansing - Bluetooth Speaker"
+    name: "58/PO/STASIUN LRT/APG/II/2020",
   },
   {
     id: 7,
     img: require("../../assets/img/elements/iphone-x.png"),
     order_status: "on hold",
-    name: "Altec Lansing - Mini H2O Bluetooth Speaker",
+    name: "58/PO/STASIUN LRT/APG/II/2020",
     category: "Computers",
     price: "39.99",
     popularity: { popValue: "99", color: "success" }
@@ -67,7 +67,7 @@ export let dataList = [
     id: 8,
     img: require("../../assets/img/elements/ipad-pro.png"),
     order_status: "canceled",
-    name: "Altec Lansing - Bluetooth Speaker",
+    name: "58/PO/STASIUN LRT/APG/II/2020",
     category: "Fitness",
     price: "39.99",
     popularity: { popValue: "91", color: "success" }
@@ -75,7 +75,7 @@ export let dataList = [
   {
     id: 9,
     order_status: "delivered",
-    name: "Altec Lansing - Mini H2O Bluetooth Speaker",
+    name: "58/PO/STASIUN LRT/APG/II/2020",
     category: "Fitness",
     price: "39.99",
     popularity: { popValue: "52", color: "warning" },

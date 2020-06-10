@@ -194,9 +194,9 @@ class DataListConfig extends Component {
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
+          <a href="/vendor/bon-pemesanan" title={row.name} className="text-truncate text-bold-500 mb-0">
             {row.name}
-          </p>
+          </a>
         )
       },
       {

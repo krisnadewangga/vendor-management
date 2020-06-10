@@ -44,6 +44,7 @@ const vendorEditProfile = lazy(() => import("./views/pages/profile/vendor/EditPr
 const vendorSemuaItem = lazy(() => import("./views/pages/item-barang/SemuaItem"))
 const vendorStokKurang = lazy(() => import("./views/pages/item-barang/StokKurang"))
 const vendorPemesanan = lazy(() => import("./views/pages/vendor/Pemesanan"))
+const vendorBonPemesanan = lazy(() => import("./views/pages/vendor/BonPemesanan"))
 
 
 
@@ -293,7 +294,7 @@ class AppRouter extends React.Component {
           <AppRoute path="/vendor/semua-item" component={vendorSemuaItem} />
           <AppRoute path="/vendor/stok-kurang" component={vendorStokKurang} />
           <AppRoute path="/vendor/pemesanan" component={vendorPemesanan} />
-
+          <AppRoute path="/vendor/bon-pemesanan" component={vendorBonPemesanan} />
           {/* END VENDOR */}
 
 
