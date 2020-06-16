@@ -192,7 +192,7 @@ export const loginWithJWT = user => {
         if (response.data) {
           loggedInUser = response.data.user
           token = response.data.jwt
-          sessionStorage.setItem("loggedInUser", JSON.stringify(response.data))
+          localStorage.setItem("loggedInUser", JSON.stringify(response.data))
           dispatch({
             type: "LOGIN_WITH_JWT",
             payload: { token, loggedInUser, loggedInWith: "jwt" }

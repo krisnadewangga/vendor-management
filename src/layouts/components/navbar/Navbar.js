@@ -12,7 +12,7 @@ import NavbarUser from "./NavbarUser"
 import userImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
 
 const UserName = props => {
-  const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'))
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
   let username = ""
   if(loggedInUser){
     username = loggedInUser.user.username
