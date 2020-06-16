@@ -4,6 +4,7 @@ import "firebase/auth"
 import "firebase/database"
 import axios from "axios"
 import { config } from "../../../authServices/firebase/firebaseConfig"
+import api from '../../baseURL'
 
 // Init firebase if not already initialized
 if (!firebase.apps.length) {
@@ -181,8 +182,7 @@ export const loginWithGithub = () => {
 
 export const loginWithJWT = user => {
   return dispatch => {
-    axios
-      .post("https://apgbe.btoz.co.id/auth/local", {
+    api.post("/auth/local", {
         identifier: user.identifier,
         password: user.password
       })
