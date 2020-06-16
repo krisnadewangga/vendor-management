@@ -30,9 +30,10 @@ import {
   deleteData,
   updateData,
   addData,
+  addDataItemKategori,
   filterData
 } from "../../../redux/actions/data-list"
-import Sidebar from "./DataListSidebar"
+import Sidebar from "./DataListSidebarKategori"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
@@ -381,6 +382,7 @@ class DataListConfig extends Component {
           data={currentData}
           updateData={this.props.updateData}
           addData={this.props.addData}
+          addDataItemKategori={this.props.addDataItemKategori}
           handleSidebar={this.handleSidebar}
           thumbView={this.props.thumbView}
           getData={this.props.getData}
@@ -409,6 +411,7 @@ export default connect(mapStateToProps, {
   deleteData,
   updateData,
   addData,
+  addDataItemKategori,
   getInitialData,
   filterData
 })(DataListConfig)

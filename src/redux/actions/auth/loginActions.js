@@ -4,7 +4,7 @@ import "firebase/auth"
 import "firebase/database"
 import axios from "axios"
 import { config } from "../../../authServices/firebase/firebaseConfig"
-import api from '../../baseURL'
+import { api } from '../../config'
 
 // Init firebase if not already initialized
 if (!firebase.apps.length) {

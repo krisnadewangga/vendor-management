@@ -86,6 +86,7 @@ const UserDropdown = props => {
               }
             } else {
               history.push("/pages/login")
+              localStorage.clear()  
             }
           }
 
