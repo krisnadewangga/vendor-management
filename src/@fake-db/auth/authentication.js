@@ -28,39 +28,39 @@ const jwtConfig = {
 }
 
 // POST: Check User Login Details and return user
-mock.onPost("/api/authenticate/login/user").reply( request => {
+// mock.onPost("/api/authenticate/login/user").reply( request => {
 
-  let { email, password } = JSON.parse(request.data)
-  let error = "Something went wrong"
+//   let { email, password } = JSON.parse(request.data)
+//   let error = "Something went wrong"
 
-  const user = users.find(user => user.email === email && user.password === password)
+//   const user = users.find(user => user.email === email && user.password === password)
 
-  if (user) {
+//   if (user) {
 
-    try {
+//     try {
 
-      const accessToken = jwt.sign({id: user.id}, jwtConfig.secret, {expiresIn: jwtConfig.expireTime})
+//       const accessToken = jwt.sign({id: user.id}, jwtConfig.secret, {expiresIn: jwtConfig.expireTime})
 
-      const userData = Object.assign({}, user, {loggedInWith: "jwt"})
+//       const userData = Object.assign({}, user, {loggedInWith: "jwt"})
 
-      delete userData.password
+//       delete userData.password
 
-      const response = {
-        user : userData,
-        accessToken: accessToken
-      }
+//       const response = {
+//         user : userData,
+//         accessToken: accessToken
+//       }
 
-      return [200, response]
+//       return [200, response]
 
-    } catch(e) {
-      error = e
-    }
-  }else {
-    error = "Email Or Password Invalid"
-  }
+//     } catch(e) {
+//       error = e
+//     }
+//   }else {
+//     error = "Email Or Password Invalid"
+//   }
 
-  return [200, {error}]
-})
+//   return [200, {error}]
+// })
 
 mock.onPost("/api/authenticate/register/user").reply( request => {
   if(request.data.length > 0){

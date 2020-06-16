@@ -182,19 +182,20 @@ export const loginWithGithub = () => {
 export const loginWithJWT = user => {
   return dispatch => {
     axios
-      .post("/api/authenticate/login/user", {
-        email: user.email,
+      .post("https://apgbe.btoz.co.id/auth/local", {
+        identifier: user.identifier,
         password: user.password
       })
       .then(response => {
+        var token
         var loggedInUser
-
         if (response.data) {
           loggedInUser = response.data.user
-
+          token = response.data.jwt
+          sessionStorage.setItem("loggedInUser", JSON.stringify(response.data))
           dispatch({
             type: "LOGIN_WITH_JWT",
-            payload: { loggedInUser, loggedInWith: "jwt" }
+            payload: { token, loggedInUser, loggedInWith: "jwt" }
           })
 
           history.push("/")
