@@ -1,4 +1,5 @@
 import axios from "axios"
+import { api } from "../../config"
 
 export const getData = params => {
   return async dispatch => {
@@ -60,5 +61,29 @@ export const addData = obj => {
         dispatch({ type: "ADD_DATA", obj })
         dispatch(getData(params))
       })
+  }
+}
+
+export const addDataItemKategori = obj => {
+  return (dispatch, getState) => {
+    let params = getState().dataList.params
+    if(obj.category === ""){
+      alert("Data tidak boleh kosong")
+    }
+    else{
+      api
+        .post("/item-categories", 
+          obj
+        )
+        .then(response => {
+        alert("Kategori berhasil ditambahkan")
+          dispatch({ type: "ADD_DATA", obj })
+          dispatch(getData(params))
+        })
+        .catch(response => {
+          console.log(obj)
+          console.log(response)
+        })
+    }
   }
 }
