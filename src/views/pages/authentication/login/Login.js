@@ -17,6 +17,7 @@ import "../../../../assets/scss/pages/authentication.scss"
 import LoginAuth0 from "./LoginAuth0"
 import LoginFirebase from "./LoginFirebase"
 import LoginJWT from "./LoginJWT"
+import axios from "axios"
 
 class Login extends React.Component {
   state = {
@@ -29,6 +30,11 @@ class Login extends React.Component {
       })
     }
   }
+  // componentDidMount(){
+  //   axios.get("https://apgbe.btoz.co.id/register-verifikasi/?confirmation=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM3LCJpYXQiOjE1OTI4MTk4OTAsImV4cCI6MTU5NTQxMTg5MH0.5h5OPBfLZYOvqWJDv5kh6CIXStleDqTtGtLbZ315l2M")
+  //   .then(response => console.log(response))
+  //   .catch(response => console.log(response))
+  // }
   render() {
     return (
       <Row className="m-0 justify-content-center">
