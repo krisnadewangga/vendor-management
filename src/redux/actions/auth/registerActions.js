@@ -4,6 +4,7 @@ import "firebase/auth"
 import "firebase/database"
 import axios from "axios"
 import { config } from "../../../authServices/firebase/firebaseConfig"
+import { api } from '../../config'
 
 // Init firebase if not already initialized
 if (!firebase.apps.length) {
@@ -54,33 +55,31 @@ export const signupWithFirebase = (email, password, name) => {
   }
 }
 
-export const signupWithJWT = (email, password, name) => {
+export const signupWithJWT = (perusahaan, nama_lengkap, email, password, password_c) => {
   return dispatch => {
-    axios
-      .post("/api/authenticate/register/user", {
-        email: email,
-        password: password,
-        name: name
-      })
-      .then(response => {
-        var loggedInUser
-
-        if(response.data){
-
-          loggedInUser = response.data.user
-
-          localStorage.setItem("token", response.data.token)
-
-          dispatch({
-            type: "LOGIN_WITH_JWT",
-            payload: { loggedInUser, loggedInWith: "jwt" }
-          })
-
-          history.push("/")
-        }
-
-      })
-      .catch(err => console.log(err))
-
-  }
+    if(password === password_c){
+      api
+        .post("/register", {
+          perusahaan: perusahaan,
+          username: nama_lengkap,
+          email: email,
+          password: password,
+          password_c: password_c,
+        })
+        .then(response => {
+  
+          if(response.data){
+            alert("Register berhasil")
+            history.push("/pages/login")
+          }
+  
+        })
+        .catch(err => {
+          alert("Terjadi kesalahan")
+        })
+  
+      }else{
+        alert("Password tidak sama!")
+      }
+    }
 }
