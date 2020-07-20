@@ -9,8 +9,8 @@ import { history } from "../../../../history"
 
 class LoginJWT extends React.Component {
   state = {
-    email: "demo@demo.com",
-    password: "demodemo",
+    identifier: "isur@test.com",
+    password: "123456",
     remember: false
   }
 
@@ -27,8 +27,8 @@ class LoginJWT extends React.Component {
               <Input
                 type="email"
                 placeholder="Email"
-                value={this.state.email}
-                onChange={e => this.setState({ email: e.target.value })}
+                value={this.state.identifier}
+                onChange={e => this.setState({ identifier: e.target.value })}
                 required
               />
               <div className="form-control-position">

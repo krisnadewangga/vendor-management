@@ -12,20 +12,26 @@ import NavbarUser from "./NavbarUser"
 import userImg from "../../../assets/img/portrait/small/avatar-s-11.jpg"
 
 const UserName = props => {
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'))
   let username = ""
-  if (props.userdata !== undefined) {
-    username = props.userdata.name
-  } else if (props.user.login.values !== undefined) {
-    username = props.user.login.values.name
-    if (
-      props.user.login.values.loggedInWith !== undefined &&
-      props.user.login.values.loggedInWith === "jwt"
-    ) {
-      username = props.user.login.values.loggedInUser.name
-    }
+  if(loggedInUser){
+    username = loggedInUser.user.username
   } else {
-    username = "John Doe"
+    username = "Dummy"
   }
+  // if (props.userdata !== undefined) {
+  //   username = props.userdata.name
+  // } else if (props.user.login.values !== undefined) {
+  //   username = props.user.login.values.name
+  //   if (
+  //     props.user.login.values.loggedInWith !== undefined &&
+  //     props.user.login.values.loggedInWith === "jwt"
+  //   ) {
+  //     username = props.user.login.values.loggedInUser.name
+  //   }
+  // } else {
+  //   username = "John Doe"
+  // }
 
   return username
 }
@@ -73,15 +79,15 @@ const ThemeNavbar = props => {
               id="navbar-mobile"
             >
               <div className="bookmark-wrapper">
-                <NavbarBookmarks
+                {/* <NavbarBookmarks
                   sidebarVisibility={props.sidebarVisibility}
                   handleAppOverlay={props.handleAppOverlay}
-                />
+                /> */}
               </div>
               {props.horizontal ? (
                 <div className="logo d-flex align-items-center">
                   <div className="brand-logo mr-50"></div>
-                  <h2 className="text-primary brand-text mb-0">Vuexy</h2>
+                  <h2 className="text-primary brand-text mb-0">APG</h2>
                 </div>
               ) : null}
               <NavbarUser

@@ -44,6 +44,8 @@ const horizontalMenuConfig = [
         id: "vendor-apg",
         title: "Vendor",
         type: "dropdown",
+        badge: "primary",
+        badgeText: "3",
         icon: <Icon.Home size={16} />,
         children: [
           {
@@ -60,6 +62,14 @@ const horizontalMenuConfig = [
             type: "item",
             icon: <Icon.Circle size={10} />,
             navLink: "/apg/vendor-review",
+            permissions: ["admin"]
+          },
+          {
+            id: "vendor-apg-bermasalah",
+            title: "Bermasalah",
+            type: "item",
+            icon: <Icon.Circle size={10} />,
+            navLink: "/apg/vendor-bermasalah",
             permissions: ["admin"]
           },
           {
@@ -85,7 +95,7 @@ const horizontalMenuConfig = [
             icon: <Icon.Circle size={10} />,
             navLink: "/apg/vendor-sbu",
             permissions: ["admin"]
-          }
+          },
         ]
       },
       {
@@ -140,6 +150,8 @@ const horizontalMenuConfig = [
         id: "katalog-apg",
         title: "Katalog",
         type: "dropdown",
+        badge: "primary",
+        badgeText: "5",
         icon: <Icon.Home size={16} />,
         children: [
           {

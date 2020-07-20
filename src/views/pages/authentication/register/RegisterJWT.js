@@ -8,31 +8,34 @@ import { history } from "../../../../history"
 
 class RegisterJWT extends React.Component {
   state = {
+    company: "",
+    nama_lengkap: "",
     email: "",
     password: "",
-    name: "",
     confirmPass: ""
   }
 
   handleRegister = e => {
     e.preventDefault()
     this.props.signupWithJWT(
+      this.state.company,
+      this.state.nama_lengkap,
       this.state.email,
       this.state.password,
-      this.state.name
+      this.state.confirmPass,
     )
   }
 
   render() {
     return (
       <Form action="/" onSubmit={this.handleRegister}>
-        <FormGroup className="position-relative has-icon-left">
+        <FormGroup>
           <Label>Nama Perusahaan*</Label>
           <Input
             type="text"
             required
             value={this.state.company}
-            onChange={e => this.setState({ name: e.target.value })}
+            onChange={e => this.setState({ company: e.target.value })}
           />
           {/* <div className="form-control-position"><Phone size={15} /></div> */}
         </FormGroup>
@@ -41,8 +44,8 @@ class RegisterJWT extends React.Component {
           <Input
             type="text"
             required
-            value={this.state.name}
-            onChange={e => this.setState({ name: e.target.value })}
+            value={this.state.nama_lengkap}
+            onChange={e => this.setState({ nama_lengkap: e.target.value })}
           />
         </FormGroup>
         <FormGroup>

@@ -1,32 +1,32 @@
 import React from "react"
 import * as Icon from "react-feather"
 const navigationConfig = [
-  {
-    id: "dashboard",
-    title: "Dashboard",
-    type: "collapse",
-    icon: <Icon.Home size={20} />,
-    badge: "warning",
-    badgeText: "2",
-    children: [
-      {
-        id: "analyticsDash",
-        title: "Analytics",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin", "editor"],
-        navLink: "/"
-      },
-      {
-        id: "eCommerceDash",
-        title: "eCommerce",
-        type: "item",
-        icon: <Icon.Circle size={12} />,
-        permissions: ["admin"],
-        navLink: "/ecommerce-dashboard"
-      }
-    ]
-  },
+  // {
+  //   id: "dashboard",
+  //   title: "Dashboard",
+  //   type: "collapse",
+  //   icon: <Icon.Home size={20} />,
+  //   badge: "warning",
+  //   badgeText: "2",
+  //   children: [
+  //     {
+  //       id: "analyticsDash",
+  //       title: "Analytics",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin", "editor"],
+  //       navLink: "/"
+  //     },
+  //     {
+  //       id: "eCommerceDash",
+  //       title: "eCommerce",
+  //       type: "item",
+  //       icon: <Icon.Circle size={12} />,
+  //       permissions: ["admin"],
+  //       navLink: "/ecommerce-dashboard"
+  //     }
+  //   ]
+  // },
 
   {
     type: "groupHeader",
@@ -44,6 +44,8 @@ const navigationConfig = [
     id: "vendor-apg",
     title: "Vendor",
     type: "collapse",
+    badge: "primary",
+    badgeText: "3",
     icon: <Icon.Users size={20} />,
     children: [
       {
@@ -60,6 +62,14 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/vendor-review",
+        permissions: ["admin"]
+      },
+      {
+        id: "vendor-apg-bermasalah",
+        title: "Bermasalah",
+        type: "item",
+        icon: <Icon.Circle size={10} />,
+        navLink: "/apg/vendor-bermasalah",
         permissions: ["admin"]
       },
       {
@@ -140,6 +150,8 @@ const navigationConfig = [
     id: "katalog-apg",
     title: "Katalog",
     type: "collapse",
+    badge: "primary",
+    badgeText: "5",
     icon: <Icon.Archive size={20} />,
     children: [
       {
@@ -192,10 +204,6 @@ const navigationConfig = [
     navLink: "/apg/hak-akses-apg",
     permissions: ["admin", "editor"]
   },
-  {
-    type: "groupHeader",
-    groupTitle: "APPS"
-  },
   // {
   //   id: "email",
   //   title: "Email",
@@ -204,6 +212,11 @@ const navigationConfig = [
   //   permissions: ["admin", "editor"],
   //   navLink: "/vendor/dashboard",
   // },
+
+  {
+    type: "groupHeader",
+    groupTitle: "VENDOR"
+  },
   {
     id: "profileVendor",
     title: "Profil",
@@ -281,7 +294,14 @@ const navigationConfig = [
     },
   ]
   },
-
+  {
+    id: "pemesananVendor",
+    title: "Pemesanan",
+    type: "item",
+    icon: <Icon.ShoppingBag size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/vendor/pemesanan",
+  },
   // {
   //   id: "knowledgeBase",
   //   title: "Knowledge Base",

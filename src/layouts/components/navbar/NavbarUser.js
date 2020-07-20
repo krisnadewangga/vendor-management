@@ -37,7 +37,7 @@ const UserDropdown = props => {
         <Icon.User size={14} className="mr-50" />
         <span className="align-middle">Edit Profile</span>
       </DropdownItem>
-      <DropdownItem
+      {/* <DropdownItem
         tag="a"
         href="#"
         onClick={e => handleNavigation(e, "/email/inbox")}
@@ -64,7 +64,7 @@ const UserDropdown = props => {
       <DropdownItem tag="a" href="#" onClick={e => handleNavigation(e, "/ecommerce/wishlist")}>
         <Icon.Heart size={14} className="mr-50" />
         <span className="align-middle">WishList</span>
-      </DropdownItem>
+      </DropdownItem> */}
       <DropdownItem divider />
       <DropdownItem
         tag="a"
@@ -86,6 +86,7 @@ const UserDropdown = props => {
               }
             } else {
               history.push("/pages/login")
+              localStorage.clear()  
             }
           }
 
@@ -240,7 +241,7 @@ class NavbarUser extends React.PureComponent {
 
     return (
       <ul className="nav navbar-nav navbar-nav-user float-right">
-        <IntlContext.Consumer>
+        {/* <IntlContext.Consumer>
           {context => {
             let langArr = {
               "en" : "English",
@@ -306,7 +307,7 @@ class NavbarUser extends React.PureComponent {
               </Dropdown>
             )
           }}
-        </IntlContext.Consumer>
+        </IntlContext.Consumer> */}
 
         <NavItem className="nav-search" onClick={this.handleNavbarSearch}>
           <NavLink className="nav-link-search">
@@ -327,7 +328,7 @@ class NavbarUser extends React.PureComponent {
               filterKey="title"
               filterHeaderKey="groupTitle"
               grouped={true}
-              placeholder="Explore Vuexy..."
+              placeholder="Cari..."
               autoFocus={true}
               clearInput={this.state.navbarSearch}
               externalClick={e => {
@@ -480,7 +481,7 @@ class NavbarUser extends React.PureComponent {
             >
               <div
                 className="dropdown-item p-1 text-center text-primary"
-                onClick={() => history.push("/ecommerce/checkout")}
+                onClick={() => history.push("/apg/checkout")}
               >
                 <Icon.ShoppingCart size={15} />
                 <span className="align-middle text-bold-600 ml-50">

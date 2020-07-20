@@ -14,14 +14,38 @@ const apgDashboard = lazy(() => import("./views/dashboard/apg/ApgDashboard"))
 const apgSemuaProduct = lazy(() => import("./views/apps/apg/KatalogSemuaProduct"))
 const apgDetailProduct = lazy(() => import("./views/apps/apg/KatalogProductDetail"))
 const apgItemBarangSemua = lazy(() => import("./views/pages/item-barang/SemuaItem"))
+const apgItemTambahBarang = lazy(() => import("./views/pages/item-barang/apgTambahItem"))
+const apgItemKategori = lazy(() => import("./views/pages/item-barang/apgKategori"))
+const apgItemSubKategori = lazy(() => import("./views/pages/item-barang/apgSubKategori"))
+const apgItemSatuan = lazy(() => import("./views/pages/item-barang/apgSatuan"))
+const apgKatalogPemesanan = lazy(() => import("./views/pages/katalog/Pemesanan"))
+const apgKatalogPOExpired = lazy(() => import("./views/pages/katalog/POExpired"))
+const apgCheckout = lazy(() => import("./views/apps/apg/apgCart"))
+const VendorAktif = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorAktif"))
+const VendorInReview = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReview"))
+const VendorBermasalah = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorBermasalah"))
+const VendorKategori = lazy(() => import("./views/pages/apgVendor/apgVendorKategori"))
+const VendorKelas = lazy(() => import("./views/pages/apgVendor/apgVendorKelas"))
+const VendorSBU = lazy(() => import("./views/pages/apgVendor/apgVendorSBU"))
+
+const VendorAktifDetail = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorAktifInformation"))
+const VendorAktifDetailInformation = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorAktifInformation"))
+const VendorInReviewDetail = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReviewDetail"))
+const VendorInReviewDetailInformation = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReviewInformation"))
+
+const ListPengguna = lazy(() => import("./views/apps/apg/UserList"))
+const RegisterVerifikasi = lazy(() => import("./views/apps/apg/RegisterVerifikasi"))
 
 
 // VENDOR ROUTES
 const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashboard"))
 const vendorProfile = lazy(() => import("./views/pages/profile/vendor/Profile"))
+// const vendorProfile = lazy(() => import("./views/pages/profile/vendor/account-settings/AccountSettings"))
 const vendorEditProfile = lazy(() => import("./views/pages/profile/vendor/EditProfile"))
 const vendorSemuaItem = lazy(() => import("./views/pages/item-barang/SemuaItem"))
 const vendorStokKurang = lazy(() => import("./views/pages/item-barang/StokKurang"))
+const vendorPemesanan = lazy(() => import("./views/pages/vendor/Pemesanan"))
+const vendorBonPemesanan = lazy(() => import("./views/pages/vendor/BonPemesanan"))
 
 
 
@@ -240,6 +264,28 @@ class AppRouter extends React.Component {
           <AppRoute path="/apg/katalog-semua" component={apgSemuaProduct} />
           <AppRoute path="/apg/katalog-detail" component={apgDetailProduct} />
           <AppRoute path="/apg/items-semua" component={apgItemBarangSemua} />
+          <AppRoute path="/apg/items-tambah" component={apgItemTambahBarang} />
+          <AppRoute path="/apg/items-kategori" component={apgItemKategori} />
+          <AppRoute path="/apg/items-sub-kategori" component={apgItemSubKategori} />
+          <AppRoute path="/apg/items-satuan" component={apgItemSatuan} />
+          <AppRoute path="/apg/katalog-pemesanan" component={apgKatalogPemesanan} />
+          <AppRoute path="/apg/katalog-po-expired" component={apgKatalogPOExpired} />
+          <AppRoute path="/apg/checkout" component={apgCheckout} />
+          <AppRoute path="/apg/vendor-aktif" component={VendorAktif} />
+          <AppRoute path="/apg/vendor-review" component={VendorInReview} />
+          <AppRoute path="/apg/vendor-bermasalah" component={VendorBermasalah} />
+          <AppRoute path="/apg/vendor-kategori" component={VendorKategori} />
+          <AppRoute path="/apg/vendor-kelas" component={VendorKelas} />
+          <AppRoute path="/apg/vendor-sbu" component={VendorSBU} />
+
+          <AppRoute path="/apg/vendor-aktif-detail" component={VendorAktifDetail} />
+          <AppRoute path="/apg/vendor-aktif-detail-information" component={VendorAktifDetailInformation} />
+          <AppRoute path="/apg/vendor-in-review-detail" component={VendorInReviewDetail} />
+          <AppRoute path="/apg/vendor-in-review-detail-information" component={VendorInReviewDetailInformation} />
+          
+          <AppRoute path="/apg/pengguna-apg" component={ListPengguna} />
+          <AppRoute path="/register-verifikasi" component={RegisterVerifikasi} />
+          
           {/* END APG */}
 
           {/* VENDOR */}
@@ -249,8 +295,8 @@ class AppRouter extends React.Component {
           <AppRoute path="/vendor/tambah-item" component={vendorSemuaItem} />
           <AppRoute path="/vendor/semua-item" component={vendorSemuaItem} />
           <AppRoute path="/vendor/stok-kurang" component={vendorStokKurang} />
-
-
+          <AppRoute path="/vendor/pemesanan" component={vendorPemesanan} />
+          <AppRoute path="/vendor/bon-pemesanan" component={vendorBonPemesanan} />
           {/* END VENDOR */}
 
 

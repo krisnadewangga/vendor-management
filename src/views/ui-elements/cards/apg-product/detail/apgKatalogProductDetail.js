@@ -86,7 +86,7 @@ class BasicCards extends React.Component {
                 <ShoppingCart size={15} />
                 <span className="align-middle ml-50">
                   {this.state.inCart.includes(i) ? (
-                    <Link to="/ecommerce/checkout" className="text-white">
+                    <Link to="/apg/checkout" className="text-white">
                       {" "}
                       Lihat Keranjang{" "}
                     </Link>
