@@ -5,7 +5,7 @@ export const getData = params => {
   return async dispatch => {
     await api.get("/vendor-items", params).then(response => {
       dispatch({
-        type: "GET_DATA",
+        type: "VENDOR_GET_DATA",
         data: response.data,
         totalPages: response.data.length,
         params
@@ -17,13 +17,13 @@ export const getData = params => {
 export const getInitialData = () => {
   return async dispatch => {
     await api.get("/vendor-items").then(response => {
-      dispatch({ type: "GET_ALL_DATA", data: response.data })
+      dispatch({ type: "VENDOR_GET_ALL_DATA", data: response.data })
     })
   }
 }
 
 export const filterData = value => {
-  return dispatch => dispatch({ type: "FILTER_DATA", value })
+  return dispatch => dispatch({ type: "VENDOR_FILTER_DATA", value })
 }
 
 export const deleteData = obj => {
@@ -33,7 +33,7 @@ export const deleteData = obj => {
         obj
       })
       .then(response => {
-        dispatch({ type: "DELETE_DATA", obj })
+        dispatch({ type: "VENDOR_DELETE_DATA", obj })
       })
   }
 }
@@ -45,20 +45,16 @@ export const updateData = obj => {
         obj
       })
       .then(response => {
-        dispatch({ type: "UPDATE_DATA", obj })
+        dispatch({ type: "VENDOR_UPDATE_DATA", obj })
       })
   }
 }
 
 export const addData = obj => {
-  return (dispatch, getState) => {
-    let params = getState().dataList.params
-    axios
-      .post("/api/datalist/add-data", {
-        obj
-      })
-      .then(response => {
-        dispatch({ type: "ADD_DATA", obj })
+  return async (dispatch, getState) => {
+    let params = getState().dataListVendor.params
+    await api.post("/vendor-items", obj).then(response => {
+        dispatch({ type: "VENDOR_ADD_DATA", obj })
         dispatch(getData(params))
       })
   }
@@ -77,7 +73,7 @@ export const addDataItemKategori = obj => {
         )
         .then(response => {
         alert("Kategori berhasil ditambahkan")
-          dispatch({ type: "ADD_DATA", obj })
+          dispatch({ type: "VENDOR_ADD_DATA", obj })
           dispatch(getData(params))
         })
         .catch(response => {

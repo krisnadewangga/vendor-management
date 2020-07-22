@@ -30,7 +30,8 @@ import {
   addData,
   filterData
 } from "../../../redux/actions/data-list-vendor/"
-import Sidebar from "./DataListSidebar"
+import { getInitialData as getItems } from "../../../redux/actions/data-list-apg/"
+import Sidebar from "./vendorSemuaItemSidebar"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
@@ -146,7 +147,8 @@ class DataListConfig extends Component {
         currentPage: parseInt(props.parsedFilter.page) - 1,
         rowsPerPage: parseInt(props.parsedFilter.perPage),
         totalRecords: props.dataList.totalRecords,
-        sortIndex: props.dataList.sortIndex
+        sortIndex: props.dataList.sortIndex,
+        items: props.items
       }
     }
 
@@ -264,6 +266,7 @@ class DataListConfig extends Component {
   componentDidMount() {
     this.props.getData(this.props.parsedFilter)
     this.props.getInitialData()
+    this.props.getItems()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -493,6 +496,7 @@ class DataListConfig extends Component {
           getData={this.props.getData}
           dataParams={this.props.parsedFilter}
           addNew={this.state.addNew}
+          items={this.state.items}
         />
         <div
           className={classnames("data-list-overlay", {
@@ -507,7 +511,8 @@ class DataListConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    dataList: state.dataListVendor,
+    items: state.dataListApg.allData
   }
 }
 
@@ -517,5 +522,6 @@ export default connect(mapStateToProps, {
   updateData,
   addData,
   getInitialData,
+  getItems,
   filterData
 })(DataListConfig)

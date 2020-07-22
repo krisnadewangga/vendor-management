@@ -8,6 +8,7 @@ import auth from "./auth/"
 import navbar from "./navbar/Index"
 import dataList from "./data-list/"
 import dataListApg from "./data-list-apg/"
+import dataListVendor from "./data-list-vendor/"
 
 const rootReducer = combineReducers({
   calendar: calenderReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   auth: auth,
   navbar: navbar,
   dataList: dataList,
-  dataListApg: dataListApg
+  dataListApg: dataListApg,
+  dataListVendor: dataListVendor
 })
 
 export default rootReducer

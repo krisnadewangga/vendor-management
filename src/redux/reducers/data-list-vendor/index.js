@@ -36,7 +36,7 @@ const getIndex = (arr, arr2, arr3, params = {}) => {
 
 const DataListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_DATA":
+    case "VENDOR_GET_DATA":
       return {
         ...state,
         data: action.data,
@@ -49,14 +49,14 @@ const DataListReducer = (state = initialState, action) => {
           action.params
         )
       }
-    case "GET_ALL_DATA":
+    case "VENDOR_GET_ALL_DATA":
       return {
         ...state,
         allData: action.data,
         totalRecords: action.data.length,
         sortIndex: getIndex(action.data, state.data, state.sortIndex)
       }
-    case "FILTER_DATA":
+    case "VENDOR_FILTER_DATA":
       let value = action.value
       let filteredData = []
       if (value.length) {
@@ -86,12 +86,12 @@ const DataListReducer = (state = initialState, action) => {
         filteredData = state.data
         return { ...state, filteredData }
       }
-    case "ADD_DATA":
+    case "VENDOR_ADD_DATA":
       let id = state.data.slice(-1)[0].id + 1
       state.data.push({
         ...action.obj,
         id,
-        popularity: determinePopularity(action.obj.popularity)
+        // popularity: determinePopularity(action.obj.popularity)
       })
       moveIndex(
         state.data,
@@ -104,7 +104,7 @@ const DataListReducer = (state = initialState, action) => {
         totalRecords: state.allData.length,
         sortIndex: getIndex(state.allData, state.data, state.sortIndex)
       }
-    case "UPDATE_DATA":
+    case "VENDOR_UPDATE_DATA":
       state.data.find(item => {
         if (item.id === action.obj.id) {
           let popularity = determinePopularity(action.obj.popularity.popValue)
@@ -114,7 +114,7 @@ const DataListReducer = (state = initialState, action) => {
         }
       })
       return { ...state }
-    case "DELETE_DATA":
+    case "VENDOR_DELETE_DATA":
       let index = state.data.findIndex(item => item.id === action.obj.id)
       let updatedData = [...state.data]
       updatedData.splice(index, 1)
