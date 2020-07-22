@@ -27,12 +27,10 @@ export const filterData = value => {
 }
 
 export const deleteData = obj => {
-  return dispatch => {
-    axios
-      .post("/api/datalist/delete-data", {
-        obj
-      })
+  return async dispatch => {
+    await api.delete("/vendor-items/" + obj.id)
       .then(response => {
+        alert("Item berhasil dihapus")
         dispatch({ type: "VENDOR_DELETE_DATA", obj })
       })
   }
@@ -54,6 +52,7 @@ export const addData = obj => {
   return async (dispatch, getState) => {
     let params = getState().dataListVendor.params
     await api.post("/vendor-items", obj).then(response => {
+        alert("Item berhasil ditambahkan")
         dispatch({ type: "VENDOR_ADD_DATA", obj })
         dispatch(getData(params))
       })
