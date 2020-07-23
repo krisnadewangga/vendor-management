@@ -25,14 +25,14 @@ import {
 } from "react-feather"
 import { connect } from "react-redux"
 import {
-  getData,
-  getInitialData,
+  getDataSatuan,
+  getInitialDataSatuan,
   deleteData,
-  updateData,
-  addData,
-  filterData
-} from "../../../redux/actions/data-list"
-import Sidebar from "./DataListSidebar"
+  updateDataSatuan,
+  addDataSatuan,
+  filterDataSatuan
+} from "../../../redux/actions/data-list-apg"
+import Sidebar from "./DataListSidebarSatuan"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
@@ -100,7 +100,7 @@ const CustomHeader = props => {
             onClick={() => props.handleSidebar(true, true)}
             outline>
             <Plus size={15} />
-            <span className="align-middle">Tambah Satuan</span>
+            <span className="align-middle">Tambah Kategori</span>
           </Button>
         </div>
         <div className="actions-right float-right d-flex flex-wrap mt-sm-0 mt-2">
@@ -138,17 +138,17 @@ const CustomHeader = props => {
 class DataListConfig extends Component {
   static getDerivedStateFromProps(props, state) {
     if (
-      props.dataList.data.length !== state.data.length ||
+      props.dataListApg.data.length !== state.data.length ||
       state.currentPage !== props.parsedFilter.page
     ) {
       return {
-        data: props.dataList.data,
-        allData: props.dataList.filteredData,
-        totalPages: props.dataList.totalPages,
+        data: props.dataListApg.data,
+        allData: props.dataListApg.filteredData,
+        totalPages: props.dataListApg.totalPages,
         currentPage: parseInt(props.parsedFilter.page) - 1,
         rowsPerPage: parseInt(props.parsedFilter.perPage),
-        totalRecords: props.dataList.totalRecords,
-        sortIndex: props.dataList.sortIndex
+        totalRecords: props.dataListApg.totalRecords,
+        sortIndex: props.dataListApg.sortIndex
       }
     }
 
@@ -167,15 +167,20 @@ class DataListConfig extends Component {
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
-            {row.name}
+          <p title={row.id} className="text-truncate text-bold-500 mb-0">
+            {row.id}
           </p>
         )
       },
       {
-        name: "Satuan",
-        selector: "category",
-        sortable: true
+        name: "Unit",
+        selector: "unit",
+        sortable: true,
+        cell: row => (
+          <p title={row.unit} className="text-truncate text-bold-500 mb-0">
+            {row.unit}
+          </p>
+        )
       },
       {
         name: "Actions",
@@ -184,7 +189,7 @@ class DataListConfig extends Component {
         cell: row => (
           <ActionsComponent
             row={row}
-            getData={this.props.getData}
+            getDataSatuan={this.props.getDataSatuan}
             parsedFilter={this.props.parsedFilter}
             currentData={this.handleCurrentData}
             deleteRow={this.handleDelete}
@@ -206,8 +211,8 @@ class DataListConfig extends Component {
   thumbView = this.props.thumbView
 
   componentDidMount() {
-    this.props.getData(this.props.parsedFilter)
-    this.props.getInitialData()
+    this.props.getDataSatuan(this.props.parsedFilter)
+    this.props.getInitialDataSatuan()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -220,15 +225,20 @@ class DataListConfig extends Component {
           sortable: true,
           minWidth: "250px",
           cell: row => (
-            <p title={row.name} className="text-truncate text-bold-500 mb-0">
-              {row.name}
+            <p title={row.id} className="text-truncate text-bold-500 mb-0">
+              {row.id}
             </p>
           )
         },
         {
-          name: "Satuan",
-          selector: "category",
-          sortable: true
+          name: "Unit",
+          selector: "unit",
+          sortable: true,
+          cell: row => (
+            <p title={row.unit} className="text-truncate text-bold-500 mb-0">
+              {row.unit}
+            </p>
+          )
         },
         {
           name: "Actions",
@@ -237,7 +247,7 @@ class DataListConfig extends Component {
           cell: row => (
             <ActionsComponent
               row={row}
-              getData={this.props.getData}
+              getDataSatuan={this.props.getDataSatuan}
               parsedFilter={this.props.parsedFilter}
               currentData={this.handleCurrentData}
               deleteRow={this.handleDelete}
@@ -251,15 +261,15 @@ class DataListConfig extends Component {
 
   handleFilter = e => {
     this.setState({ value: e.target.value })
-    this.props.filterData(e.target.value)
+    this.props.filterDataSatuan(e.target.value)
   }
 
   handleRowsPerPage = value => {
-    let { parsedFilter, getData } = this.props
+    let { parsedFilter, getDataSatuan } = this.props
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
-    history.push(`/apg/items-satuan/list-view?page=${page}&perPage=${value}`)
+    history.push(`/apg/items-kategori/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
-    getData({ page: parsedFilter.page, perPage: value })
+    getDataSatuan({ page: parsedFilter.page, perPage: value })
   }
 
   handleSidebar = (boolean, addNew = false) => {
@@ -269,15 +279,15 @@ class DataListConfig extends Component {
 
   handleDelete = row => {
     this.props.deleteData(row)
-    this.props.getData(this.props.parsedFilter)
+    this.props.getDataSatuan(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
-      let urlPrefix = "/apg/items-satuan/"
+      let urlPrefix = "/apg/items-kategori/"
       history.push(
         `${urlPrefix}list-view?page=${parseInt(
           this.props.parsedFilter.page - 1
         )}&perPage=${this.props.parsedFilter.perPage}`
       )
-      this.props.getData({
+      this.props.getDataSatuan({
         page: this.props.parsedFilter.page - 1,
         perPage: this.props.parsedFilter.perPage
       })
@@ -290,13 +300,13 @@ class DataListConfig extends Component {
   }
 
   handlePagination = page => {
-    let { parsedFilter, getData } = this.props
+    let { parsedFilter, getDataSatuan } = this.props
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
-    let urlPrefix = "/apg/items-satuan/"
+    let urlPrefix = "/apg/items-kategori/"
     history.push(
       `${urlPrefix}list-view?page=${page.selected + 1}&perPage=${perPage}`
     )
-    getData({ page: page.selected + 1, perPage: perPage })
+    getDataSatuan({ page: page.selected + 1, perPage: perPage })
     this.setState({ currentPage: page.selected })
   }
 
@@ -379,11 +389,11 @@ class DataListConfig extends Component {
         <Sidebar
           show={sidebar}
           data={currentData}
-          updateData={this.props.updateData}
-          addData={this.props.addData}
+          updateDataSatuan={this.props.updateDataSatuan}
+          addDataKategori={this.props.addDataKategori}
           handleSidebar={this.handleSidebar}
           thumbView={this.props.thumbView}
-          getData={this.props.getData}
+          getDataSatuan={this.props.getDataSatuan}
           dataParams={this.props.parsedFilter}
           addNew={this.state.addNew}
         />
@@ -400,15 +410,15 @@ class DataListConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    dataListApg: state.dataListApg
   }
 }
 
 export default connect(mapStateToProps, {
-  getData,
+  getDataSatuan,
   deleteData,
-  updateData,
-  addData,
-  getInitialData,
-  filterData
+  updateDataSatuan,
+  addDataSatuan,
+  getInitialDataSatuan,
+  filterDataSatuan
 })(DataListConfig)

@@ -35,6 +35,8 @@ const getIndex = (arr, arr2, arr3, params = {}) => {
 }
 
 const DataListReducer = (state = initialState, action) => {
+  let value = action.value
+  let filteredData = []
   switch (action.type) {
     case "GET_DATA":
       return {
@@ -57,22 +59,83 @@ const DataListReducer = (state = initialState, action) => {
         sortIndex: getIndex(action.data, state.data, state.sortIndex)
       }
     case "FILTER_DATA":
-      let value = action.value
       let filteredData = []
+      let value = action.value
+      if (value.length) {
+        console.log(value, "INININI")
+        filteredData = state.allData
+          .filter(item => {
+            let startsWithCondition =
+              item.nama_item.toLowerCase().startsWith(value.toLowerCase())
+
+            let includesCondition =
+              item.nama_item.toLowerCase().includes(value.toLowerCase())
+
+            if (startsWithCondition) {
+              return startsWithCondition
+            } else if (!startsWithCondition && includesCondition) {
+              return includesCondition
+            } else return null
+          })
+          .slice(state.params.page - 1, state.params.perPage)
+        return { ...state, filteredData }
+      } else {
+        filteredData = state.data
+        return { ...state, filteredData }
+      }
+    case "FILTER_DATA_CATEGORY":
       if (value.length) {
         filteredData = state.allData
           .filter(item => {
             let startsWithCondition =
-              item.name.toLowerCase().startsWith(value.toLowerCase()) ||
-              item.category.toLowerCase().startsWith(value.toLowerCase()) ||
-              item.price.toLowerCase().startsWith(value.toLowerCase()) ||
-              item.order_status.toLowerCase().startsWith(value.toLowerCase())
+              item.category.toLowerCase().startsWith(value.toLowerCase())
 
             let includesCondition =
-              item.name.toLowerCase().includes(value.toLowerCase()) ||
-              item.category.toLowerCase().includes(value.toLowerCase()) ||
-              item.price.toLowerCase().includes(value.toLowerCase()) ||
-              item.order_status.toLowerCase().includes(value.toLowerCase())
+              item.category.toLowerCase().includes(value.toLowerCase())
+
+            if (startsWithCondition) {
+              return startsWithCondition
+            } else if (!startsWithCondition && includesCondition) {
+              return includesCondition
+            } else return null
+          })
+          .slice(state.params.page - 1, state.params.perPage)
+        return { ...state, filteredData }
+      } else {
+        filteredData = state.data
+        return { ...state, filteredData }
+      }
+    case "FILTER_DATA_SUB_CATEGORY":
+      if (value.length) {
+        filteredData = state.allData
+          .filter(item => {
+            let startsWithCondition =
+              item.sub_category.toLowerCase().startsWith(value.toLowerCase())
+
+            let includesCondition =
+              item.sub_category.toLowerCase().includes(value.toLowerCase())
+
+            if (startsWithCondition) {
+              return startsWithCondition
+            } else if (!startsWithCondition && includesCondition) {
+              return includesCondition
+            } else return null
+          })
+          .slice(state.params.page - 1, state.params.perPage)
+        return { ...state, filteredData }
+      } else {
+        filteredData = state.data
+        return { ...state, filteredData }
+      }
+    case "FILTER_DATA_SATUAN":
+      if (value.length) {
+        filteredData = state.allData
+          .filter(item => {
+            let startsWithCondition =
+              item.unit.toLowerCase().startsWith(value.toLowerCase())
+
+            let includesCondition =
+              item.unit.toLowerCase().includes(value.toLowerCase())
 
             if (startsWithCondition) {
               return startsWithCondition
@@ -107,8 +170,7 @@ const DataListReducer = (state = initialState, action) => {
     case "UPDATE_DATA":
       state.data.find(item => {
         if (item.id === action.obj.id) {
-          let popularity = determinePopularity(action.obj.popularity.popValue)
-          return Object.assign(item, { ...action.obj, popularity })
+          return Object.assign(item, { ...action.obj })
         } else {
           return item
         }

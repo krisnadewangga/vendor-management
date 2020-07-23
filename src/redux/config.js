@@ -3,7 +3,7 @@ import axios from "axios";
 const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
 const token = loggedInUser ? ("Bearer "+ loggedInUser.jwt) : "";
 
-console.log(loggedInUser)
+console.log(loggedInUser, token)
 
 export const api = axios.create({
   baseURL: "https://apgbe.btoz.co.id",
