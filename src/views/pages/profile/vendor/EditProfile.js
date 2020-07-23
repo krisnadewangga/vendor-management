@@ -119,7 +119,13 @@ class VendorEditProfile extends React.Component {
                     <Button.Ripple className="mr-1" color="primary" outline>
                       <Link to="/vendor/ubah-profil">
                         <Edit size={15} />
-                        <span className="align-middle ml-50">Ubah Informasi</span>
+                        <span className="align-middle ml-50">Unggah Foto</span>
+                      </Link>
+                    </Button.Ripple>
+                    <Button.Ripple className="mr-1" color="primary" outline>
+                      <Link to="/vendor/ubah-profil">
+                        <Trash size={15} />
+                        <span className="align-middle ml-50">Hapus Foto</span>
                       </Link>
                     </Button.Ripple>
                   </Col>

@@ -204,10 +204,6 @@ const navigationConfig = [
     navLink: "/apg/hak-akses-apg",
     permissions: ["admin", "editor"]
   },
-  {
-    type: "groupHeader",
-    groupTitle: "APPS"
-  },
   // {
   //   id: "email",
   //   title: "Email",
@@ -216,6 +212,11 @@ const navigationConfig = [
   //   permissions: ["admin", "editor"],
   //   navLink: "/vendor/dashboard",
   // },
+
+  {
+    type: "groupHeader",
+    groupTitle: "VENDOR"
+  },
   {
     id: "profileVendor",
     title: "Profil",
@@ -293,7 +294,14 @@ const navigationConfig = [
     },
   ]
   },
-
+  {
+    id: "pemesananVendor",
+    title: "Pemesanan",
+    type: "item",
+    icon: <Icon.ShoppingBag size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/vendor/pemesanan",
+  },
   // {
   //   id: "knowledgeBase",
   //   title: "Knowledge Base",
