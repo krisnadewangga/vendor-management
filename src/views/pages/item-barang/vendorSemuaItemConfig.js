@@ -262,8 +262,8 @@ class DataListConfig extends Component {
   thumbView = this.props.thumbView
 
   componentDidMount() {
-    this.props.getData(this.props.parsedFilter)
     this.props.getInitialData()
+    this.props.getData(this.props.parsedFilter)
     this.props.getItems()
   }
 
@@ -374,7 +374,7 @@ class DataListConfig extends Component {
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
     history.push(`/vendor/semua-item/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
-    getData({ page: parsedFilter.page, perPage: value })
+    getData({ page: page, perPage: value })
   }
 
   handleSidebar = (boolean, addNew = false) => {

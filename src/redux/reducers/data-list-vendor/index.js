@@ -37,10 +37,13 @@ const getIndex = (arr, arr2, arr3, params = {}) => {
 const DataListReducer = (state = initialState, action) => {
   switch (action.type) {
     case "VENDOR_GET_DATA":
+      let total_items = state.allData.length
+      let limit = action.params._limit
+      let totalPages = Math.ceil(total_items/limit)
       return {
         ...state,
         data: action.data,
-        totalPages: action.totalPages,
+        totalPages: totalPages === 0 ? action.totalPages : totalPages,
         params: action.params,
         sortIndex: getIndex(
           state.allData,

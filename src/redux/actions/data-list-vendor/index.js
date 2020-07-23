@@ -3,7 +3,25 @@ import { api } from "../../config"
 
 export const getData = params => {
   return async dispatch => {
-    await api.get("/vendor-items", params).then(response => {
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = (params.page - 1) * params.perPage
+      limitItem = params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem
+      }
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get('/vendor-items', { params }).then(response => {
       dispatch({
         type: "VENDOR_GET_DATA",
         data: response.data,
@@ -54,29 +72,5 @@ export const addData = obj => {
         dispatch({ type: "VENDOR_ADD_DATA", obj })
         dispatch(getData(params))
       })
-  }
-}
-
-export const addDataItemKategori = obj => {
-  return (dispatch, getState) => {
-    let params = getState().dataList.params
-    if(obj.category === ""){
-      alert("Data tidak boleh kosong")
-    }
-    else{
-      api
-        .post("/item-categories",
-          obj
-        )
-        .then(response => {
-        alert("Kategori berhasil ditambahkan")
-          dispatch({ type: "VENDOR_ADD_DATA", obj })
-          dispatch(getData(params))
-        })
-        .catch(response => {
-          console.log(obj)
-          console.log(response)
-        })
-    }
   }
 }
