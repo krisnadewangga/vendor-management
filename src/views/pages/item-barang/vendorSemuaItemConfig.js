@@ -332,7 +332,7 @@ class DataListConfig extends Component {
           name: "Harga",
           selector: "price",
           sortable: true,
-          cell: row => `$${row.harga_satuan}`
+          cell: row => `Rp. ${row.harga_satuan}`
         },
         {
           name: "Stok",

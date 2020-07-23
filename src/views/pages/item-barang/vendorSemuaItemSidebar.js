@@ -67,6 +67,7 @@ class DataListSidebar extends Component {
       : { page: 1, perPage: 4 }
     this.props.handleSidebar(false, true)
     this.props.getData(params)
+    this.props.getData(params) // biar update berfungssi jadi dipanggil 2x
   }
 
   render() {

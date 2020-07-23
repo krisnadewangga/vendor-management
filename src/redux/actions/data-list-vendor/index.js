@@ -37,12 +37,10 @@ export const deleteData = obj => {
 }
 
 export const updateData = obj => {
-  return (dispatch, getState) => {
-    axios
-      .post("/api/datalist/update-data", {
-        obj
-      })
+  return async (dispatch, getState) => {
+    await api.put("/vendor-items/" + obj.id, obj)
       .then(response => {
+        alert("Item berhasil diupdate")
         dispatch({ type: "VENDOR_UPDATE_DATA", obj })
       })
   }

@@ -107,8 +107,9 @@ const DataListReducer = (state = initialState, action) => {
     case "VENDOR_UPDATE_DATA":
       state.data.find(item => {
         if (item.id === action.obj.id) {
-          let popularity = determinePopularity(action.obj.popularity.popValue)
-          return Object.assign(item, { ...action.obj, popularity })
+          // let popularity = determinePopularity(action.obj.popularity.popValue)
+          // return Object.assign(item, { ...action.obj, popularity })
+          return Object.assign(item, { ...action.obj })
         } else {
           return item
         }
