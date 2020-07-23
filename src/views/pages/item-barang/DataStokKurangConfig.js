@@ -23,14 +23,15 @@ import {
 } from "react-feather"
 import { connect } from "react-redux"
 import {
-  getData,
-  getInitialData,
+  getDataStokKurang as getData,
+  getInitialDataStokKurang as getInitialData,
   deleteData,
   updateData,
   addData,
-  filterData
-} from "../../../redux/actions/data-list"
-import Sidebar from "./DataListSidebar"
+  filterDataStokKurang as filterData
+} from "../../../redux/actions/data-list-vendor"
+import { getInitialData as getItems } from "../../../redux/actions/data-list-apg/"
+import Sidebar from "./vendorSemuaItemSidebar"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
@@ -144,7 +145,8 @@ class DataStokKurangConfig extends Component {
         currentPage: parseInt(props.parsedFilter.page) - 1,
         rowsPerPage: parseInt(props.parsedFilter.perPage),
         totalRecords: props.dataList.totalRecords,
-        sortIndex: props.dataList.sortIndex
+        sortIndex: props.dataList.sortIndex,
+        items: props.items
       }
     }
 
@@ -161,7 +163,7 @@ class DataStokKurangConfig extends Component {
         name: "Gambar",
         selector: "img",
         minWidth: "120px",
-        cell: row => <img src={row.img} height="100" alt={row.name} />
+        cell: row => <img src={process.env.REACT_APP_URI_API + row.item.gambar.url} height="100" alt={row.item.deskripsi} />
       },
       {
         name: "Nama Item",
@@ -169,46 +171,68 @@ class DataStokKurangConfig extends Component {
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
-            {row.name}
+          <p title={row.item.nama_item} className="text-truncate text-bold-500 mb-0">
+            {row.item.nama_item}
           </p>
         )
       },
       {
         name: "Satuan",
-        selector: "category",
-        sortable: true
+        selector: "satuan",
+        sortable: true,
+        cell: row => (
+          <p title={row.item.item_unit.unit} className="text-truncate text-bold-500 mb-0">
+            {row.item.item_unit.unit}
+          </p>
+        )
       },
       {
         name: "Kategori",
         selector: "category",
-        sortable: true
+        sortable: true,
+        cell: row => (
+          <p title={row.item.item_category.category} className="text-truncate text-bold-500 mb-0">
+            {row.item.item_category.category}
+          </p>
+        )
       },
       {
         name: "Sub Kategori",
-        selector: "category",
-        sortable: true
+        selector: "sub_category",
+        sortable: true,
+        cell: row => (
+          <p title={row.item.item_sub_category.sub_category} className="text-truncate text-bold-500 mb-0">
+            {row.item.item_sub_category.sub_category}
+          </p>
+        )
       },
       {
         name: "Tipe Khusus",
-        selector: "category",
-        sortable: true
+        selector: "tipe_khusus",
+        sortable: true,
+        cell: row => (
+          <p title={row.item.tipe_khusus} className="text-truncate text-bold-500 mb-0">
+            {row.item.tipe_khusus}
+          </p>
+        )
       },
       {
         name: "Harga",
         selector: "price",
         sortable: true,
-        cell: row => `$${row.price}`
+        cell: row => `$${row.harga_satuan}`
       },
       {
         name: "Stok",
-        selector: "category",
-        sortable: true
+        selector: "stok",
+        sortable: true,
+        cell: row => `${row.stok}`
       },
       {
         name: "Stok Minimum",
-        selector: "category",
-        sortable: true
+        selector: "stok_minimum",
+        sortable: true,
+        cell: row => `${row.stok_min}`
       },
       {
         name: "Actions",
@@ -240,6 +264,7 @@ class DataStokKurangConfig extends Component {
   componentDidMount() {
     this.props.getData(this.props.parsedFilter)
     this.props.getInitialData()
+    this.props.getItems()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -250,7 +275,7 @@ class DataStokKurangConfig extends Component {
           name: "Gambar",
           selector: "img",
           minWidth: "120px",
-          cell: row => <img src={row.img} height="100" alt={row.name} />
+          cell: row => <img src={process.env.REACT_APP_URI_API + row.item.gambar.url} height="100" alt={row.item.deskripsi} />
         },
         {
           name: "Nama Item",
@@ -258,46 +283,68 @@ class DataStokKurangConfig extends Component {
           sortable: true,
           minWidth: "250px",
           cell: row => (
-            <p title={row.name} className="text-truncate text-bold-500 mb-0">
-              {row.name}
+            <p title={row.item.nama_item} className="text-truncate text-bold-500 mb-0">
+              {row.item.nama_item}
             </p>
           )
         },
         {
           name: "Satuan",
-          selector: "category",
-          sortable: true
+          selector: "satuan",
+          sortable: true,
+          cell: row => (
+            <p title={row.item.item_unit.unit} className="text-truncate text-bold-500 mb-0">
+              {row.item.item_unit.unit}
+            </p>
+          )
         },
         {
           name: "Kategori",
           selector: "category",
-          sortable: true
+          sortable: true,
+          cell: row => (
+            <p title={row.item.item_category.category} className="text-truncate text-bold-500 mb-0">
+              {row.item.item_category.category}
+            </p>
+          )
         },
         {
           name: "Sub Kategori",
-          selector: "category",
-          sortable: true
+          selector: "sub_category",
+          sortable: true,
+          cell: row => (
+            <p title={row.item.item_sub_category.sub_category} className="text-truncate text-bold-500 mb-0">
+              {row.item.item_sub_category.sub_category}
+            </p>
+          )
         },
         {
           name: "Tipe Khusus",
-          selector: "category",
-          sortable: true
+          selector: "tipe_khusus",
+          sortable: true,
+          cell: row => (
+            <p title={row.item.tipe_khusus} className="text-truncate text-bold-500 mb-0">
+              {row.item.tipe_khusus}
+            </p>
+          )
         },
         {
           name: "Harga",
           selector: "price",
           sortable: true,
-          cell: row => `$${row.price}`
+          cell: row => `Rp. ${row.harga_satuan}`
         },
         {
           name: "Stok",
-          selector: "category",
-          sortable: true
+          selector: "stok",
+          sortable: true,
+          cell: row => `${row.stok}`
         },
         {
           name: "Stok Minimum",
-          selector: "category",
-          sortable: true
+          selector: "stok_minimum",
+          sortable: true,
+          cell: row => `${row.stok_min}`
         },
         {
           name: "Actions",
@@ -325,9 +372,9 @@ class DataStokKurangConfig extends Component {
   handleRowsPerPage = value => {
     let { parsedFilter, getData } = this.props
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
-    history.push(`/apg/items-semua/list-view?page=${page}&perPage=${value}`)
+    history.push(`/vendor/stok-kurang/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
-    getData({ page: parsedFilter.page, perPage: value })
+    getData({ page: page, perPage: value })
   }
 
   handleSidebar = (boolean, addNew = false) => {
@@ -339,7 +386,7 @@ class DataStokKurangConfig extends Component {
     this.props.deleteData(row)
     this.props.getData(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
-      let urlPrefix = "/apg/items-semua/"
+      let urlPrefix = "/vendor/stok-kurang/"
       history.push(
         `${urlPrefix}list-view?page=${parseInt(
           this.props.parsedFilter.page - 1
@@ -360,7 +407,7 @@ class DataStokKurangConfig extends Component {
   handlePagination = page => {
     let { parsedFilter, getData } = this.props
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
-    let urlPrefix = "/apg/items-semua/"
+    let urlPrefix = "/vendor/stok-kurang/"
     history.push(
       `${urlPrefix}list-view?page=${page.selected + 1}&perPage=${perPage}`
     )
@@ -447,6 +494,7 @@ class DataStokKurangConfig extends Component {
           getData={this.props.getData}
           dataParams={this.props.parsedFilter}
           addNew={this.state.addNew}
+          items={this.state.items}
         />
         <div
           className={classnames("data-list-overlay", {
@@ -461,7 +509,8 @@ class DataStokKurangConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    dataList: state.dataListVendor,
+    items: state.dataListApg.allData
   }
 }
 
@@ -471,5 +520,6 @@ export default connect(mapStateToProps, {
   updateData,
   addData,
   getInitialData,
+  getItems,
   filterData
 })(DataStokKurangConfig)
