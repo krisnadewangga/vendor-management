@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Label, Input, InputGroup, InputGroupAddon, InputGroupText, FormGroup, Button, FormFeedback } from "reactstrap"
+import { Label, Input, InputGroup, InputGroupAddon, InputGroupText, FormGroup, Button, FormFeedback, Container, Row, Col } from "reactstrap"
 import { X } from "react-feather"
 import PerfectScrollbar from "react-perfect-scrollbar"
 import classnames from "classnames"
@@ -7,7 +7,7 @@ import classnames from "classnames"
 class DataListSidebar extends Component {
   state = {
     id: "",
-    item: "",
+    item: "pilih",
     harga_satuan: "",
     stok: "",
     stok_min: ""
@@ -20,8 +20,9 @@ class DataListSidebar extends Component {
       if (this.props.data.id !== prevState.id) {
         this.setState({ id: this.props.data.id })
       }
-      if (this.props.data.item !== prevState.item) {
-        this.setState({ item: this.props.data.item })
+      if (this.props.data.item.id !== prevState.item) {
+        this.setState({ item: this.props.data.item.id })
+
       }
       if (this.props.data.harga_satuan !== prevState.harga_satuan) {
         this.setState({ harga_satuan: this.props.data.harga_satuan })
@@ -36,7 +37,7 @@ class DataListSidebar extends Component {
     if (this.props.data === null && prevProps.data !== null) {
       this.setState({
         id: "",
-        item: "",
+        item: "pilih",
         harga_satuan: "",
         stok: "",
         stok_min: ""
@@ -45,7 +46,7 @@ class DataListSidebar extends Component {
     if (this.addNew) {
       this.setState({
         id: "",
-        item: "",
+        item: "pilih",
         harga_satuan: "",
         stok: "",
         stok_min: ""
@@ -55,8 +56,6 @@ class DataListSidebar extends Component {
   }
 
   handleSubmit = obj => {
-    console.log(obj);
-
     if (this.props.data !== null) {
       this.props.updateData(obj)
     } else {
@@ -85,17 +84,45 @@ class DataListSidebar extends Component {
         <PerfectScrollbar
           className="data-list-fields px-2 mt-3"
           options={{ wheelPropagation: false }}>
-          <FormGroup>
-            <Label for="data-item">Item*</Label>
-            <Input
-              type="select"
-              id="data-item"
-              value={item}
-              onChange={e => this.setState({ item: e.target.value })}>
-              <option>Pilih Item</option>
-              {items.map((x) => <option value={x.id} key={x.id} >{x.nama_item} ({x.item_unit.unit})</option>)}
-            </Input>
-          </FormGroup>
+          {data !== null ? (
+            <Row>
+              <Col>
+                <img className="img-fluid" src={process.env.REACT_APP_URI_API + data.item.gambar.url} alt={data.item.nama_item} />
+                <h1>{data.item.nama_item}</h1>
+                <hr></hr>
+                <p>{data.item.deskripsi}</p>
+                <Row>
+                  <Col><p>Kategori</p></Col>
+                  <Col><p>{data.item.item_category.category}</p></Col>
+                </Row>
+                <Row>
+                  <Col><p>Sub Kategori</p></Col>
+                  <Col><p>{data.item.item_sub_category.sub_category}</p></Col>
+                </Row>
+                <Row>
+                  <Col><p>Satuan</p></Col>
+                  <Col><p>{data.item.item_unit.unit}</p></Col>
+                </Row>
+                <Row>
+                  <Col><p>Tipe Khusus</p></Col>
+                  <Col><p>{data.item.tipe_khusus}</p></Col>
+                </Row>
+              </Col>
+            </Row>
+          ) : null}
+          {data !== null ? null : (
+            <FormGroup>
+              <Label for="data-item">Item*</Label>
+              <Input
+                type="select"
+                id="data-item"
+                value={item}
+                onChange={e => this.setState({ item: e.target.value })}>
+                  <option value="pilih">Pilih Item</option>
+                  {items.map((x) => <option value={x.id} key={x.id}>{x.nama_item} ({x.item_unit.unit})</option>)}
+              </Input>
+            </FormGroup>
+          )}
           <FormGroup>
             <Label for="data-harga_satuan">Harga (Berlaku 2 Bulan)*</Label>
             <Input
@@ -117,7 +144,9 @@ class DataListSidebar extends Component {
                 onChange={e => this.setState({ stok: e.target.value })}
                />
               <InputGroupAddon addonType="append">
-                <InputGroupText>({item ? items.find(x => x.id == item).item_unit.unit : "-"})</InputGroupText>
+                <InputGroupText>
+                  {data !== null ? `(${data.item.item_unit.unit})` : (item === "pilih" ? null : `(${items.find(x => x.id == item).item_unit.unit})`)}
+                </InputGroupText>
               </InputGroupAddon>
             </InputGroup>
           </FormGroup>
@@ -132,7 +161,9 @@ class DataListSidebar extends Component {
                 onChange={e => this.setState({ stok_min: e.target.value })}
                />
               <InputGroupAddon addonType="append">
-                <InputGroupText>({item ? items.find(x => x.id == item).item_unit.unit : "-"})</InputGroupText>
+                <InputGroupText>
+                  {data !== null ? `(${data.item.item_unit.unit})` : (item === "pilih" ? null : `(${items.find(x => x.id == item).item_unit.unit})`)}
+                </InputGroupText>
               </InputGroupAddon>
             </InputGroup>
           </FormGroup>

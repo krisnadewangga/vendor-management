@@ -45,8 +45,6 @@ const chipColors = {
   canceled: "danger"
 }
 
-const uriAPI = "https://apgbe.btoz.co.id";
-
 const selectedStyle = {
   rows: {
     selectedHighlighStyle: {
@@ -162,10 +160,10 @@ class DataListConfig extends Component {
     currentPage: 0,
     columns : [
       {
-        name: "Gambars",
+        name: "Gambar",
         selector: "img",
         minWidth: "120px",
-        cell: row => <img src={uriAPI + row.item.gambar.url} height="100" alt={row.item.deskripsi} />
+        cell: row => <img src={process.env.REACT_APP_URI_API + row.item.gambar.url} height="100" alt={row.item.deskripsi} />
       },
       {
         name: "Nama Item",
@@ -274,10 +272,10 @@ class DataListConfig extends Component {
       this.thumbView = false
       let columns = [
         {
-          name: "Gambars",
+          name: "Gambar",
           selector: "img",
           minWidth: "120px",
-          cell: row => <img src={uriAPI + row.item.gambar.url} height="100" alt={row.item.deskripsi} />
+          cell: row => <img src={process.env.REACT_APP_URI_API + row.item.gambar.url} height="100" alt={row.item.deskripsi} />
         },
         {
           name: "Nama Item",
