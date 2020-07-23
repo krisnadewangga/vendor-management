@@ -42,7 +42,7 @@ const vendorDashboard = lazy(() => import("./views/dashboard/vendors/VendorDashb
 const vendorProfile = lazy(() => import("./views/pages/profile/vendor/Profile"))
 // const vendorProfile = lazy(() => import("./views/pages/profile/vendor/account-settings/AccountSettings"))
 const vendorEditProfile = lazy(() => import("./views/pages/profile/vendor/EditProfile"))
-const vendorSemuaItem = lazy(() => import("./views/pages/item-barang/SemuaItem"))
+const vendorSemuaItem = lazy(() => import("./views/pages/item-barang/vendorSemuaItem"))
 const vendorStokKurang = lazy(() => import("./views/pages/item-barang/StokKurang"))
 const vendorPemesanan = lazy(() => import("./views/pages/vendor/Pemesanan"))
 const vendorBonPemesanan = lazy(() => import("./views/pages/vendor/BonPemesanan"))
@@ -282,10 +282,10 @@ class AppRouter extends React.Component {
           <AppRoute path="/apg/vendor-aktif-detail-information" component={VendorAktifDetailInformation} />
           <AppRoute path="/apg/vendor-in-review-detail" component={VendorInReviewDetail} />
           <AppRoute path="/apg/vendor-in-review-detail-information" component={VendorInReviewDetailInformation} />
-          
+
           <AppRoute path="/apg/pengguna-apg" component={ListPengguna} />
           <AppRoute path="/register-verifikasi" component={RegisterVerifikasi} />
-          
+
           {/* END APG */}
 
           {/* VENDOR */}
