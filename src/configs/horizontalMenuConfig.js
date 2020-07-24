@@ -2,30 +2,30 @@ import React from "react"
 import * as Icon from "react-feather"
 
 const horizontalMenuConfig = [
-  {
-    id: "dashboard",
-    title: "Dashboard",
-    type: "dropdown",
-    icon: <Icon.Home size={16} />,
-    children: [
-      {
-        id: "analyticsDash",
-        title: "Analytics",
-        type: "item",
-        icon: <Icon.Circle size={10} />,
-        navLink: "/",
-        permissions: ["admin", "editor"]
-      },
-      {
-        id: "eCommerceDash",
-        title: "eCommerce",
-        type: "item",
-        icon: <Icon.Circle size={10} />,
-        navLink: "/ecommerce-dashboard",
-        permissions: ["admin"]
-      }
-    ]
-  },
+  // {
+  //   id: "dashboard",
+  //   title: "Dashboard",
+  //   type: "dropdown",
+  //   icon: <Icon.Home size={16} />,
+  //   children: [
+  //     {
+  //       id: "analyticsDash",
+  //       title: "Analytics",
+  //       type: "item",
+  //       icon: <Icon.Circle size={10} />,
+  //       navLink: "/",
+  //       permissions: ["admin", "editor"]
+  //     },
+  //     {
+  //       id: "eCommerceDash",
+  //       title: "eCommerce",
+  //       type: "item",
+  //       icon: <Icon.Circle size={10} />,
+  //       navLink: "/ecommerce-dashboard",
+  //       permissions: ["admin"]
+  //     }
+  //   ]
+  // },
   {
     id: "apg",
     title: "APG",
