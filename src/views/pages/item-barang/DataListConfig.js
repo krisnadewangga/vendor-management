@@ -26,7 +26,6 @@ import {
   getData,
   getInitialData,
   deleteData,
-  updateData,
   addData,
   filterData
 } from "../../../redux/actions/data-list-apg/"
@@ -344,7 +343,7 @@ class DataListConfig extends Component {
   }
 
   handleDelete = row => {
-    this.props.deleteData(row)
+    this.props.deleteData(row, "/items/")
     this.props.getData(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
       let urlPrefix = "/apg/items-semua/"
@@ -362,7 +361,7 @@ class DataListConfig extends Component {
 
   handleCurrentData = obj => {
     this.setState({ currentData: obj })
-    this.handleSidebar(true)
+    // this.handleSidebar(true)
   }
 
   handlePagination = page => {
@@ -476,7 +475,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   getData,
   deleteData,
-  updateData,
   addData,
   getInitialData,
   filterData

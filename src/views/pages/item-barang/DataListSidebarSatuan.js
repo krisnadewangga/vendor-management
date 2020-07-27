@@ -48,6 +48,7 @@ class DataListSidebar extends Component {
       : { page: 1, perPage: 4 }
     this.props.handleSidebar(false, true)
     this.props.getDataSatuan(params)
+    this.props.getDataSatuan(params)
   }
 
   render() {

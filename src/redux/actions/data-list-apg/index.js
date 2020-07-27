@@ -3,12 +3,29 @@ import { api } from "../../config"
 
 export const getData = params => {
   return async dispatch => {
-    await api.get("/items", params).then(response => {
-      console.log(response)
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = (params.page - 1) * params.perPage
+      limitItem = params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem
+      }
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get("/items", { params }).then(response => {
       dispatch({
         type: "GET_DATA",
         data: response.data,
-        totalPages: 1,
+        totalPages: response.data.length,
         params
       })
     })
@@ -17,12 +34,29 @@ export const getData = params => {
 
 export const getDataKategori = params => {
   return async dispatch => {
-    await api.get("/item-categories", params).then(response => {
-      console.log(response)
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = (params.page - 1) * params.perPage
+      limitItem = params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem
+      }
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get("/item-categories", { params }).then(response => {
       dispatch({
         type: "GET_DATA",
         data: response.data,
-        totalPages: 1,
+        totalPages: response.data.length,
         params
       })
     })
@@ -31,12 +65,29 @@ export const getDataKategori = params => {
 
 export const getDataSubKategori = params => {
   return async dispatch => {
-    await api.get("/item-sub-categories", params).then(response => {
-      console.log(response)
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = (params.page - 1) * params.perPage
+      limitItem = params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem
+      }
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get("/item-sub-categories", { params }).then(response => {
       dispatch({
         type: "GET_DATA",
         data: response.data,
-        totalPages: 1,
+        totalPages: response.data.length,
         params
       })
     })
@@ -45,12 +96,29 @@ export const getDataSubKategori = params => {
 
 export const getDataSatuan = params => {
   return async dispatch => {
-    await api.get("/item-units", params).then(response => {
-      console.log(response)
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = (params.page - 1) * params.perPage
+      limitItem = params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem
+      }
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+    
+    await api.get("/item-units", { params }).then(response => {
       dispatch({
         type: "GET_DATA",
         data: response.data,
-        totalPages: 1,
+        totalPages: response.data.length,
         params
       })
     })
@@ -105,10 +173,9 @@ export const filterDataSatuan = value => {
   return dispatch => dispatch({ type: "FILTER_DATA_SATUAN", value })
 }
 
-export const deleteData = obj => {
+export const deleteData = (obj, apiPath) => {
   return dispatch => {
-    axios
-      .post("/api/datalist/delete-data", {
+    api.delete(apiPath + obj.id, {
         obj
       })
       .then(response => {
@@ -212,7 +279,7 @@ export const addDataKategori = obj => {
         .then(response => {
         alert("Kategori berhasil ditambahkan")
           dispatch({ type: "ADD_DATA", obj })
-          dispatch(getDataKategori(params))
+          dispatch(getDataKategori({params}))
         })
         .catch(response => {
           console.log(obj)
@@ -230,13 +297,13 @@ export const addDataSubKategori = obj => {
     }
     else{
       api
-        .post("/item-categories", 
+        .post("/item-sub-categories", 
           obj
         )
         .then(response => {
-        alert("Kategori berhasil ditambahkan")
+        alert("Sub kategori berhasil ditambahkan")
           dispatch({ type: "ADD_DATA", obj })
-          dispatch(getDataSubKategori(params))
+          dispatch(getDataSubKategori({params}))
         })
         .catch(response => {
           console.log(obj)
@@ -254,13 +321,13 @@ export const addDataSatuan = obj => {
     }
     else{
       api
-        .post("/item-categories", 
+        .post("/item-units", 
           obj
         )
         .then(response => {
-        alert("Kategori berhasil ditambahkan")
+        alert("Unit berhasil ditambahkan")
           dispatch({ type: "ADD_DATA", obj })
-          dispatch(getDataSatuan(params))
+          dispatch(getDataSatuan({params}))
         })
         .catch(response => {
           console.log(obj)

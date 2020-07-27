@@ -48,6 +48,7 @@ class DataListSidebar extends Component {
       : { page: 1, perPage: 4 }
     this.props.handleSidebar(false, true)
     this.props.getDataKategori(params)
+    this.props.getDataKategori(params)
   }
 
   render() {

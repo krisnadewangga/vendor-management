@@ -35,14 +35,15 @@ const getIndex = (arr, arr2, arr3, params = {}) => {
 }
 
 const DataListReducer = (state = initialState, action) => {
-  let value = action.value
-  let filteredData = []
   switch (action.type) {
     case "GET_DATA":
+      let total_items = state.allData.length
+      let limit = action.params._limit
+      let totalPages = Math.ceil(total_items/limit)
       return {
         ...state,
         data: action.data,
-        totalPages: action.totalPages,
+        totalPages: totalPages === 0 ? action.totalPages : totalPages,
         params: action.params,
         sortIndex: getIndex(
           state.allData,
@@ -154,7 +155,7 @@ const DataListReducer = (state = initialState, action) => {
       state.data.push({
         ...action.obj,
         id,
-        popularity: determinePopularity(action.obj.popularity)
+        // popularity: determinePopularity(action.obj.popularity)
       })
       moveIndex(
         state.data,

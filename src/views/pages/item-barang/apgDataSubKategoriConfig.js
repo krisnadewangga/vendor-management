@@ -267,7 +267,7 @@ class DataListConfig extends Component {
   handleRowsPerPage = value => {
     let { parsedFilter, getDataSubKategori } = this.props
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
-    history.push(`/apg/items-kategori/list-view?page=${page}&perPage=${value}`)
+    history.push(`/apg/items-sub-kategori/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
     getDataSubKategori({ page: parsedFilter.page, perPage: value })
   }
@@ -278,10 +278,10 @@ class DataListConfig extends Component {
   }
 
   handleDelete = row => {
-    this.props.deleteData(row)
+    this.props.deleteData(row, "/item-sub-categories/")
     this.props.getDataSubKategori(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
-      let urlPrefix = "/apg/items-kategori/"
+      let urlPrefix = "/apg/items-sub-kategori/"
       history.push(
         `${urlPrefix}list-view?page=${parseInt(
           this.props.parsedFilter.page - 1
@@ -302,7 +302,7 @@ class DataListConfig extends Component {
   handlePagination = page => {
     let { parsedFilter, getDataSubKategori } = this.props
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
-    let urlPrefix = "/apg/items-kategori/"
+    let urlPrefix = "/apg/items-sub-kategori/"
     history.push(
       `${urlPrefix}list-view?page=${page.selected + 1}&perPage=${perPage}`
     )
@@ -390,7 +390,7 @@ class DataListConfig extends Component {
           show={sidebar}
           data={currentData}
           updateDataSubKategori={this.props.updateDataSubKategori}
-          addDataKategori={this.props.addDataKategori}
+          addDataSubKategori={this.props.addDataSubKategori}
           handleSidebar={this.handleSidebar}
           thumbView={this.props.thumbView}
           getDataSubKategori={this.props.getDataSubKategori}
