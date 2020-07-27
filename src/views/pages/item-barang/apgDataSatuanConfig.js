@@ -267,7 +267,7 @@ class DataListConfig extends Component {
   handleRowsPerPage = value => {
     let { parsedFilter, getDataSatuan } = this.props
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
-    history.push(`/apg/items-kategori/list-view?page=${page}&perPage=${value}`)
+    history.push(`/apg/items-satuan/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
     getDataSatuan({ page: parsedFilter.page, perPage: value })
   }
@@ -278,10 +278,10 @@ class DataListConfig extends Component {
   }
 
   handleDelete = row => {
-    this.props.deleteData(row)
+    this.props.deleteData(row, "/item-units/")
     this.props.getDataSatuan(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
-      let urlPrefix = "/apg/items-kategori/"
+      let urlPrefix = "/apg/items-satuan/"
       history.push(
         `${urlPrefix}list-view?page=${parseInt(
           this.props.parsedFilter.page - 1
@@ -302,7 +302,7 @@ class DataListConfig extends Component {
   handlePagination = page => {
     let { parsedFilter, getDataSatuan } = this.props
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
-    let urlPrefix = "/apg/items-kategori/"
+    let urlPrefix = "/apg/items-satuan/"
     history.push(
       `${urlPrefix}list-view?page=${page.selected + 1}&perPage=${perPage}`
     )
@@ -390,7 +390,7 @@ class DataListConfig extends Component {
           show={sidebar}
           data={currentData}
           updateDataSatuan={this.props.updateDataSatuan}
-          addDataKategori={this.props.addDataKategori}
+          addDataSatuan={this.props.addDataSatuan}
           handleSidebar={this.handleSidebar}
           thumbView={this.props.thumbView}
           getDataSatuan={this.props.getDataSatuan}

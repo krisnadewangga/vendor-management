@@ -269,7 +269,7 @@ class DataListConfig extends Component {
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
     history.push(`/apg/items-kategori/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
-    getDataKategori({ page: parsedFilter.page, perPage: value })
+    getDataKategori({ page: page, perPage: value })
   }
 
   handleSidebar = (boolean, addNew = false) => {
@@ -278,7 +278,7 @@ class DataListConfig extends Component {
   }
 
   handleDelete = row => {
-    this.props.deleteData(row)
+    this.props.deleteData(row, "/item-categories/")
     this.props.getDataKategori(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
       let urlPrefix = "/apg/items-kategori/"
