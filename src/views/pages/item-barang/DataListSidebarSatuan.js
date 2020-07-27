@@ -7,7 +7,7 @@ import classnames from "classnames"
 class DataListSidebar extends Component {
   state = {
     id: "",
-    category: "",
+    unit: "",
   }
 
   addNew = false
@@ -17,20 +17,20 @@ class DataListSidebar extends Component {
       if (this.props.data.id !== prevState.id) {
         this.setState({ id: this.props.data.id })
       }
-      if (this.props.data.category !== prevState.category) {
-        this.setState({ category: this.props.data.category })
+      if (this.props.data.unit !== prevState.unit) {
+        this.setState({ unit: this.props.data.unit })
       }
     }
     if (this.props.data === null && prevProps.data !== null) {
       this.setState({
         id: "",
-        category: "",
+        unit: "",
       })
     }
     if (this.addNew) {
       this.setState({
         id: "",
-        category: "",
+        unit: "",
       })
     }
     this.addNew = false
@@ -38,22 +38,22 @@ class DataListSidebar extends Component {
 
   handleSubmit = obj => {
     if (this.props.data !== null) {
-      this.props.updateDataKategori(obj)
+      this.props.updateDataSatuan(obj)
     } else {
       this.addNew = true
-      this.props.addDataKategori(obj)
+      this.props.addDataSatuan(obj)
     }
     let params = Object.keys(this.props.dataParams).length
       ? this.props.dataParams
       : { page: 1, perPage: 4 }
     this.props.handleSidebar(false, true)
-    this.props.getDataKategori(params)
-    this.props.getDataKategori(params)
+    this.props.getDataSatuan(params)
+    this.props.getDataSatuan(params)
   }
 
   render() {
     let { show, handleSidebar, data } = this.props
-    let { category } = this.state
+    let { unit } = this.state
     return (
       <div
         className={classnames("data-list-sidebar", {
@@ -67,12 +67,12 @@ class DataListSidebar extends Component {
           className="data-list-fields px-2 mt-3"
           options={{ wheelPropagation: false }}>
           <FormGroup>
-            <Label for="data-name">Kategori</Label>
+            <Label for="data-name">Unit</Label>
             <Input
               type="text"
-              value={category}
+              value={unit}
               placeholder="Masukkan Kategori"
-              onChange={e => this.setState({ category: e.target.value })}
+              onChange={e => this.setState({ unit: e.target.value })}
               id="data-name"
             />
           </FormGroup>

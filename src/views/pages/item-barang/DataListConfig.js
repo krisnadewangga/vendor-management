@@ -26,11 +26,10 @@ import {
   getData,
   getInitialData,
   deleteData,
-  updateData,
   addData,
   filterData
 } from "../../../redux/actions/data-list-apg/"
-import Sidebar from "./DataListSidebar"
+// import Sidebar from "./DataListSidebar"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
@@ -94,7 +93,7 @@ const CustomHeader = props => {
         <Button
           className="add-new-btn"
           color="primary"
-          onClick={() => props.handleSidebar(true, true)}
+          onClick={() => history.push("/apg/items-tambah") }
           outline>
           <Plus size={15} />
           <span className="align-middle">Tambah Item</span>
@@ -134,17 +133,17 @@ const CustomHeader = props => {
 class DataListConfig extends Component {
   static getDerivedStateFromProps(props, state) {
     if (
-      props.dataList.data.length !== state.data.length ||
+      props.dataListApg.data.length !== state.data.length ||
       state.currentPage !== props.parsedFilter.page
     ) {
       return {
-        data: props.dataList.data,
-        allData: props.dataList.filteredData,
-        totalPages: props.dataList.totalPages,
+        data: props.dataListApg.data,
+        allData: props.dataListApg.filteredData,
+        totalPages: props.dataListApg.totalPages,
         currentPage: parseInt(props.parsedFilter.page) - 1,
         rowsPerPage: parseInt(props.parsedFilter.perPage),
-        totalRecords: props.dataList.totalRecords,
-        sortIndex: props.dataList.sortIndex
+        totalRecords: props.dataListApg.totalRecords,
+        sortIndex: props.dataListApg.sortIndex
       }
     }
 
@@ -161,7 +160,7 @@ class DataListConfig extends Component {
         name: "Gambar",
         selector: "img",
         minWidth: "120px",
-        cell: row => <img src={row.img} height="100" alt={row.name} />
+        cell: row => <img src={row.gambar ? "https://apgbe.btoz.co.id"+row.gambar.url : ""} height="100" width="80%" alt={row.nama_item} />
       },
       {
         name: "Nama Item",
@@ -169,46 +168,50 @@ class DataListConfig extends Component {
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
-            {row.name}
+          <p title={row.nama_item} className="text-truncate text-bold-500 mb-0">
+            {row.nama_item}
           </p>
         )
       },
       {
         name: "Satuan",
         selector: "category",
-        sortable: true
+        sortable: true,
+        cell: row => (
+          <p className="text-truncate text-bold-500 mb-0">
+            {row.item_unit ? row.item_unit.unit : ""}
+          </p>
+        )
       },
       {
         name: "Kategori",
         selector: "category",
-        sortable: true
+        sortable: true,
+        cell: row => (
+          <p className="text-truncate text-bold-500 mb-0">
+            {row.item_category ? row.item_category.category : ""}
+          </p>
+        )
       },
       {
         name: "Sub Kategori",
         selector: "category",
-        sortable: true
+        sortable: true,
+        cell: row => (
+          <p className="text-truncate text-bold-500 mb-0">
+            {row.item_sub_category ? row.item_sub_category.sub_category : ""}
+          </p>
+        )
       },
       {
         name: "Tipe Khusus",
         selector: "category",
-        sortable: true
-      },
-      {
-        name: "Harga",
-        selector: "price",
         sortable: true,
-        cell: row => `$${row.price}`
-      },
-      {
-        name: "Stok",
-        selector: "category",
-        sortable: true
-      },
-      {
-        name: "Stok Minimum",
-        selector: "category",
-        sortable: true
+        cell: row => (
+          <p title={row.tipe_khusus} className="text-truncate text-bold-500 mb-0">
+            {row.tipe_khusus}
+          </p>
+        )
       },
       {
         name: "Actions",
@@ -250,7 +253,7 @@ class DataListConfig extends Component {
           name: "Gambar",
           selector: "img",
           minWidth: "120px",
-          cell: row => <img src={row.img} height="100" alt={row.name} />
+          cell: row => <img src={row.gambar ? "https://apgbe.btoz.co.id"+row.gambar.url : ""} height="100" width="80%" alt={row.nama_item} />
         },
         {
           name: "Nama Item",
@@ -258,46 +261,50 @@ class DataListConfig extends Component {
           sortable: true,
           minWidth: "250px",
           cell: row => (
-            <p title={row.name} className="text-truncate text-bold-500 mb-0">
-              {row.name}
+            <p title={row.nama_item} className="text-truncate text-bold-500 mb-0">
+              {row.nama_item}
             </p>
           )
         },
         {
           name: "Satuan",
           selector: "category",
-          sortable: true
+          sortable: true,
+          cell: row => (
+            <p className="text-truncate text-bold-500 mb-0">
+              {row.item_unit ? row.item_unit.unit : ""}
+            </p>
+          )
         },
         {
           name: "Kategori",
           selector: "category",
-          sortable: true
+          sortable: true,
+          cell: row => (
+            <p className="text-truncate text-bold-500 mb-0">
+              {row.item_category ? row.item_category.category : ""}
+            </p>
+          )
         },
         {
           name: "Sub Kategori",
           selector: "category",
-          sortable: true
+          sortable: true,
+          cell: row => (
+            <p className="text-truncate text-bold-500 mb-0">
+              {row.item_sub_category ? row.item_sub_category.sub_category : ""}
+            </p>
+          )
         },
         {
           name: "Tipe Khusus",
           selector: "category",
-          sortable: true
-        },
-        {
-          name: "Harga",
-          selector: "price",
           sortable: true,
-          cell: row => `$${row.price}`
-        },
-        {
-          name: "Stok",
-          selector: "category",
-          sortable: true
-        },
-        {
-          name: "Stok Minimum",
-          selector: "category",
-          sortable: true
+          cell: row => (
+            <p title={row.tipe_khusus} className="text-truncate text-bold-500 mb-0">
+              {row.tipe_khusus}
+            </p>
+          )
         },
         {
           name: "Actions",
@@ -336,7 +343,7 @@ class DataListConfig extends Component {
   }
 
   handleDelete = row => {
-    this.props.deleteData(row)
+    this.props.deleteData(row, "/items/")
     this.props.getData(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
       let urlPrefix = "/apg/items-semua/"
@@ -354,7 +361,7 @@ class DataListConfig extends Component {
 
   handleCurrentData = obj => {
     this.setState({ currentData: obj })
-    this.handleSidebar(true)
+    // this.handleSidebar(true)
   }
 
   handlePagination = page => {
@@ -437,7 +444,7 @@ class DataListConfig extends Component {
             size: "sm"
           }}
         />
-        <Sidebar
+        {/* <Sidebar
           show={sidebar}
           data={currentData}
           updateData={this.props.updateData}
@@ -447,7 +454,7 @@ class DataListConfig extends Component {
           getData={this.props.getData}
           dataParams={this.props.parsedFilter}
           addNew={this.state.addNew}
-        />
+        /> */}
         <div
           className={classnames("data-list-overlay", {
             show: sidebar
@@ -461,14 +468,13 @@ class DataListConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    dataListApg: state.dataListApg
   }
 }
 
 export default connect(mapStateToProps, {
   getData,
   deleteData,
-  updateData,
   addData,
   getInitialData,
   filterData

@@ -18,7 +18,7 @@ class MainCards extends React.Component {
           />
         <Card>
         <CardBody>
-          <Form className="mt-2">
+          <Form className="mt-2" onSubmit={(e) => console.log("SIMPAN")}>
             <Row>
               <Col lg="6" sm="12">
                   <ImageUpload />

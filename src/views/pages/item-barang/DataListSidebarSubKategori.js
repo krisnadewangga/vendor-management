@@ -7,7 +7,7 @@ import classnames from "classnames"
 class DataListSidebar extends Component {
   state = {
     id: "",
-    category: "",
+    sub_category: "",
   }
 
   addNew = false
@@ -17,20 +17,20 @@ class DataListSidebar extends Component {
       if (this.props.data.id !== prevState.id) {
         this.setState({ id: this.props.data.id })
       }
-      if (this.props.data.category !== prevState.category) {
-        this.setState({ category: this.props.data.category })
+      if (this.props.data.sub_category !== prevState.sub_category) {
+        this.setState({ sub_category: this.props.data.sub_category })
       }
     }
     if (this.props.data === null && prevProps.data !== null) {
       this.setState({
         id: "",
-        category: "",
+        sub_category: "",
       })
     }
     if (this.addNew) {
       this.setState({
         id: "",
-        category: "",
+        sub_category: "",
       })
     }
     this.addNew = false
@@ -38,22 +38,22 @@ class DataListSidebar extends Component {
 
   handleSubmit = obj => {
     if (this.props.data !== null) {
-      this.props.updateDataKategori(obj)
+      this.props.updateDataSubKategori(obj)
     } else {
       this.addNew = true
-      this.props.addDataKategori(obj)
+      this.props.addDataSubKategori(obj)
     }
     let params = Object.keys(this.props.dataParams).length
       ? this.props.dataParams
       : { page: 1, perPage: 4 }
     this.props.handleSidebar(false, true)
-    this.props.getDataKategori(params)
-    this.props.getDataKategori(params)
+    this.props.getDataSubKategori(params)
+    this.props.getDataSubKategori(params)
   }
 
   render() {
     let { show, handleSidebar, data } = this.props
-    let { category } = this.state
+    let { sub_category } = this.state
     return (
       <div
         className={classnames("data-list-sidebar", {
@@ -67,12 +67,12 @@ class DataListSidebar extends Component {
           className="data-list-fields px-2 mt-3"
           options={{ wheelPropagation: false }}>
           <FormGroup>
-            <Label for="data-name">Kategori</Label>
+            <Label for="data-name">Sub_kategori</Label>
             <Input
               type="text"
-              value={category}
-              placeholder="Masukkan Kategori"
-              onChange={e => this.setState({ category: e.target.value })}
+              value={sub_category}
+              placeholder="Masukkan Sub kategori"
+              onChange={e => this.setState({ sub_category: e.target.value })}
               id="data-name"
             />
           </FormGroup>
