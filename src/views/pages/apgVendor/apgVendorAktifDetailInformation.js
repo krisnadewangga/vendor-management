@@ -47,11 +47,15 @@ class VendorProfile extends React.Component {
     switch (this.props.vendor) {
       case 'aktif':
         linkTo = `/apg/vendor-aktif-detail/${data.id}`
-        break;
+        break
 
       case 'review':
         linkTo = `/apg/vendor-in-review-detail/${data.id}`
-        break;
+        break
+
+      case 'bermasalah':
+        linkTo = `/apg/vendor-bermasalah-detail/${data.id}`
+        break
 
       default:
         break

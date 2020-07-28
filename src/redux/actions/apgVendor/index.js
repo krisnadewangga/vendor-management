@@ -95,6 +95,53 @@ export const getInitialDataVendorInReview = () => {
   }
 }
 
+export const getDataVendorProblem = params => {
+  return async dispatch => {
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      /*
+      dilanjut setelah CRUD
+      let kategori = params.kategori === undefined ? false : Object.keys(params.kategori).length !== 0 ? params.kategori : false;
+      let provinsi = params.provinsi === undefined ? false : Object.keys(params.provinsi).length !== 0 ? params.provinsi : false;
+      let kota = params.kota === undefined ? false : Object.keys(params.kota).length !== 0 ? params.kota : false;
+      */
+
+      startItem = (params.page - 1) * params.perPage
+      limitItem = params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem,
+      }
+
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get("/vendors-problem").then(response => {
+      dispatch({
+        type: "VENDOR_PROBLEM_GET_DATA",
+        data: response.data,
+        totalPages: response.data.length,
+        params
+      })
+    })
+  }
+}
+
+export const getInitialDataVendorProblem = () => {
+  return async dispatch => {
+    await api.get("/vendors-problem").then(response => {
+      dispatch({ type: "VENDOR_PROBLEM_GET_ALL_DATA", data: response.data })
+    })
+  }
+}
+
 export const getDataVendorById = obj => {
   return async dispatch => {
     await api.get(`/vendors/${obj.id}`).then(response => {

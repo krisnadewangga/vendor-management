@@ -34,14 +34,14 @@ class VendorProfile extends React.Component {
     this.props.getData(this.props)
   }
 
-  handleVendorBermasalah() {
+  handleVendorBermasalah(problem) {
     let { data } = this.props.dataList
     let obj = {
       id : data.id,
-      problem : true
+      problem : problem
     }
     this.props.updateData(obj)
-    history.push('/apg/vendor-aktif')
+    history.push((problem) ? '/apg/vendor-aktif' : '/apg/vendor-bermasalah')
   }
 
   handleVendorTerverifikasi() {
@@ -91,9 +91,10 @@ class VendorProfile extends React.Component {
         break
 
       case 'bermasalah':
+        linkTo = `/apg/vendor-bermasalah-detail-information/${data.id}`
         buttonVerification = (
           <Col sm={12} className="d-flex justify-content-center">
-            <Button.Ripple color="primary">
+            <Button.Ripple color="primary" onClick={() => this.handleVendorBermasalah(false)}>
               <span className="align-middle ml-50">Vendor Terverifikasi Kembali</span>
             </Button.Ripple>
           </Col>
@@ -159,7 +160,7 @@ class VendorProfile extends React.Component {
                                 </Col>
                                 {this.props.vendor === 'aktif' ?
                                 <Col sm={4}>
-                                  <Button.Ripple className="float-right" color="primary" outline onClick={() => this.handleVendorBermasalah()}>
+                                  <Button.Ripple className="float-right" color="primary" outline onClick={() => this.handleVendorBermasalah(true)}>
                                     <Edit size={15} />
                                     <span className="align-middle ml-50">Pindahkan ke Vendor Bermasalah</span>
                                   </Button.Ripple>

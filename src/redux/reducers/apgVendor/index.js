@@ -87,6 +87,30 @@ const DataListReducer = (state = initialState, action) => {
         totalRecords: action.data.length,
         sortIndex: getIndex(action.data, state.data, state.sortIndex)
       }
+    case "VENDOR_PROBLEM_GET_DATA":{
+      let total_items = state.allData.length
+      let limit = action.params._limit
+      let totalPages = Math.ceil(total_items/limit)
+      return {
+        ...state,
+        data: action.data,
+        totalPages: totalPages === 0 ? action.totalPages : totalPages,
+        params: action.params,
+        sortIndex: getIndex(
+          state.allData,
+          action.data,
+          state.sortIndex,
+          action.params
+        )
+      }
+    }
+    case "VENDOR_PROBLEM_GET_ALL_DATA":
+      return {
+        ...state,
+        allData: action.data,
+        totalRecords: action.data.length,
+        sortIndex: getIndex(action.data, state.data, state.sortIndex)
+      }
     case "VENDOR_GET_DATA_BY_ID":
       return {
         ...state,

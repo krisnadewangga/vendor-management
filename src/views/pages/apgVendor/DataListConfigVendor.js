@@ -30,6 +30,8 @@ import {
   getInitialDataVendorAktif,
   getDataVendorInReview,
   getInitialDataVendorInReview,
+  getDataVendorProblem,
+  getInitialDataVendorProblem,
   getInitialDataProvinsi,
   getInitialDataKota,
   getInitialDataVendorKategori,
@@ -337,12 +339,17 @@ class DataListConfig extends Component {
       case 'aktif':
         this.props.getDataVendorAktif(this.props.parsedFilter)
         this.props.getInitialDataVendorAktif()
-        break;
+        break
 
       case 'review':
         this.props.getDataVendorInReview(this.props.parsedFilter)
         this.props.getInitialDataVendorInReview()
-        break;
+        break
+
+      case 'bermasalah':
+        this.props.getDataVendorProblem(this.props.parsedFilter)
+        this.props.getInitialDataVendorProblem()
+        break
 
       default:
         break
@@ -633,11 +640,15 @@ class DataListConfig extends Component {
             switch (this.props.vendor) {
               case 'aktif':
                 url = `/apg/vendor-aktif-detail/${data.id}`
-                break;
+                break
 
               case 'review':
                 url = `/apg/vendor-in-review-detail/${data.id}`
-                break;
+                break
+
+              case 'bermasalah':
+                url = `/apg/vendor-bermasalah-detail/${data.id}`
+                break
 
               default:
                 break
@@ -706,6 +717,8 @@ export default connect(mapStateToProps, {
   getInitialDataVendorAktif,
   getDataVendorInReview,
   getInitialDataVendorInReview,
+  getDataVendorProblem,
+  getInitialDataVendorProblem,
   getInitialDataProvinsi,
   getInitialDataKota,
   getInitialDataVendorKategori,

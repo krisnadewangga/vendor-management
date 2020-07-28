@@ -32,6 +32,8 @@ const VendorAktifDetail = lazy(() => import("./views/pages/apgVendor/apgMainCard
 const VendorAktifDetailInformation = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorAktifInformation"))
 const VendorInReviewDetail = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReviewDetail"))
 const VendorInReviewDetailInformation = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReviewInformation"))
+const VendorBermasalahDetail = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorBermasalahDetail"))
+const VendorBermasalahDetailInformation = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorBermasalahInformation"))
 
 const ListPengguna = lazy(() => import("./views/apps/apg/UserList"))
 const RegisterVerifikasi = lazy(() => import("./views/apps/apg/RegisterVerifikasi"))
@@ -282,6 +284,8 @@ class AppRouter extends React.Component {
           <AppRoute path="/apg/vendor-aktif-detail-information" component={VendorAktifDetailInformation} />
           <AppRoute path="/apg/vendor-in-review-detail" component={VendorInReviewDetail} />
           <AppRoute path="/apg/vendor-in-review-detail-information" component={VendorInReviewDetailInformation} />
+          <AppRoute path="/apg/vendor-bermasalah-detail" component={VendorBermasalahDetail} />
+          <AppRoute path="/apg/vendor-bermasalah-detail-information" component={VendorBermasalahDetailInformation} />
 
           <AppRoute path="/apg/pengguna-apg" component={ListPengguna} />
           <AppRoute path="/register-verifikasi" component={RegisterVerifikasi} />
