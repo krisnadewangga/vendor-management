@@ -28,7 +28,7 @@ const VendorKategori = lazy(() => import("./views/pages/apgVendor/apgVendorKateg
 const VendorKelas = lazy(() => import("./views/pages/apgVendor/apgVendorKelas"))
 const VendorSBU = lazy(() => import("./views/pages/apgVendor/apgVendorSBU"))
 
-const VendorAktifDetail = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorAktifInformation"))
+const VendorAktifDetail = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorAktifDetail"))
 const VendorAktifDetailInformation = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorAktifInformation"))
 const VendorInReviewDetail = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReviewDetail"))
 const VendorInReviewDetailInformation = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorInReviewInformation"))

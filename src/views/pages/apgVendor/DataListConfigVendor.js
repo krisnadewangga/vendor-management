@@ -26,14 +26,13 @@ import {
 } from "react-feather"
 import { connect } from "react-redux"
 import {
-  getDataVendorAktif as getData,
-  getInitialDataVendorAktif as getInitialData,
+  getDataVendorAktif,
+  getInitialDataVendorAktif,
+  getDataVendorInReview,
+  getInitialDataVendorInReview,
   getInitialDataProvinsi,
   getInitialDataKota,
   getInitialDataVendorKategori,
-  // deleteData,
-  // updateData,
-  // addData,
   filterData
 } from "../../../redux/actions/apgVendor"
 import Sidebar from "./DataListSidebar"
@@ -257,8 +256,8 @@ class DataListConfig extends Component {
         selector: "kota",
         sortable: true,
         cell: row => (
-          <p title={row.kota.nama} className="text-truncate text-bold-500 mb-0">
-            {row.kota.nama}
+          <p title={row.kota !== null ? row.kota.nama : ''} className="text-truncate text-bold-500 mb-0">
+            {row.kota !== null ? row.kota.nama : ''}
           </p>
         )
       },
@@ -267,8 +266,8 @@ class DataListConfig extends Component {
         selector: "propinsi",
         sortable: true,
         cell: row => (
-          <p title={row.provinsi.nama} className="text-truncate text-bold-500 mb-0">
-            {row.provinsi.nama}
+          <p title={row.provinsi !== null ? row.provinsi.nama : ''} className="text-truncate text-bold-500 mb-0">
+            {row.provinsi !== null ? row.provinsi.nama : ''}
           </p>
         )
       },
@@ -287,8 +286,8 @@ class DataListConfig extends Component {
         selector: "sbu",
         sortable: true,
         cell: row => (
-          <p title={row.sbu.kode} className="text-truncate text-bold-500 mb-0">
-            {row.sbu.kode}
+          <p title={row.sbu !== null ? row.sbu.kode : ''} className="text-truncate text-bold-500 mb-0">
+            {row.sbu !== null ? row.sbu.kode : ''}
           </p>
         )
       },
@@ -334,8 +333,20 @@ class DataListConfig extends Component {
     this.props.getInitialDataProvinsi()
     this.props.getInitialDataKota()
     this.props.getInitialDataVendorKategori()
-    this.props.getData(this.props.parsedFilter)
-    this.props.getInitialData()
+    switch (this.props.vendor) {
+      case 'aktif':
+        this.props.getDataVendorAktif(this.props.parsedFilter)
+        this.props.getInitialDataVendorAktif()
+        break;
+
+      case 'review':
+        this.props.getDataVendorInReview(this.props.parsedFilter)
+        this.props.getInitialDataVendorInReview()
+        break;
+
+      default:
+        break
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -378,8 +389,8 @@ class DataListConfig extends Component {
           selector: "kota",
           sortable: true,
           cell: row => (
-            <p title={row.kota.nama} className="text-truncate text-bold-500 mb-0">
-              {row.kota.nama}
+            <p title={row.kota !== null ? row.kota.nama : ''} className="text-truncate text-bold-500 mb-0">
+              {row.kota !== null ? row.kota.nama : ''}
             </p>
           )
         },
@@ -388,8 +399,8 @@ class DataListConfig extends Component {
           selector: "propinsi",
           sortable: true,
           cell: row => (
-            <p title={row.provinsi.nama} className="text-truncate text-bold-500 mb-0">
-              {row.provinsi.nama}
+            <p title={row.provinsi !== null ? row.provinsi.nama : ''} className="text-truncate text-bold-500 mb-0">
+              {row.provinsi !== null ? row.provinsi.nama : ''}
             </p>
           )
         },
@@ -408,8 +419,8 @@ class DataListConfig extends Component {
           selector: "sbu",
           sortable: true,
           cell: row => (
-            <p title={row.sbu.kode} className="text-truncate text-bold-500 mb-0">
-              {row.sbu.kode}
+            <p title={row.sbu !== null ? row.sbu.kode : ''} className="text-truncate text-bold-500 mb-0">
+              {row.sbu !== null ? row.sbu.kode : ''}
             </p>
           )
         },
@@ -444,7 +455,7 @@ class DataListConfig extends Component {
   }
 
   handleRowsPerPage = value => {
-    let { parsedFilter, getData } = this.props
+    let { parsedFilter, getDataVendorAktif } = this.props
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
     let { queryKategori, queryProvinsi, queryKota } = this.state
     let kategori  =  queryKategori
@@ -471,11 +482,11 @@ class DataListConfig extends Component {
     let query = queryKategori + queryProvinsi + queryKota
     history.push(`${urlPrefix}?page=${page}&perPage=${value}${query}`)
     this.setState({ rowsPerPage: value })
-    getData({ page: page, perPage: value, kategori: kategori , provinsi: provinsi, kota: kota })
+    getDataVendorAktif({ page: page, perPage: value, kategori: kategori , provinsi: provinsi, kota: kota })
   }
 
   handlePageByKategori = value => {
-    let { parsedFilter, getData } = this.props
+    let { parsedFilter, getDataVendorAktif } = this.props
     let { queryKategori, queryProvinsi, queryKota } = this.state
     let kategori  = value.kategori !== undefined ? value.kategori : queryKategori
     let provinsi  = value.provinsi !== undefined ? value.provinsi : queryProvinsi
@@ -502,7 +513,7 @@ class DataListConfig extends Component {
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
     history.push(`${urlPrefix}?page=${page}&perPage=${perPage}${query}`)
-    getData({ page: page, perPage: perPage, kategori: kategori , provinsi: provinsi, kota: kota })
+    getDataVendorAktif({ page: page, perPage: perPage, kategori: kategori , provinsi: provinsi, kota: kota })
   }
 
   handleSidebar = (boolean, addNew = false) => {
@@ -512,14 +523,14 @@ class DataListConfig extends Component {
 
   handleDelete = row => {
     this.props.deleteData(row)
-    this.props.getData(this.props.parsedFilter)
+    this.props.getDataVendorAktif(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
       history.push(
         `${urlPrefix}?page=${parseInt(
           this.props.parsedFilter.page - 1
         )}&perPage=${this.props.parsedFilter.perPage}`
       )
-      this.props.getData({
+      this.props.getDataVendorAktif({
         page: this.props.parsedFilter.page - 1,
         perPage: this.props.parsedFilter.perPage
       })
@@ -532,7 +543,7 @@ class DataListConfig extends Component {
   }
 
   handlePagination = page => {
-    let { parsedFilter, getData } = this.props
+    let { parsedFilter, getDataVendorAktif } = this.props
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
     let { queryKategori, queryProvinsi, queryKota } = this.state
     let kategori  =  queryKategori
@@ -558,7 +569,7 @@ class DataListConfig extends Component {
     }
     let query = queryKategori + queryProvinsi + queryKota
     history.push(`${urlPrefix}?page=${page.selected + 1}&perPage=${perPage}${query}`)
-    getData({ page: page.selected + 1, perPage: perPage })
+    getDataVendorAktif({ page: page.selected + 1, perPage: perPage })
     this.setState({ currentPage: page.selected, kategori: kategori , provinsi: provinsi, kota: kota })
   }
 
@@ -618,7 +629,20 @@ class DataListConfig extends Component {
           pointerOnHover
           selectableRowsHighlight
           onRowClicked={data => {
-            history.push(this.props.inreview ? `/apg/vendor-in-review-detail/${data.id}` : `/apg/vendor-aktif-detail/${data.id}`)
+            let url;
+            switch (this.props.vendor) {
+              case 'aktif':
+                url = `/apg/vendor-aktif-detail/${data.id}`
+                break;
+
+              case 'review':
+                url = `/apg/vendor-in-review-detail/${data.id}`
+                break;
+
+              default:
+                break
+            }
+            history.push(url)
           }}
           onSelectedRowsChange={data =>
             this.setState({ selected: data.selectedRows })
@@ -656,7 +680,7 @@ class DataListConfig extends Component {
           addData={this.props.addData}
           handleSidebar={this.handleSidebar}
           thumbView={this.props.thumbView}
-          getData={this.props.getData}
+          getData={this.props.getDataVendorAktif}
           dataParams={this.props.parsedFilter}
           addNew={this.state.addNew}
         />
@@ -678,11 +702,10 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
-  getData,
-  // deleteData,
-  // updateData,
-  // addData,
-  getInitialData,
+  getDataVendorAktif,
+  getInitialDataVendorAktif,
+  getDataVendorInReview,
+  getInitialDataVendorInReview,
   getInitialDataProvinsi,
   getInitialDataKota,
   getInitialDataVendorKategori,

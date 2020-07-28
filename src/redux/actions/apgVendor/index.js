@@ -40,18 +40,65 @@ export const getDataVendorAktif = params => {
   }
 }
 
-export const getDataVendorAktifById = obj => {
-  return async dispatch => {
-    await api.get(`/vendors/${obj.id}`).then(response => {
-      dispatch({ type: "VENDOR_AKTIF_GET_DATA_BY_ID", data: response.data })
-    })
-  }
-}
-
 export const getInitialDataVendorAktif = () => {
   return async dispatch => {
     await api.get("/vendors").then(response => {
       dispatch({ type: "VENDOR_AKTIF_GET_ALL_DATA", data: response.data })
+    })
+  }
+}
+
+export const getDataVendorInReview = params => {
+  return async dispatch => {
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      /*
+      dilanjut setelah CRUD
+      let kategori = params.kategori === undefined ? false : Object.keys(params.kategori).length !== 0 ? params.kategori : false;
+      let provinsi = params.provinsi === undefined ? false : Object.keys(params.provinsi).length !== 0 ? params.provinsi : false;
+      let kota = params.kota === undefined ? false : Object.keys(params.kota).length !== 0 ? params.kota : false;
+      */
+
+      startItem = (params.page - 1) * params.perPage
+      limitItem = params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem,
+      }
+
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get("/vendors-inreview").then(response => {
+      dispatch({
+        type: "VENDOR_IN_REVIEW_GET_DATA",
+        data: response.data,
+        totalPages: response.data.length,
+        params
+      })
+    })
+  }
+}
+
+export const getInitialDataVendorInReview = () => {
+  return async dispatch => {
+    await api.get("/vendors-inreview").then(response => {
+      dispatch({ type: "VENDOR_IN_REVIEW_GET_ALL_DATA", data: response.data })
+    })
+  }
+}
+
+export const getDataVendorById = obj => {
+  return async dispatch => {
+    await api.get(`/vendors/${obj.id}`).then(response => {
+      dispatch({ type: "VENDOR_GET_DATA_BY_ID", data: response.data })
     })
   }
 }
@@ -66,6 +113,26 @@ export const updateDataVendorAktif = obj => {
       .then(response => {
         alert("Vendor berhasil diupdate")
         dispatch({ type: "VENDOR_AKTIF_UPDATE_DATA", obj })
+      })
+  }
+}
+
+export const vendorTerverifikasi = obj => {
+  return (dispatch, getState) => {
+    api.get("/vendors-confirm/" + obj.id)
+      .then(response => {
+        alert("Status vendor telah diperbarui")
+        dispatch({ type: "VENDOR_TERVERIFIKASI", obj })
+      })
+  }
+}
+
+export const vendorPersyaratanBelumTerpenuhi = obj => {
+  return (dispatch, getState) => {
+    api.get("/vendors-unqualified/" + obj.id)
+      .then(response => {
+        alert("Status vendor telah diperbarui")
+        dispatch({ type: "VENDOR_PERSYARATAN_BELUM_TERPENUHI", obj })
       })
   }
 }

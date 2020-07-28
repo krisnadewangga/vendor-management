@@ -63,7 +63,31 @@ const DataListReducer = (state = initialState, action) => {
         totalRecords: action.data.length,
         sortIndex: getIndex(action.data, state.data, state.sortIndex)
       }
-    case "VENDOR_AKTIF_GET_DATA_BY_ID":
+    case "VENDOR_IN_REVIEW_GET_DATA":{
+      let total_items = state.allData.length
+      let limit = action.params._limit
+      let totalPages = Math.ceil(total_items/limit)
+      return {
+        ...state,
+        data: action.data,
+        totalPages: totalPages === 0 ? action.totalPages : totalPages,
+        params: action.params,
+        sortIndex: getIndex(
+          state.allData,
+          action.data,
+          state.sortIndex,
+          action.params
+        )
+      }
+    }
+    case "VENDOR_IN_REVIEW_GET_ALL_DATA":
+      return {
+        ...state,
+        allData: action.data,
+        totalRecords: action.data.length,
+        sortIndex: getIndex(action.data, state.data, state.sortIndex)
+      }
+    case "VENDOR_GET_DATA_BY_ID":
       return {
         ...state,
         data: action.data,
@@ -107,6 +131,12 @@ const DataListReducer = (state = initialState, action) => {
       //     return item
       //   }
       // })
+      return { ...state }
+    case "VENDOR_TERVERIFIKASI":
+      console.log(state);
+      return { ...state }
+    case "VENDOR_PERSYARATAN_BELUM_TERPENUHI":
+      console.log(state, action);
       return { ...state }
     case "VENDOR_KATEGORI_GET_ALL_DATA":
       return {
