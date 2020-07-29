@@ -190,8 +190,8 @@ export const getDataVendorKategori = params => {
     let limitItem
 
     if (Object.entries(params).length !== 0) {
-      startItem = params._start ? params._start : (params.page - 1) * params.perPage
-      limitItem = params._limit ? params._limit : params.perPage
+      startItem = params._start !== undefined ? params._start : (params.page - 1) * params.perPage
+      limitItem = params._limit !== undefined ? params._limit : params.perPage
 
       params = {
         _start : startItem,
@@ -255,6 +255,91 @@ export const addDataVendorKategori = obj => {
   }
 }
 
+export const getDataVendorKelas = params => {
+  return async dispatch => {
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = params._start !== undefined ? params._start : (params.page - 1) * params.perPage
+      limitItem = params._limit !== undefined ? params._limit : params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem,
+      }
+
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get("/vendor-classes", { params }).then(response => {
+      dispatch({
+        type: "VENDOR_KELAS_GET_DATA",
+        data: response.data,
+        totalPages: response.data.length,
+        params
+      })
+    })
+  }
+}
+
+export const getInitialDataVendorKelas = () => {
+  return async dispatch => {
+    await api.get("/vendor-classes").then(response => {
+      dispatch({ type: "VENDOR_KELAS_GET_ALL_DATA", data: response.data })
+    })
+  }
+}
+
+export const deleteDataVendorKelas = obj => {
+  return async dispatch => {
+    await api.delete("/vendor-classes/" + obj.id)
+      .then(response => {
+        alert("Kelas vendor berhasil dihapus")
+        dispatch({ type: "VENDOR_KELAS_DELETE_DATA", obj })
+      })
+  }
+}
+
+export const updateDataVendorKelas = obj => {
+  return async (dispatch, getState) => {
+    await api.put("/vendor-classes/" + obj.id, obj)
+      .then(response => {
+        alert("Kelas vendor berhasil diupdate")
+        dispatch({ type: "VENDOR_KELAS_UPDATE_DATA", obj })
+      })
+  }
+}
+
+export const addDataVendorKelas = obj => {
+  return async (dispatch, getState) => {
+    let params = getState().apgVendor.params
+    await api.post("/vendor-classes", obj).then(response => {
+        alert("Kelas vendor berhasil ditambahkan")
+        dispatch({ type: "VENDOR_KELAS_ADD_DATA", obj })
+        dispatch(getDataVendorKelas(params))
+      })
+  }
+}
+
+export const importDataVendorKelas = file => {
+  return async (dispatch, getState) => {
+    let params = getState().apgVendor.params
+    const formData = new FormData()
+    formData.append('data', JSON.stringify({}))
+    formData.append('files.import', file)
+    await api.post("/vendor-classes-import", formData, { headers: {'content-type': 'multipart/form-data'} }).then(response => {
+        alert("Kelas vendor berhasil diimpor")
+        dispatch({ type: "VENDOR_KELAS_IMPORT_DATA", obj: response.data })
+        dispatch(getDataVendorKelas(params))
+      })
+  }
+}
+
 export const getInitialDataProvinsi = () => {
   return async dispatch => {
     await api.get("/reg-provinces").then(response => {
@@ -268,16 +353,5 @@ export const getInitialDataKota = () => {
     await api.get("/reg-regencies").then(response => {
       dispatch({ type: "KOTA_GET_ALL_DATA", data: response.data })
     })
-  }
-}
-
-export const deleteData = obj => {
-  return dispatch => {
-    api.post("/api/datalist/delete-data", {
-        obj
-      })
-      .then(response => {
-        dispatch({ type: "DELETE_DATA", obj })
-      })
   }
 }

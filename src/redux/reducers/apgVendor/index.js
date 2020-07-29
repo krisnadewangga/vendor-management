@@ -232,6 +232,99 @@ const DataListReducer = (state = initialState, action) => {
           )
         }
       }
+    case "VENDOR_KELAS_GET_DATA":{
+      let total_items = state.allData.length
+      let limit = action.params._limit
+      let totalPages = Math.ceil(total_items/limit)
+      return {
+        ...state,
+        data: action.data,
+        totalPages: totalPages === 0 ? action.totalPages : totalPages,
+        params: action.params,
+        sortIndex: getIndex(
+          state.allData,
+          action.data,
+          state.sortIndex,
+          action.params
+        )
+      }
+    }
+    case "VENDOR_KELAS_GET_ALL_DATA":
+      return {
+        ...state,
+        kategori: action.data,
+        allData: action.data,
+        totalRecords: action.data.length,
+        sortIndex: getIndex(action.data, state.data, state.sortIndex)
+      }
+    case "VENDOR_KELAS_ADD_DATA":{
+      let id = state.data.slice(-1)[0].id + 1
+      state.data.push({
+        ...action.obj,
+        id,
+        // popularity: determinePopularity(action.obj.popularity)
+      })
+      moveIndex(
+        state.data,
+        state.data.findIndex(item => item.id === id),
+        0
+      )
+      return {
+        ...state,
+        data: state.data,
+        totalRecords: state.allData.length,
+        sortIndex: getIndex(state.allData, state.data, state.sortIndex)
+      }
+    }
+    case "VENDOR_KELAS_UPDATE_DATA":{
+      state.data.find(item => {
+        if (item.id === action.obj.id) {
+          // let popularity = determinePopularity(action.obj.popularity.popValue)
+          // return Object.assign(item, { ...action.obj, popularity })
+          return Object.assign(item, { ...action.obj })
+        } else {
+          return item
+        }
+      })
+      return { ...state }
+    }
+    case "VENDOR_KELAS_DELETE_DATA":{
+      let index = state.data.findIndex(item => item.id === action.obj.id)
+      let updatedData = [...state.data]
+      updatedData.splice(index, 1)
+      return {
+        ...state,
+        data: updatedData,
+        totalRecords: state.allData.length,
+        sortIndex: getIndex(
+          state.allData,
+          state.data,
+          state.sortIndex,
+          state.params
+        )
+      }
+    }
+    case "VENDOR_KELAS_IMPORT_DATA":{
+      action.obj.forEach(element => {
+        let id = state.data.slice(-1)[0].id + 1
+        state.data.push({
+          ...element,
+          id,
+          // popularity: determinePopularity(action.obj.popularity)
+        })
+        moveIndex(
+          state.data,
+          state.data.findIndex(item => item.id === id),
+          0
+        )
+      });
+      return {
+        ...state,
+        data: state.data,
+        totalRecords: state.allData.length,
+        sortIndex: getIndex(state.allData, state.data, state.sortIndex)
+      }
+    }
     case "PROVINSI_GET_ALL_DATA":
       return {
         ...state,
