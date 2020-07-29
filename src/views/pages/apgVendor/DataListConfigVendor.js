@@ -258,8 +258,8 @@ class DataListConfig extends Component {
         selector: "kota",
         sortable: true,
         cell: row => (
-          <p title={row.kota !== null ? row.kota.nama : ''} className="text-truncate text-bold-500 mb-0">
-            {row.kota !== null ? row.kota.nama : ''}
+          <p title={row.kota ? row.kota.nama : ''} className="text-truncate text-bold-500 mb-0">
+            {row.kota ? row.kota.nama : ''}
           </p>
         )
       },
@@ -268,8 +268,8 @@ class DataListConfig extends Component {
         selector: "propinsi",
         sortable: true,
         cell: row => (
-          <p title={row.provinsi !== null ? row.provinsi.nama : ''} className="text-truncate text-bold-500 mb-0">
-            {row.provinsi !== null ? row.provinsi.nama : ''}
+          <p title={row.provinsi ? row.provinsi.nama : ''} className="text-truncate text-bold-500 mb-0">
+            {row.provinsi ? row.provinsi.nama : ''}
           </p>
         )
       },
@@ -278,8 +278,8 @@ class DataListConfig extends Component {
         selector: "kategori",
         sortable: true,
         cell: row => (
-          <p title={row.vendor_industries.map( x => x.nama)} className="text-truncate text-bold-500 mb-0">
-            {row.vendor_industries.map( x => x.nama)}
+          <p title={row.vendor_industries ? row.vendor_industries.map( x => x.nama) : ''} className="text-truncate text-bold-500 mb-0">
+            {row.vendor_industries ? row.vendor_industries.map( x => x.nama) : ''}
           </p>
         )
       },
@@ -288,8 +288,8 @@ class DataListConfig extends Component {
         selector: "sbu",
         sortable: true,
         cell: row => (
-          <p title={row.sbu !== null ? row.sbu.kode : ''} className="text-truncate text-bold-500 mb-0">
-            {row.sbu !== null ? row.sbu.kode : ''}
+          <p title={row.sbu ? row.sbu.kode : ''} className="text-truncate text-bold-500 mb-0">
+            {row.sbu ? row.sbu.kode : ''}
           </p>
         )
       },
@@ -337,18 +337,18 @@ class DataListConfig extends Component {
     this.props.getInitialDataVendorKategori()
     switch (this.props.vendor) {
       case 'aktif':
-        this.props.getDataVendorAktif(this.props.parsedFilter)
         this.props.getInitialDataVendorAktif()
+        this.props.getDataVendorAktif(this.props.parsedFilter)
         break
 
       case 'review':
-        this.props.getDataVendorInReview(this.props.parsedFilter)
         this.props.getInitialDataVendorInReview()
+        this.props.getDataVendorInReview(this.props.parsedFilter)
         break
 
       case 'bermasalah':
-        this.props.getDataVendorProblem(this.props.parsedFilter)
         this.props.getInitialDataVendorProblem()
+        this.props.getDataVendorProblem(this.props.parsedFilter)
         break
 
       default:
@@ -396,8 +396,8 @@ class DataListConfig extends Component {
           selector: "kota",
           sortable: true,
           cell: row => (
-            <p title={row.kota !== null ? row.kota.nama : ''} className="text-truncate text-bold-500 mb-0">
-              {row.kota !== null ? row.kota.nama : ''}
+            <p title={row.kota ? row.kota.nama : ''} className="text-truncate text-bold-500 mb-0">
+              {row.kota ? row.kota.nama : ''}
             </p>
           )
         },
@@ -406,8 +406,8 @@ class DataListConfig extends Component {
           selector: "propinsi",
           sortable: true,
           cell: row => (
-            <p title={row.provinsi !== null ? row.provinsi.nama : ''} className="text-truncate text-bold-500 mb-0">
-              {row.provinsi !== null ? row.provinsi.nama : ''}
+            <p title={row.provinsi ? row.provinsi.nama : ''} className="text-truncate text-bold-500 mb-0">
+              {row.provinsi ? row.provinsi.nama : ''}
             </p>
           )
         },
@@ -416,8 +416,8 @@ class DataListConfig extends Component {
           selector: "kategori",
           sortable: true,
           cell: row => (
-            <p title={row.vendor_industries.map( x => x.nama)} className="text-truncate text-bold-500 mb-0">
-              {row.vendor_industries.map( x => x.nama)}
+            <p title={row.vendor_industries ? row.vendor_industries.map( x => x.nama) : ''} className="text-truncate text-bold-500 mb-0">
+              {row.vendor_industries ? row.vendor_industries.map( x => x.nama) : ''}
             </p>
           )
         },
@@ -426,8 +426,8 @@ class DataListConfig extends Component {
           selector: "sbu",
           sortable: true,
           cell: row => (
-            <p title={row.sbu !== null ? row.sbu.kode : ''} className="text-truncate text-bold-500 mb-0">
-              {row.sbu !== null ? row.sbu.kode : ''}
+            <p title={row.sbu ? row.sbu.kode : ''} className="text-truncate text-bold-500 mb-0">
+              {row.sbu ? row.sbu.kode : ''}
             </p>
           )
         },

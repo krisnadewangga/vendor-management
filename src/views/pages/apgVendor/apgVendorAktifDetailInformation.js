@@ -155,11 +155,11 @@ class VendorProfile extends React.Component {
                   </tr>
                   <tr>
                     <th>Kota</th>
-                    <th>{data.kota !== null ? data.kota.nama : '-'}</th>
+                    <th>{data.kota ? data.kota.nama : '-'}</th>
                   </tr>
                   <tr>
                     <th>Propinsi</th>
-                    <th>{data.provinsi !== null ? data.provinsi.nama : '-'}</th>
+                    <th>{data.provinsi ? data.provinsi.nama : '-'}</th>
                   </tr>
                   <tr>
                     <th>Nomor Telepon</th>
@@ -171,7 +171,7 @@ class VendorProfile extends React.Component {
                   </tr>
                   <tr>
                     <th>Email</th>
-                    <th>{data.user !== null ? data.user.email : '-'}</th>
+                    <th>{data.user ? data.user.email : '-'}</th>
                   </tr>
                   <tr>
                     <th>Website</th>
@@ -184,16 +184,16 @@ class VendorProfile extends React.Component {
                   <tr>
                     <th>Industri Vendor</th>
                     <th>
-                      { data.vendor_industries.map(x => <span> <Chip className="mr-1" text={x.nama} key={x.id} /> </span>) }
+                      { data.vendor_industries ? data.vendor_industries.map(x => <span> <Chip className="mr-1" text={x.nama} key={x.id} /> </span>) : '-'}
                     </th>
                   </tr>
                   <tr>
                     <th>Kelas Vendor</th>
-                    <th>{data.vendor_class !== null ? data.vendor_class.kegiatan : '-'}</th>
+                    <th>{data.vendor_class ? data.vendor_class.kegiatan : '-'}</th>
                   </tr>
                   <tr>
                     <th>Sertifikat Badan Usaha</th>
-                    <th>{data.sbu !== null ? `${data.sbu.kode} - ${data.sbu.sub_bidang}` : '-'}</th>
+                    <th>{data.sbu ? `${data.sbu.kode} - ${data.sbu.sub_bidang}` : '-'}</th>
                   </tr>
                 </tbody>
               </Table>

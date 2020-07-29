@@ -184,11 +184,74 @@ export const vendorPersyaratanBelumTerpenuhi = obj => {
   }
 }
 
+export const getDataVendorKategori = params => {
+  return async dispatch => {
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = params._start ? params._start : (params.page - 1) * params.perPage
+      limitItem = params._limit ? params._limit : params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem,
+      }
+
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get("/vendor-categories", { params }).then(response => {
+      dispatch({
+        type: "VENDOR_KATEGORI_GET_DATA",
+        data: response.data,
+        totalPages: response.data.length,
+        params
+      })
+    })
+  }
+}
+
 export const getInitialDataVendorKategori = () => {
   return async dispatch => {
     await api.get("/vendor-categories").then(response => {
       dispatch({ type: "VENDOR_KATEGORI_GET_ALL_DATA", data: response.data })
     })
+  }
+}
+
+export const deleteDataVendorKategori = obj => {
+  return async dispatch => {
+    await api.delete("/vendor-categories/" + obj.id)
+      .then(response => {
+        alert("Item berhasil dihapus")
+        dispatch({ type: "VENDOR_KATEGORI_DELETE_DATA", obj })
+      })
+  }
+}
+
+export const updateDataVendorKategori = obj => {
+  return async (dispatch, getState) => {
+    await api.put("/vendor-categories/" + obj.id, obj)
+      .then(response => {
+        alert("Item berhasil diupdate")
+        dispatch({ type: "VENDOR_KATEGORI_UPDATE_DATA", obj })
+      })
+  }
+}
+
+export const addDataVendorKategori = obj => {
+  return async (dispatch, getState) => {
+    let params = getState().apgVendor.params
+    await api.post("/vendor-categories", obj).then(response => {
+        alert("Item berhasil ditambahkan")
+        dispatch({ type: "VENDOR_KATEGORI_ADD_DATA", obj })
+        dispatch(getDataVendorKategori(params))
+      })
   }
 }
 
@@ -218,39 +281,3 @@ export const deleteData = obj => {
       })
   }
 }
-
-// export const addData = obj => {
-//   return (dispatch, getState) => {
-//     let params = getState().dataList.params
-//     api.post("/api/datalist/add-data", {
-//         obj
-//       })
-//       .then(response => {
-//         dispatch({ type: "ADD_DATA", obj })
-//         dispatch(getData(params))
-//       })
-//   }
-// }
-
-// export const addDataItemKategori = obj => {
-//   return (dispatch, getState) => {
-//     let params = getState().dataList.params
-//     if(obj.category === ""){
-//       alert("Data tidak boleh kosong")
-//     }
-//     else{
-//       api.post("/item-categories",
-//           obj
-//         )
-//         .then(response => {
-//         alert("Kategori berhasil ditambahkan")
-//           dispatch({ type: "ADD_DATA", obj })
-//           dispatch(getData(params))
-//         })
-//         .catch(response => {
-//           console.log(obj)
-//           console.log(response)
-//         })
-//     }
-//   }
-// }
