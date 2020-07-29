@@ -25,14 +25,15 @@ import {
 } from "react-feather"
 import { connect } from "react-redux"
 import {
-  getData,
-  getInitialData,
-  deleteData,
-  updateData,
-  addData,
-  filterData
-} from "../../../redux/actions/data-list"
-import Sidebar from "./DataListSidebar"
+  getDataVendorSbu as getData,
+  getInitialDataVendorSbu as getInitialData,
+  deleteDataVendorSbu as deleteData,
+  updateDataVendorSbu as updateData,
+  addDataVendorSbu as addData,
+  filterData,
+  importDataVendorSbu as importData
+} from "../../../redux/actions/apgVendor"
+import Sidebar from "./DataListVendorSBUSidebar"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
@@ -105,7 +106,7 @@ const CustomHeader = props => {
           <Button
             className="add-new-btn"
             color="primary"
-            onClick={() => props.handleSidebar(true, true)}
+            onClick={() => props.handleSidebar(true, true, true)}
             outline>
             <span className="align-middle">Import Data Excel</span>
           </Button>
@@ -169,20 +170,36 @@ class DataListConfig extends Component {
     currentPage: 0,
     columns : [
       {
-        name: "Kode",
+        name: "ID",
         selector: "id",
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
-            {row.name}
+          <p title={row.id} className="text-truncate text-bold-500 mb-0">
+            {row.id}
+          </p>
+        )
+      },
+      {
+        name: "Kode",
+        selector: "kode",
+        sortable: true,
+        minWidth: "250px",
+        cell: row => (
+          <p title={row.kode} className="text-truncate text-bold-500 mb-0">
+            {row.kode}
           </p>
         )
       },
       {
         name: "Sub Bidang",
-        selector: "name",
-        sortable: true
+        selector: "sub_bidang",
+        sortable: true,
+        cell: row => (
+          <p title={row.sub_bidang} className="text-truncate text-bold-500 mb-0">
+            {row.sub_bidang}
+          </p>
+        )
       },
       {
         name: "Actions",
@@ -204,6 +221,7 @@ class DataListConfig extends Component {
     rowsPerPage: 4,
     sidebar: false,
     currentData: null,
+    importData: "",
     selected: [],
     totalRecords: 0,
     sortIndex: [],
@@ -213,8 +231,8 @@ class DataListConfig extends Component {
   thumbView = this.props.thumbView
 
   componentDidMount() {
-    this.props.getData(this.props.parsedFilter)
     this.props.getInitialData()
+    this.props.getData(this.props.parsedFilter)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -222,13 +240,34 @@ class DataListConfig extends Component {
       this.thumbView = false
       let columns = [
         {
-          name: "Kode",
+          name: "ID",
           selector: "id",
           sortable: true,
           minWidth: "250px",
           cell: row => (
-            <p title={row.name} className="text-truncate text-bold-500 mb-0">
-              {row.name}
+            <p title={row.id} className="text-truncate text-bold-500 mb-0">
+              {row.id}
+            </p>
+          )
+        },
+        {
+          name: "Kode",
+          selector: "kode",
+          sortable: true,
+          minWidth: "250px",
+          cell: row => (
+            <p title={row.kode} className="text-truncate text-bold-500 mb-0">
+              {row.kode}
+            </p>
+          )
+        },
+        {
+          name: "Sub Bidang",
+          selector: "sub_bidang",
+          sortable: true,
+          cell: row => (
+            <p title={row.sub_bidang} className="text-truncate text-bold-500 mb-0">
+              {row.sub_bidang}
             </p>
           )
         },
@@ -266,12 +305,13 @@ class DataListConfig extends Component {
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
     history.push(`/apg/vendor-sbu/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
-    getData({ page: parsedFilter.page, perPage: value })
+    getData({ page: page, perPage: value })
   }
 
-  handleSidebar = (boolean, addNew = false) => {
+  handleSidebar = (boolean, addNew = false, importData = false) => {
     this.setState({ sidebar: boolean })
     if (addNew === true) this.setState({ currentData: null, addNew: true })
+    importData === true ? this.setState({ importData:true }) : this.setState({ importData:false })
   }
 
   handleDelete = row => {
@@ -322,6 +362,7 @@ class DataListConfig extends Component {
       value,
       rowsPerPage,
       currentData,
+      importData,
       sidebar,
       totalRecords,
       sortIndex,
@@ -394,6 +435,8 @@ class DataListConfig extends Component {
           getData={this.props.getData}
           dataParams={this.props.parsedFilter}
           addNew={this.state.addNew}
+          importData={importData}
+          import={this.props.importData}
         />
         <div
           className={classnames("data-list-overlay", {
@@ -408,7 +451,7 @@ class DataListConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    dataList: state.apgVendor
   }
 }
 
@@ -418,5 +461,6 @@ export default connect(mapStateToProps, {
   updateData,
   addData,
   getInitialData,
-  filterData
+  filterData,
+  importData
 })(DataListConfig)

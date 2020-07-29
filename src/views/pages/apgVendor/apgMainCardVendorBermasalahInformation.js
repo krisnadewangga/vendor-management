@@ -7,7 +7,7 @@ class ListView extends React.Component {
   render() {
     return (
         <Row>
-          <ApgVendorAktifDetailInformation vendor="aktif" id={this.props.location.pathname.split('/').pop()}/>
+          <ApgVendorAktifDetailInformation vendor="bermasalah" id={this.props.location.pathname.split('/').pop()}/>
         </Row>
     )
   }

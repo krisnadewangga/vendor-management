@@ -14,7 +14,7 @@ class ListView extends React.Component {
         />
         <Row>
           <Col sm="12">
-            <ListViewConfig parsedFilter={queryString.parse(this.props.location.search)}/>
+            <ListViewConfig vendor="aktif" parsedFilter={queryString.parse(this.props.location.search)}/>
           </Col>
         </Row>
       </React.Fragment>
