@@ -340,6 +340,91 @@ export const importDataVendorKelas = file => {
   }
 }
 
+export const getDataVendorSbu = params => {
+  return async dispatch => {
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = params._start !== undefined ? params._start : (params.page - 1) * params.perPage
+      limitItem = params._limit !== undefined ? params._limit : params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem,
+      }
+
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get("/sbus", { params }).then(response => {
+      dispatch({
+        type: "VENDOR_SBU_GET_DATA",
+        data: response.data,
+        totalPages: response.data.length,
+        params
+      })
+    })
+  }
+}
+
+export const getInitialDataVendorSbu = () => {
+  return async dispatch => {
+    await api.get("/sbus").then(response => {
+      dispatch({ type: "VENDOR_SBU_GET_ALL_DATA", data: response.data })
+    })
+  }
+}
+
+export const deleteDataVendorSbu = obj => {
+  return async dispatch => {
+    await api.delete("/sbus/" + obj.id)
+      .then(response => {
+        alert("Sbu vendor berhasil dihapus")
+        dispatch({ type: "VENDOR_SBU_DELETE_DATA", obj })
+      })
+  }
+}
+
+export const updateDataVendorSbu = obj => {
+  return async (dispatch, getState) => {
+    await api.put("/sbus/" + obj.id, obj)
+      .then(response => {
+        alert("Sbu vendor berhasil diupdate")
+        dispatch({ type: "VENDOR_SBU_UPDATE_DATA", obj })
+      })
+  }
+}
+
+export const addDataVendorSbu = obj => {
+  return async (dispatch, getState) => {
+    let params = getState().apgVendor.params
+    await api.post("/sbus", obj).then(response => {
+        alert("Sbu vendor berhasil ditambahkan")
+        dispatch({ type: "VENDOR_SBU_ADD_DATA", obj })
+        dispatch(getDataVendorSbu(params))
+      })
+  }
+}
+
+export const importDataVendorSbu = file => {
+  return async (dispatch, getState) => {
+    let params = getState().apgVendor.params
+    const formData = new FormData()
+    formData.append('data', JSON.stringify({}))
+    formData.append('files.import', file)
+    await api.post("/sbus-import", formData, { headers: {'content-type': 'multipart/form-data'} }).then(response => {
+        alert("Sbu vendor berhasil diimpor")
+        dispatch({ type: "VENDOR_SBU_IMPORT_DATA", obj: response.data })
+        dispatch(getDataVendorSbu(params))
+      })
+  }
+}
+
 export const getInitialDataProvinsi = () => {
   return async dispatch => {
     await api.get("/reg-provinces").then(response => {
