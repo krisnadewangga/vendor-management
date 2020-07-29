@@ -35,7 +35,7 @@ function BasicDropzone(props) {
   return (
     <section>
       <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
+        <input {...getInputProps({ multiple: false, onChange:(e) => props.passImage( {file: e.target.files[0]} )} )} />
         <p className="mx-1">
           Drag 'n' drop file disini, atau klik untuk memilih file
         </p>
@@ -48,7 +48,7 @@ function BasicDropzone(props) {
 class DropzoneBasic extends React.Component {
   render() {
     return (
-      <BasicDropzone />
+      <BasicDropzone passImage={this.props.passImage} />
     )
   }
 }

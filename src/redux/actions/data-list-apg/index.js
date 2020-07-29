@@ -113,7 +113,7 @@ export const getDataSatuan = params => {
         _limit: 4
       }
     }
-    
+
     await api.get("/item-units", { params }).then(response => {
       dispatch({
         type: "GET_DATA",
@@ -136,7 +136,7 @@ export const getInitialData = () => {
 export const getInitialDataKategori = () => {
   return async dispatch => {
     await api.get("/item-categories").then(response => {
-      dispatch({ type: "GET_ALL_DATA", data: response.data })
+      dispatch({ type: "GET_ALL_DATA_KATEGORI", data: response.data })
     })
   }
 }
@@ -144,7 +144,7 @@ export const getInitialDataKategori = () => {
 export const getInitialDataSubKategori = () => {
   return async dispatch => {
     await api.get("/item-sub-categories").then(response => {
-      dispatch({ type: "GET_ALL_DATA", data: response.data })
+      dispatch({ type: "GET_ALL_DATA_SUB_KATEGORI", data: response.data })
     })
   }
 }
@@ -152,7 +152,7 @@ export const getInitialDataSubKategori = () => {
 export const getInitialDataSatuan = () => {
   return async dispatch => {
     await api.get("/item-units").then(response => {
-      dispatch({ type: "GET_ALL_DATA", data: response.data })
+      dispatch({ type: "GET_ALL_DATA_UNIT", data: response.data })
     })
   }
 }
@@ -265,6 +265,40 @@ export const addData = obj => {
   }
 }
 
+export const addDataItem = obj => {
+  return (dispatch, getState) => {
+    let params = getState().dataListApg.params
+    // if(obj.file === undefined){
+    //   alert("Gambar tidak boleh kosong")
+    // } else if(obj.nama_item === ""){
+    //   alert("Nama item tidak boleh kosong")
+    // } else if(obj.item_category === ""){
+    //   alert("Kategori tidak boleh kosong")
+    // } else if(obj.item_sub_category === ""){
+    //   alert("Sub kategori tidak boleh kosong")
+    // } else if(obj.item_unit === ""){
+    //   alert("Satuan tidak boleh kosong")
+    // }
+    // else{
+
+    // }
+    const formData = new FormData()
+    formData.append('files.gambar', obj.file.file)
+    formData.append('data', JSON.stringify(obj))
+    api
+      .post("/items", formData, { headers: {'content-type': 'multipart/form-data'} })
+      .then(response => {
+      alert("Item berhasil ditambahkan")
+        dispatch({ type: "ADD_DATA", obj })
+        dispatch(getData({params}))
+      })
+      .catch(response => {
+        console.log(obj)
+        console.log(response.response)
+      })
+  }
+}
+
 export const addDataKategori = obj => {
   return (dispatch, getState) => {
     let params = getState().dataListApg.params
@@ -273,7 +307,7 @@ export const addDataKategori = obj => {
     }
     else{
       api
-        .post("/item-categories", 
+        .post("/item-categories",
           obj
         )
         .then(response => {
@@ -297,7 +331,7 @@ export const addDataSubKategori = obj => {
     }
     else{
       api
-        .post("/item-sub-categories", 
+        .post("/item-sub-categories",
           obj
         )
         .then(response => {
@@ -321,7 +355,7 @@ export const addDataSatuan = obj => {
     }
     else{
       api
-        .post("/item-units", 
+        .post("/item-units",
           obj
         )
         .then(response => {
