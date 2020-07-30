@@ -7,7 +7,9 @@ import {
   getInitialDataKategori,
   getInitialDataSatuan,
   getInitialDataSubKategori,
-  addDataItem
+  addDataItem,
+  getDataItemById,
+  updateDataItem
 } from "../../../redux/actions/data-list-apg"
 import { connect } from "react-redux"
 import { history } from "../../../history"
@@ -15,39 +17,41 @@ import { history } from "../../../history"
 import "../../../assets/scss/plugins/extensions/dropzone.scss"
 
 class MainCards extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    const id = props.location.pathname.split('/').pop();
+    if (!isNaN(id)) {
+      return {
+        currentData: props.data
+      }
+    }
+
+    // Return null if the state hasn't changed
+    return null
+  }
+
   state = {
-    file: ""
+    file: "",
+    currentData: null
   }
 
   componentDidMount() {
     this.props.getInitialDataKategori()
     this.props.getInitialDataSubKategori()
     this.props.getInitialDataSatuan()
+
+    const id = this.props.location.pathname.split('/').pop();
+    if (!isNaN(id)) {
+      this.props.getDataItemById(id)
+    }
   }
 
   handleSubmit = obj => {
-    this.props.addDataItem(obj)
-    window.location.href = '/apg/items-semua'
-    // history.push('/apg/items-semua')
-
-    // obj.preventDefault()
-    // console.log(obj, obj.target, this.state);
-    // if (this.props.importData) {
-    //   /* do import */
-    //   this.props.import(obj.file)
-    // } else {
-    //   if (this.props.data !== null) {
-    //     this.props.updateData(obj)
-    //   } else {
-    //     this.addNew = true
-    //     this.props.addData(obj)
-    //   }
-    // }
-    // let params = Object.keys(this.props.dataParams).length
-    //   ? this.props.dataParams
-    //   : { page: 1, perPage: 4 }
-    // this.props.handleSidebar(false, true)
-    // this.props.getData(params)
+    console.log(obj);
+    if (obj.update) {
+      this.props.updateDataItem(obj)
+    }else {
+      this.props.addDataItem(obj)
+    }
   }
 
   passImage = file => {
@@ -56,7 +60,7 @@ class MainCards extends React.Component {
 
   render() {
     let { kategori, subKategori, satuan } = this.props
-    let { file } = this.state
+    let { file, currentData } = this.state
     return (
       <React.Fragment>
         <Breadcrumbs
@@ -69,10 +73,10 @@ class MainCards extends React.Component {
           <Form className="mt-2" >
             <Row>
               <Col lg="6" sm="12">
-                  <ImageUpload passImage={this.passImage} />
+                  <ImageUpload passImage={this.passImage} data={currentData} />
               </Col>
               <Col lg="6" sm="12">
-                  <InputForm sendData={this.handleSubmit} kategori={kategori} subKategori={subKategori} satuan={satuan} image={file} />
+                  <InputForm sendData={this.handleSubmit} kategori={kategori} subKategori={subKategori} satuan={satuan} image={file} data={currentData} />
               </Col>
             </Row>
           </Form>
@@ -88,6 +92,7 @@ const mapStateToProps = state => {
     kategori: state.dataListApg.kategori,
     subKategori: state.dataListApg.subKategori,
     satuan: state.dataListApg.satuan,
+    data: state.dataListApg.dataById
   }
 }
 
@@ -95,5 +100,7 @@ export default connect(mapStateToProps, {
   getInitialDataKategori,
   getInitialDataSatuan,
   getInitialDataSubKategori,
-  addDataItem
+  addDataItem,
+  getDataItemById,
+  updateDataItem
 })(MainCards)

@@ -32,6 +32,17 @@ export const getData = params => {
   }
 }
 
+export const getDataItemById = id => {
+  return async dispatch => {
+    await api.get("/items/" + id).then(response => {
+      dispatch({
+        type: "GET_DATA_ITEM_BY_ID",
+        data: response.data,
+      })
+    })
+  }
+}
+
 export const getDataKategori = params => {
   return async dispatch => {
     let startItem
@@ -211,6 +222,41 @@ export const updateData = params => {
   }
 }
 
+export const updateDataItem = obj => {
+  return (dispatch, getState) => {
+    // if(obj.file === undefined){
+    //   alert("Gambar tidak boleh kosong")
+    // } else if(obj.nama_item === ""){
+    //   alert("Nama item tidak boleh kosong")
+    // } else if(obj.item_category === ""){
+    //   alert("Kategori tidak boleh kosong")
+    // } else if(obj.item_sub_category === ""){
+    //   alert("Sub kategori tidak boleh kosong")
+    // } else if(obj.item_unit === ""){
+    //   alert("Satuan tidak boleh kosong")
+    // }
+    // else{
+
+    // }
+    const formData = new FormData()
+    if (obj.file) {
+      formData.append('files.gambar', obj.file.file)
+    }
+    formData.append('data', JSON.stringify(obj))
+    api
+      .put("/items/" + obj.id, formData, { headers: {'content-type': 'multipart/form-data'} })
+      .then(response => {
+        alert("Item berhasil diperbarui")
+        dispatch({ type: "UPDATE_DATA" })
+        window.location.href = '/apg/items-semua'
+      })
+      .catch(response => {
+        console.log(obj)
+        console.log(response.response)
+      })
+  }
+}
+
 
 export const updateDataKategori = obj => {
   return (dispatch, getState) => {
@@ -282,6 +328,7 @@ export const addDataItem = obj => {
     // else{
 
     // }
+    console.log(obj);
     const formData = new FormData()
     formData.append('files.gambar', obj.file.file)
     formData.append('data', JSON.stringify(obj))
@@ -291,6 +338,7 @@ export const addDataItem = obj => {
       alert("Item berhasil ditambahkan")
         dispatch({ type: "ADD_DATA", obj })
         dispatch(getData({params}))
+        window.location.href = '/apg/items-semua'
       })
       .catch(response => {
         console.log(obj)

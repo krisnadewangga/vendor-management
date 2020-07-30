@@ -9,62 +9,42 @@ import {
 } from "reactstrap"
 import Select from "react-select"
 
+const pilihOptions = {value: null, label: "Pilih"}
+
 class FloatingLabels extends React.Component {
   state = {
     id: "",
     nama_item: "",
     deskripsi: "",
-    item_category:"",
-    item_sub_category:"",
-    item_unit:"",
+    item_category:"Pilih",
+    item_sub_category:"Pilih",
+    item_unit:"Pilih",
     tipe_khusus: "",
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.data !== null && prevProps.data === null) {
+    if (this.props.data !== null && this.props.data !== undefined && prevProps.data === undefined) {
       if (this.props.data.id !== prevState.id) {
         this.setState({ id: this.props.data.id })
       }
-      if (this.props.data.nama_item !== prevState.nama_item) {
-        this.setState({ nama_item: this.props.data.nama_item })
-      }
-      if (this.props.data.deskripsi !== prevState.deskripsi) {
-        this.setState({ deskripsi: this.props.data.deskripsi })
-      }
-      if (this.props.data.item_category !== prevState.item_category) {
-        this.setState({ item_category: this.props.data.item_category })
-      }
-      if (this.props.data.item_sub_category !== prevState.item_sub_category) {
-        this.setState({ item_sub_category: this.props.data.item_sub_category })
-      }
-      if (this.props.data.item_unit !== prevState.item_unit) {
-        this.setState({ item_unit: this.props.data.item_unit })
-      }
-      if (this.props.data.tipe_khusus !== prevState.tipe_khusus) {
-        this.setState({ tipe_khusus: this.props.data.tipe_khusus })
-      }
-    }
-    if (this.props.data === null && prevProps.data !== null) {
-      this.setState({
-        id: "",
-        nama_item: "",
-        deskripsi: "",
-        item_category:"",
-        item_sub_category:"",
-        item_unit:"",
-        tipe_khusus: "",
-      })
-    }
-    if (this.addNew) {
-      this.setState({
-        id: "",
-        nama_item: "",
-        deskripsi: "",
-        item_category:"",
-        item_sub_category:"",
-        item_unit:"",
-        tipe_khusus: "",
-      })
+        if (this.props.data.nama_item !== prevState.nama_item) {
+          this.setState({ nama_item: this.props.data.nama_item })
+        }
+        if (this.props.data.deskripsi !== prevState.deskripsi) {
+          this.setState({ deskripsi: this.props.data.deskripsi })
+        }
+        if (this.props.data.item_category.id !== prevState.item_category) {
+          this.setState({ item_category: this.props.data.item_category.id })
+        }
+        if (this.props.data.item_sub_category.id !== prevState.item_sub_category) {
+          this.setState({ item_sub_category: this.props.data.item_sub_category.id })
+        }
+        if (this.props.data.item_unit.id !== prevState.item_unit) {
+          this.setState({ item_unit: this.props.data.item_unit.id })
+        }
+        if (this.props.data.tipe_khusus !== prevState.tipe_khusus) {
+          this.setState({ tipe_khusus: this.props.data.tipe_khusus })
+        }
     }
   }
 
@@ -73,61 +53,28 @@ class FloatingLabels extends React.Component {
     if (this.props.image) {
       obj = {
         ...obj,
-        file: this.props.image
+        file: this.props.image,
       }
     }
+
+    obj = {
+      ...obj,
+      update: this.props.data !== null && this.props.data !== undefined ? true : false
+    }
     this.props.sendData(obj)
-    // console.log(obj);
-    // console.log('input', obj.item_category === "", obj.item_category === undefined, obj.item_category === null);
-    // console.log(obj, obj.target, this.state);
-    // if (this.props.importData) {
-    //   /* do import */
-    //   this.props.import(obj.file)
-    // } else {
-    //   if (this.props.data !== null) {
-    //     this.props.updateData(obj)
-    //   } else {
-    //     this.addNew = true
-    //     this.props.addData(obj)
-    //   }
-    // }
-    // let params = Object.keys(this.props.dataParams).length
-    //   ? this.props.dataParams
-    //   : { page: 1, perPage: 4 }
-    // this.props.handleSidebar(false, true)
-    // this.props.getData(params)
   }
 
   render() {
-    let { kategori, subKategori, satuan } = this.props
-    let { nama_item, deskripsi, tipe_khusus } = this.state
-
-    let valueKategori = kategori.map(element => {
-      return {
-        value: element.id, label: element.category
-      }
-    });
-
-    let valueSubKategori = subKategori.map(element => {
-      return {
-        value: element.id, label: element.sub_category
-      }
-    });
-
-    let valueSatuan = satuan.map(element => {
-      return {
-        value: element.id, label: element.unit
-      }
-    });
-
+    let { kategori, subKategori, satuan, data } = this.props
+    let { nama_item, deskripsi, item_category, item_sub_category, item_unit, tipe_khusus } = this.state
     return (
       <Row>
         <Col sm="12">
           <FormGroup>
-            <Label for="nama">Nama Item</Label>
+            <Label for="nama_item">Nama Item*</Label>
             <Input
               type="text"
-              id="nama"
+              id="nama_item"
               placeholder="Nama Item"
               name="nama_item"
               value={nama_item}
@@ -137,10 +84,10 @@ class FloatingLabels extends React.Component {
         </Col>
         <Col sm="12">
           <FormGroup>
-            <Label for="spesifikasi">Spesifikasi</Label>
+            <Label for="deskripsi">Spesifikasi</Label>
             <Input
               type="textarea"
-              id="spesifikasi"
+              id="deskripsi"
               rows="2"
               placeholder="Spesifikasi"
               name="deskripsi"
@@ -151,49 +98,55 @@ class FloatingLabels extends React.Component {
         </Col>
         <Col sm="12">
           <FormGroup>
-            <Label for="mobileFloating">Kategori</Label>
-            <Select
+            <Label for="data-kategori">Kategori*</Label>
+            <Input
+              type="select"
+              id="data-kategori"
               className="React"
-              classNamePrefix="select"
-              defaultValue={kategori}
-              name="color"
-              options={valueKategori}
-              onChange={(e) => this.setState({ item_category: e.value })}
-            />
+              classnameprefix="select"
+              value={item_category}
+              onChange={e => this.setState({ item_category: parseInt(e.target.value) })}>
+                <option value="Pilih">Pilih Kategori</option>
+                {kategori.map((x) => <option value={x.id} key={x.id}>{x.category}</option>)}
+            </Input>
           </FormGroup>
         </Col>
         <Col sm="12">
           <FormGroup>
-            <Label for="passwordFloating">Sub Kategori</Label>
-            <Select
+            <Label for="data-item_sub_category">Sub Kategori*</Label>
+            <Input
+              type="select"
+              id="data-item_sub_category"
               className="React"
-              classNamePrefix="select"
-              defaultValue={subKategori}
-              name="color"
-              options={valueSubKategori}
-              onChange={(e) => this.setState({ item_sub_category: e.value })}
-            />
+              classnameprefix="select"
+              value={item_sub_category}
+              onChange={e => this.setState({ item_sub_category: parseInt(e.target.value) })}>
+                <option value="Pilih">Pilih Sub Kategori</option>
+                {subKategori.map((x) => <option value={x.id} key={x.id}>{x.sub_category}</option>)}
+            </Input>
           </FormGroup>
         </Col>
         <Col sm="12">
           <FormGroup>
-            <Label for="passwordFloating">Satuan</Label>
-            <Select
+            <Label for="data-item_unit">Satuan*</Label>
+            <Input
+              type="select"
+              id="data-item_unit"
               className="React"
-              classNamePrefix="select"
-              defaultValue={satuan}
-              name="color"
-              options={valueSatuan}
-              onChange={(e) => this.setState({ item_unit: e.value })}
-            />
+              classnameprefix="select"
+              value={item_unit}
+              onChange={e => this.setState({ item_unit: parseInt(e.target.value) })}>
+                <option value="Pilih">Pilih Unit</option>
+                {satuan.map((x) => <option value={x.id} key={x.id}>{x.unit}</option>)}
+            </Input>
           </FormGroup>
         </Col>
         <Col sm="12">
           <FormGroup>
-            <Label for="tipe-khusus">Tipe Khusus</Label>
+            <Label for="tipe_khusus">Tipe Khusus</Label>
             <Input
               type="text"
-              id="tipe-khusus"
+              id="tipe_khusus"
               placeholder="Tipe Khusus"
               name="tipe_khusus"
               value={tipe_khusus}
@@ -217,7 +170,7 @@ class FloatingLabels extends React.Component {
               className="mb-1"
               onClick={(e) => this.handleSubmit(e, this.state)}
             >
-              Simpan
+              {data !== null && data !== undefined ? 'Ubah' : 'Simpan'}
             </Button.Ripple>
           </FormGroup>
         </Col>
