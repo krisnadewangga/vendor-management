@@ -35,12 +35,18 @@ function BasicDropzone(props) {
   return (
     <section>
       <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
+        <input {...getInputProps({ multiple: false, onChange:(e) => props.passImage( {file: e.target.files[0]} )} )} />
         <p className="mx-1">
           Drag 'n' drop file disini, atau klik untuk memilih file
         </p>
       </div>
-      <aside className="thumb-container">{thumbs}</aside>
+      <aside className="thumb-container">{ thumbs.length === 0 && (props.data !== null && props.data !== undefined) ? (
+        <div className="dz-thumb" key={props.data.gambar.name}>
+          <div className="dz-thumb-inner">
+            <img src={process.env.REACT_APP_URI_API + props.data.gambar.url} className="dz-img" alt={props.data.gambar.name} />
+          </div>
+        </div>
+      ) : thumbs}</aside>
     </section>
   )
 }
@@ -48,7 +54,7 @@ function BasicDropzone(props) {
 class DropzoneBasic extends React.Component {
   render() {
     return (
-      <BasicDropzone />
+      <BasicDropzone passImage={this.props.passImage} data={this.props.data} />
     )
   }
 }

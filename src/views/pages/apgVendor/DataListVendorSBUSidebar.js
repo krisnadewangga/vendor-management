@@ -15,6 +15,8 @@ class DataListSidebar extends Component {
   addNew = false
 
   componentDidUpdate(prevProps, prevState) {
+    console.log('this.props', this.props, this.props.data !== null);
+    console.log('prevProps', prevProps, prevProps.data === null);
     if (this.props.data !== null && prevProps.data === null) {
       if (this.props.data.id !== prevState.id) {
         this.setState({ id: this.props.data.id })
