@@ -8,10 +8,21 @@ import { connect } from "react-redux"
 import { history } from "../../../../history"
 
 class LoginJWT extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    if (props.role !== state.role) {
+      return {
+        role: props.role
+      }
+    }
+    // Return null if the state hasn't changed
+    return null
+  }
+
   state = {
     identifier: "isur@test.com",
     password: "123456",
-    remember: false
+    remember: false,
+    role: this.props.role
   }
 
   handleLogin = e => {
@@ -25,8 +36,8 @@ class LoginJWT extends React.Component {
           <Form action="/" onSubmit={this.handleLogin}>
             <FormGroup className="form-label-group position-relative has-icon-left">
               <Input
-                type="email"
-                placeholder="Email"
+                type="text"
+                placeholder="Nama Pengguna / Email"
                 value={this.state.identifier}
                 onChange={e => this.setState({ identifier: e.target.value })}
                 required
@@ -34,7 +45,7 @@ class LoginJWT extends React.Component {
               <div className="form-control-position">
                 <Mail size={15} />
               </div>
-              <Label>Email</Label>
+              <Label>Nama Pengguna / Email</Label>
             </FormGroup>
             <FormGroup className="form-label-group position-relative has-icon-left">
               <Input
@@ -62,15 +73,17 @@ class LoginJWT extends React.Component {
               </div>
             </FormGroup>
             <div className="d-flex justify-content-between">
-              <Button.Ripple
-                color="primary"
-                outline
-                onClick={() => {
-                  history.push("/pages/register")
-                }}
-              >
-                Registerasi Rekanan
-              </Button.Ripple>
+              {this.state.role === 'vendor' ? (
+                <Button.Ripple
+                  color="primary"
+                  outline
+                  onClick={() => {
+                    history.push("/pages/register")
+                  }}
+                >
+                  Registerasi Rekanan
+                </Button.Ripple>
+              ) : null}
               <Button.Ripple color="primary" type="submit">
                 Masuk
               </Button.Ripple>
@@ -83,7 +96,8 @@ class LoginJWT extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    values: state.auth.login
+    values: state.auth.login,
+    role: state.auth.login.userRole
   }
 }
 export default connect(mapStateToProps, { loginWithJWT })(LoginJWT)

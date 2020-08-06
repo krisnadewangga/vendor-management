@@ -123,7 +123,8 @@ class SideMenuContent extends React.Component {
   render() {
     // Loop over sidebar items
     // eslint-disable-next-line
-    const menuItems = navigationConfig.map(item => {
+    const navigation = this.props.currentUser === 'vendor' ? navigationConfig.vendorMenu : navigationConfig.apgMenu
+    const menuItems = navigation.map(item => {
       const CustomAnchorTag = item.type === "external-link" ? `a` : Link
       // checks if item has groupheader
       if (item.type === "groupHeader") {
