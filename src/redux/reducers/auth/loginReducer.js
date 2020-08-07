@@ -1,12 +1,11 @@
 function role() {
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-  console.log('loggedInUser', loggedInUser);
 
   if (loggedInUser) {
     return loggedInUser.user.role.type
   }
 
-  return 'apg'
+  return '-'
 }
 export const login = (state = { userRole: role() }, action) => {
   switch (action.type) {
