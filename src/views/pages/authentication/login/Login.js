@@ -18,22 +18,49 @@ import LoginAuth0 from "./LoginAuth0"
 import LoginFirebase from "./LoginFirebase"
 import LoginJWT from "./LoginJWT"
 import axios from "axios"
+import { changeRole } from "../../../../redux/actions/auth/loginActions"
+import { connect } from "react-redux"
 
 class Login extends React.Component {
-  state = {
-    activeTab: "1"
+  constructor(props) {
+    super(props);
+    // always set apg to default
+    this.props.changeRole("apg")
   }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.role !== state.role) {
+      return {
+        role: props.role
+      }
+    }
+    // Return null if the state hasn't changed
+    return null
+  }
+
+  state = {
+    activeTab: "1",
+    role: 'apg'
+  }
+
   toggle = tab => {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
       })
     }
+
+    if (tab === "1") {
+      this.props.changeRole("apg")
+    } else if (tab === "2") {
+      this.props.changeRole("vendor")
+    }
   }
+
   // componentDidMount(){
-  //   axios.get("https://apgbe.btoz.co.id/register-verifikasi/?confirmation=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM3LCJpYXQiOjE1OTI4MTk4OTAsImV4cCI6MTU5NTQxMTg5MH0.5h5OPBfLZYOvqWJDv5kh6CIXStleDqTtGtLbZ315l2M")
-  //   .then(response => console.log(response))
-  //   .catch(response => console.log(response))
+    // axios.get("https://apgbe.btoz.co.id/register-verifikasi/?confirmation=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM3LCJpYXQiOjE1OTI4MTk4OTAsImV4cCI6MTU5NTQxMTg5MH0.5h5OPBfLZYOvqWJDv5kh6CIXStleDqTtGtLbZ315l2M")
+    // .then(response => console.log(response))
+    // .catch(response => console.log(response))
   // }
   render() {
     return (
@@ -97,7 +124,7 @@ class Login extends React.Component {
                       <LoginJWT />
                     </TabPane>
                     <TabPane tabId="2">
-                    <LoginJWT />
+                      <LoginJWT />
                     </TabPane>
                   </TabContent>
                 </Card>
@@ -109,4 +136,10 @@ class Login extends React.Component {
     )
   }
 }
-export default Login
+
+const mapStateToProps = state => {
+  return {
+    role: state.auth.login.userRole
+  }
+}
+export default connect(mapStateToProps, { changeRole })(Login)
