@@ -4,6 +4,9 @@ import DocumentCard from "./DocumentCard"
 import StockCard from "./StockCard"
 import OrderCard from "./OrderCard"
 import "../../../assets/scss/pages/dashboard-analytics.scss"
+import { connect } from "react-redux"
+import { getDashboardVendor } from "../../../redux/actions/dashboard"
+
 
 let $primary = "#7367F0",
   $danger = "#EA5455",
@@ -18,18 +21,29 @@ let $primary = "#7367F0",
   $white = "#fff"
 
 class VendorDashboard extends React.Component {
+  state = {
+    doc: 0,
+    stock: 0,
+    order: 0
+  }
+
+  componentDidMount() {
+    this.props.getDashboardVendor()
+  }
+
   render() {
+    let { doc, item, po } = this.props.dashboard
     return (
       <React.Fragment>
         <Row className="match-height">
           <Col lg="4" md="12">
-            <DocumentCard />
+            <DocumentCard data={doc} />
           </Col>
           <Col lg="4" md="6" sm="12">
-            <StockCard />
+            <StockCard data={item} />
           </Col>
           <Col lg="4" md="6" sm="12">
-            <OrderCard />
+            <OrderCard data={po} />
           </Col>
         </Row>
       </React.Fragment>
@@ -37,4 +51,10 @@ class VendorDashboard extends React.Component {
   }
 }
 
-export default VendorDashboard
+const mapStateToProps = state => {
+  return {
+    dashboard: state.dashboard.dashboardVendor,
+  }
+}
+
+export default connect(mapStateToProps, { getDashboardVendor })(VendorDashboard)

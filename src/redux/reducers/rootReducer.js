@@ -10,6 +10,7 @@ import dataList from "./data-list/"
 import dataListApg from "./data-list-apg/"
 import dataListVendor from "./data-list-vendor/"
 import apgVendor from "./apgVendor/"
+import dashboard from "./dashboard"
 
 const rootReducer = combineReducers({
   calendar: calenderReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   dataList: dataList,
   dataListApg: dataListApg,
   dataListVendor: dataListVendor,
-  apgVendor: apgVendor
+  apgVendor: apgVendor,
+  dashboard: dashboard
 })
 
 export default rootReducer
