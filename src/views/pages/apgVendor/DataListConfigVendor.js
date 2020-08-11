@@ -26,19 +26,25 @@ import {
 } from "react-feather"
 import { connect } from "react-redux"
 import {
-  getData,
-  getInitialData,
-  deleteData,
-  updateData,
-  addData,
+  getDataVendorAktif,
+  getInitialDataVendorAktif,
+  getDataVendorInReview,
+  getInitialDataVendorInReview,
+  getDataVendorProblem,
+  getInitialDataVendorProblem,
+  getInitialDataProvinsi,
+  getInitialDataKota,
+  getInitialDataVendorKategori,
   filterData
-} from "../../../redux/actions/data-list"
+} from "../../../redux/actions/apgVendor"
 import Sidebar from "./DataListSidebar"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
 import "../../../assets/scss/plugins/extensions/react-paginate.scss"
 import "../../../assets/scss/pages/data-list.scss"
+
+const urlPrefix = "/apg/vendor-aktif"
 
 const chipColors = {
   "on hold": "warning",
@@ -82,6 +88,22 @@ const ActionsComponent = props => {
 }
 
 const CustomHeader = props => {
+  let modifiers = {
+    setMaxHeight: {
+      enabled: true,
+      order: 890,
+      fn: (data) => {
+        return {
+          ...data,
+          styles: {
+            ...data.styles,
+            overflow: 'auto',
+            maxHeight: '100px',
+          },
+        };
+      },
+    },
+  }
   return (
     <React.Fragment>
       <Row>
@@ -96,10 +118,10 @@ const CustomHeader = props => {
             >
               <ChevronDown size={20} />
             </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem tag="a">Option 1</DropdownItem>
-              <DropdownItem tag="a">Option 2</DropdownItem>
-              <DropdownItem tag="a">Option 3</DropdownItem>
+            <DropdownMenu
+              modifiers={modifiers}
+              >
+              {props.kategori.map((x) => <DropdownItem onClick={() => props.handlePageByKategori({kategori:x.id})} key={x.id}>{x.nama}</DropdownItem>)}
             </DropdownMenu>
             </UncontrolledButtonDropdown>
         </Col>
@@ -114,10 +136,10 @@ const CustomHeader = props => {
             >
               <ChevronDown size={20} />
             </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem tag="a">Option 1</DropdownItem>
-              <DropdownItem tag="a">Option 2</DropdownItem>
-              <DropdownItem tag="a">Option 3</DropdownItem>
+            <DropdownMenu
+              modifiers={modifiers}
+              >
+              {props.provinsi.map((x) => <DropdownItem onClick={() => props.handlePageByKategori({provinsi:x.id})} key={x.id}>{x.nama}</DropdownItem>)}
             </DropdownMenu>
             </UncontrolledButtonDropdown>
         </Col>
@@ -132,10 +154,10 @@ const CustomHeader = props => {
             >
               <ChevronDown size={20} />
             </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem tag="a">Option 1</DropdownItem>
-              <DropdownItem tag="a">Option 2</DropdownItem>
-              <DropdownItem tag="a">Option 3</DropdownItem>
+            <DropdownMenu
+              modifiers={modifiers}
+              >
+              {props.kota.map((x) => <DropdownItem onClick={() => props.handlePageByKategori({kota:x.id})} key={x.id}>{x.nama}</DropdownItem>)}
             </DropdownMenu>
             </UncontrolledButtonDropdown>
         </Col>
@@ -184,7 +206,10 @@ class DataListConfig extends Component {
         currentPage: parseInt(props.parsedFilter.page) - 1,
         rowsPerPage: parseInt(props.parsedFilter.perPage),
         totalRecords: props.dataList.totalRecords,
-        sortIndex: props.dataList.sortIndex
+        sortIndex: props.dataList.sortIndex,
+        kategori: props.dataList.kategori,
+        provinsi: props.dataList.provinsi,
+        kota: props.dataList.kota
       }
     }
 
@@ -199,54 +224,94 @@ class DataListConfig extends Component {
     columns : [
       {
         name: "ID",
-        selector: "name",
+        selector: "id",
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
-            {row.name}
+          <p title={row.id} className="text-truncate text-bold-500 mb-0">
+            {row.id}
           </p>
         )
       },
       {
         name: "Nama Vendor",
-        selector: "category",
-        sortable: true
+        selector: "nama_vendor",
+        sortable: true,
+        cell: row => (
+          <p title={row.nama_perusahaan} className="text-truncate text-bold-500 mb-0">
+            {row.nama_perusahaan}
+          </p>
+        )
       },
       {
         name: "Alamat",
-        selector: "category",
-        sortable: true
+        selector: "alamat",
+        sortable: true,
+        cell: row => (
+          <p title={row.alamat} className="text-truncate text-bold-500 mb-0">
+            {row.alamat}
+          </p>
+        )
       },
       {
         name: "Kota",
-        selector: "category",
-        sortable: true
+        selector: "kota",
+        sortable: true,
+        cell: row => (
+          <p title={row.kota ? row.kota.nama : ''} className="text-truncate text-bold-500 mb-0">
+            {row.kota ? row.kota.nama : ''}
+          </p>
+        )
       },
       {
         name: "Propinsi",
-        selector: "category",
-        sortable: true
+        selector: "propinsi",
+        sortable: true,
+        cell: row => (
+          <p title={row.provinsi ? row.provinsi.nama : ''} className="text-truncate text-bold-500 mb-0">
+            {row.provinsi ? row.provinsi.nama : ''}
+          </p>
+        )
       },
       {
         name: "Kategori",
-        selector: "category",
-        sortable: true
+        selector: "kategori",
+        sortable: true,
+        cell: row => (
+          <p title={row.vendor_industries ? row.vendor_industries.map( x => x.nama) : ''} className="text-truncate text-bold-500 mb-0">
+            {row.vendor_industries ? row.vendor_industries.map( x => x.nama) : ''}
+          </p>
+        )
       },
       {
         name: "SBU",
-        selector: "category",
-        sortable: true
+        selector: "sbu",
+        sortable: true,
+        cell: row => (
+          <p title={row.sbu ? row.sbu.kode : ''} className="text-truncate text-bold-500 mb-0">
+            {row.sbu ? row.sbu.kode : ''}
+          </p>
+        )
       },
       {
         name: "Email",
-        selector: "category",
-        sortable: true
+        selector: "email",
+        sortable: true,
+        cell: row => (
+          <p title={row.email} className="text-truncate text-bold-500 mb-0">
+            {row.email}
+          </p>
+        )
       },
       {
         name: "Telepon",
-        selector: "category",
-        sortable: true
+        selector: "telepon",
+        sortable: true,
+        cell: row => (
+          <p title={row.nomor_telepon} className="text-truncate text-bold-500 mb-0">
+            {row.nomor_telepon}
+          </p>
+        )
       },
     ],
     allData: [],
@@ -258,14 +323,37 @@ class DataListConfig extends Component {
     totalRecords: 0,
     sortIndex: [],
     addNew: "",
-    activeTab: "1"
+    activeTab: "1",
+    queryKategori: "",
+    queryProvinsi: "",
+    queryKota: ""
   }
 
   thumbView = this.props.thumbView
 
   componentDidMount() {
-    this.props.getData(this.props.parsedFilter)
-    this.props.getInitialData()
+    this.props.getInitialDataProvinsi()
+    this.props.getInitialDataKota()
+    this.props.getInitialDataVendorKategori()
+    switch (this.props.vendor) {
+      case 'aktif':
+        this.props.getInitialDataVendorAktif()
+        this.props.getDataVendorAktif(this.props.parsedFilter)
+        break
+
+      case 'review':
+        this.props.getInitialDataVendorInReview()
+        this.props.getDataVendorInReview(this.props.parsedFilter)
+        break
+
+      case 'bermasalah':
+        this.props.getInitialDataVendorProblem()
+        this.props.getDataVendorProblem(this.props.parsedFilter)
+        break
+
+      default:
+        break
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -273,55 +361,95 @@ class DataListConfig extends Component {
       this.thumbView = false
       let columns = [
         {
-          name: "Id",
-          selector: "name",
+          name: "ID",
+          selector: "id",
           sortable: true,
           minWidth: "250px",
           cell: row => (
-            <p title={row.name} className="text-truncate text-bold-500 mb-0">
-              {row.name}
+            <p title={row.id} className="text-truncate text-bold-500 mb-0">
+              {row.id}
             </p>
           )
         },
         {
           name: "Nama Vendor",
-          selector: "category",
-          sortable: true
+          selector: "nama_vendor",
+          sortable: true,
+          cell: row => (
+            <p title={row.nama_perusahaan} className="text-truncate text-bold-500 mb-0">
+              {row.nama_perusahaan}
+            </p>
+          )
         },
         {
           name: "Alamat",
-          selector: "category",
-          sortable: true
+          selector: "alamat",
+          sortable: true,
+          cell: row => (
+            <p title={row.alamat} className="text-truncate text-bold-500 mb-0">
+              {row.alamat}
+            </p>
+          )
         },
         {
           name: "Kota",
-          selector: "category",
-          sortable: true
+          selector: "kota",
+          sortable: true,
+          cell: row => (
+            <p title={row.kota ? row.kota.nama : ''} className="text-truncate text-bold-500 mb-0">
+              {row.kota ? row.kota.nama : ''}
+            </p>
+          )
         },
         {
           name: "Propinsi",
-          selector: "category",
-          sortable: true
+          selector: "propinsi",
+          sortable: true,
+          cell: row => (
+            <p title={row.provinsi ? row.provinsi.nama : ''} className="text-truncate text-bold-500 mb-0">
+              {row.provinsi ? row.provinsi.nama : ''}
+            </p>
+          )
         },
         {
           name: "Kategori",
-          selector: "category",
-          sortable: true
+          selector: "kategori",
+          sortable: true,
+          cell: row => (
+            <p title={row.vendor_industries ? row.vendor_industries.map( x => x.nama) : ''} className="text-truncate text-bold-500 mb-0">
+              {row.vendor_industries ? row.vendor_industries.map( x => x.nama) : ''}
+            </p>
+          )
         },
         {
           name: "SBU",
-          selector: "category",
-          sortable: true
+          selector: "sbu",
+          sortable: true,
+          cell: row => (
+            <p title={row.sbu ? row.sbu.kode : ''} className="text-truncate text-bold-500 mb-0">
+              {row.sbu ? row.sbu.kode : ''}
+            </p>
+          )
         },
         {
           name: "Email",
-          selector: "category",
-          sortable: true
+          selector: "email",
+          sortable: true,
+          cell: row => (
+            <p title={row.email} className="text-truncate text-bold-500 mb-0">
+              {row.email}
+            </p>
+          )
         },
         {
           name: "Telepon",
-          selector: "category",
-          sortable: true
+          selector: "telepon",
+          sortable: true,
+          cell: row => (
+            <p title={row.nomor_telepon} className="text-truncate text-bold-500 mb-0">
+              {row.nomor_telepon}
+            </p>
+          )
         },
       ]
       this.setState({ columns })
@@ -334,11 +462,65 @@ class DataListConfig extends Component {
   }
 
   handleRowsPerPage = value => {
-    let { parsedFilter, getData } = this.props
+    let { parsedFilter, getDataVendorAktif } = this.props
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
-    history.push(`/apg/vendor-aktif/list-view?page=${page}&perPage=${value}`)
+    let { queryKategori, queryProvinsi, queryKota } = this.state
+    let kategori  =  queryKategori
+    let provinsi  =  queryProvinsi
+    let kota  =  queryKota
+    if (kategori) {
+      queryKategori = `&kategori=${kategori}`
+      this.setState({ queryKategori: kategori })
+    } else {
+      queryKategori = ''
+    }
+    if (provinsi) {
+      queryProvinsi = `&provinsi=${provinsi}`
+      this.setState({ queryProvinsi: provinsi })
+    } else {
+      queryProvinsi = ''
+    }
+    if (kota) {
+      queryKota = `&kota=${kota}`
+      this.setState({ queryKota: kota })
+    } else {
+      queryKota = ''
+    }
+    let query = queryKategori + queryProvinsi + queryKota
+    history.push(`${urlPrefix}?page=${page}&perPage=${value}${query}`)
     this.setState({ rowsPerPage: value })
-    getData({ page: parsedFilter.page, perPage: value })
+    getDataVendorAktif({ page: page, perPage: value, kategori: kategori , provinsi: provinsi, kota: kota })
+  }
+
+  handlePageByKategori = value => {
+    let { parsedFilter, getDataVendorAktif } = this.props
+    let { queryKategori, queryProvinsi, queryKota } = this.state
+    let kategori  = value.kategori !== undefined ? value.kategori : queryKategori
+    let provinsi  = value.provinsi !== undefined ? value.provinsi : queryProvinsi
+    let kota  = value.kota !== undefined ? value.kota : queryKota
+    if (kategori) {
+      queryKategori = `&kategori=${kategori}`
+      this.setState({ queryKategori: kategori })
+    } else {
+      queryKategori = ''
+    }
+    if (provinsi) {
+      queryProvinsi = `&provinsi=${provinsi}`
+      this.setState({ queryProvinsi: provinsi })
+    } else {
+      queryProvinsi = ''
+    }
+    if (kota) {
+      queryKota = `&kota=${kota}`
+      this.setState({ queryKota: kota })
+    } else {
+      queryKota = ''
+    }
+    let query = queryKategori + queryProvinsi + queryKota
+    let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
+    let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
+    history.push(`${urlPrefix}?page=${page}&perPage=${perPage}${query}`)
+    getDataVendorAktif({ page: page, perPage: perPage, kategori: kategori , provinsi: provinsi, kota: kota })
   }
 
   handleSidebar = (boolean, addNew = false) => {
@@ -348,15 +530,14 @@ class DataListConfig extends Component {
 
   handleDelete = row => {
     this.props.deleteData(row)
-    this.props.getData(this.props.parsedFilter)
+    this.props.getDataVendorAktif(this.props.parsedFilter)
     if (this.state.data.length - 1 === 0) {
-      let urlPrefix = "/apg/vendor-aktif/"
       history.push(
-        `${urlPrefix}list-view?page=${parseInt(
+        `${urlPrefix}?page=${parseInt(
           this.props.parsedFilter.page - 1
         )}&perPage=${this.props.parsedFilter.perPage}`
       )
-      this.props.getData({
+      this.props.getDataVendorAktif({
         page: this.props.parsedFilter.page - 1,
         perPage: this.props.parsedFilter.perPage
       })
@@ -369,14 +550,34 @@ class DataListConfig extends Component {
   }
 
   handlePagination = page => {
-    let { parsedFilter, getData } = this.props
+    let { parsedFilter, getDataVendorAktif } = this.props
     let perPage = parsedFilter.perPage !== undefined ? parsedFilter.perPage : 4
-    let urlPrefix = "/apg/vendor-aktif/"
-    history.push(
-      `${urlPrefix}list-view?page=${page.selected + 1}&perPage=${perPage}`
-    )
-    getData({ page: page.selected + 1, perPage: perPage })
-    this.setState({ currentPage: page.selected })
+    let { queryKategori, queryProvinsi, queryKota } = this.state
+    let kategori  =  queryKategori
+    let provinsi  =  queryProvinsi
+    let kota  =  queryKota
+    if (kategori) {
+      queryKategori = `&kategori=${kategori}`
+      this.setState({ queryKategori: kategori })
+    } else {
+      queryKategori = ''
+    }
+    if (provinsi) {
+      queryProvinsi = `&provinsi=${provinsi}`
+      this.setState({ queryProvinsi: provinsi })
+    } else {
+      queryProvinsi = ''
+    }
+    if (kota) {
+      queryKota = `&kota=${kota}`
+      this.setState({ queryKota: kota })
+    } else {
+      queryKota = ''
+    }
+    let query = queryKategori + queryProvinsi + queryKota
+    history.push(`${urlPrefix}?page=${page.selected + 1}&perPage=${perPage}${query}`)
+    getDataVendorAktif({ page: page.selected + 1, perPage: perPage })
+    this.setState({ currentPage: page.selected, kategori: kategori , provinsi: provinsi, kota: kota })
   }
 
   toggleTab = tab => {
@@ -397,7 +598,10 @@ class DataListConfig extends Component {
       sidebar,
       totalRecords,
       sortIndex,
-      activeTab
+      activeTab,
+      kategori,
+      kota,
+      provinsi
     } = this.state
     return (
       <div
@@ -432,8 +636,24 @@ class DataListConfig extends Component {
           pointerOnHover
           selectableRowsHighlight
           onRowClicked={data => {
-            history.push(this.props.inreview ? "/apg/vendor-in-review-detail" : "/apg/vendor-aktif-detail")
-            console.log(data)
+            let url;
+            switch (this.props.vendor) {
+              case 'aktif':
+                url = `/apg/vendor-aktif-detail/${data.id}`
+                break
+
+              case 'review':
+                url = `/apg/vendor-in-review-detail/${data.id}`
+                break
+
+              case 'bermasalah':
+                url = `/apg/vendor-bermasalah-detail/${data.id}`
+                break
+
+              default:
+                break
+            }
+            history.push(url)
           }}
           onSelectedRowsChange={data =>
             this.setState({ selected: data.selectedRows })
@@ -449,6 +669,10 @@ class DataListConfig extends Component {
               total={totalRecords}
               index={sortIndex}
               activeTab={activeTab}
+              kategori={kategori}
+              provinsi={provinsi}
+              kota={kota}
+              handlePageByKategori={data => this.handlePageByKategori(data)}
             />
           }
           sortIcon={<ChevronDown />}
@@ -467,7 +691,7 @@ class DataListConfig extends Component {
           addData={this.props.addData}
           handleSidebar={this.handleSidebar}
           thumbView={this.props.thumbView}
-          getData={this.props.getData}
+          getData={this.props.getDataVendorAktif}
           dataParams={this.props.parsedFilter}
           addNew={this.state.addNew}
         />
@@ -484,15 +708,19 @@ class DataListConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    dataList: state.apgVendor
   }
 }
 
 export default connect(mapStateToProps, {
-  getData,
-  deleteData,
-  updateData,
-  addData,
-  getInitialData,
+  getDataVendorAktif,
+  getInitialDataVendorAktif,
+  getDataVendorInReview,
+  getInitialDataVendorInReview,
+  getDataVendorProblem,
+  getInitialDataVendorProblem,
+  getInitialDataProvinsi,
+  getInitialDataKota,
+  getInitialDataVendorKategori,
   filterData
 })(DataListConfig)

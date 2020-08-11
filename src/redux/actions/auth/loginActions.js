@@ -185,6 +185,10 @@ export const loginWithJWT = user => {
     api.post("/auth/local", {
         identifier: user.identifier,
         password: user.password
+      }, {
+        headers: {
+          "Authorization": "",
+        }
       })
       .then(response => {
         var token
@@ -192,13 +196,24 @@ export const loginWithJWT = user => {
         if (response.data) {
           loggedInUser = response.data.user
           token = response.data.jwt
-          // localStorage.setItem("loggedInUser", JSON.stringify(response.data))
+
+          localStorage.setItem("loggedInUser", JSON.stringify(response.data))
           dispatch({
             type: "LOGIN_WITH_JWT",
             payload: { token, loggedInUser, loggedInWith: "jwt" }
           })
 
-          history.push("/")
+          if (user.role === 'vendor' && loggedInUser.role.type === 'vendor') {
+            history.push("/vendor/dashboard")
+          } else if (user.role === 'apg' && loggedInUser.role.type === 'vendor') {
+            localStorage.clear()
+            alert('Unauthorized')
+          } else if (user.role === 'vendor' && loggedInUser.role.type === 'apg') {
+            localStorage.clear()
+            alert('Unauthorized')
+          } else {
+            history.push("/apg/dashboard")
+          }
         }
       })
       .catch(err => console.log(err))

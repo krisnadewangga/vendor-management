@@ -5,7 +5,10 @@ const initialState = {
   totalPages: 0,
   filteredData: [],
   totalRecords: 0,
-  sortIndex: []
+  sortIndex: [],
+  kategori: [],
+  subKategori: [],
+  satuan: []
 }
 
 const determinePopularity = val => {
@@ -52,9 +55,38 @@ const DataListReducer = (state = initialState, action) => {
           action.params
         )
       }
+    case "GET_DATA_ITEM_BY_ID":
+      return {
+        ...state,
+        dataById: action.data,
+      }
     case "GET_ALL_DATA":
       return {
         ...state,
+        allData: action.data,
+        totalRecords: action.data.length,
+        sortIndex: getIndex(action.data, state.data, state.sortIndex)
+      }
+    case "GET_ALL_DATA_KATEGORI":
+      return {
+        ...state,
+        kategori:action.data,
+        allData: action.data,
+        totalRecords: action.data.length,
+        sortIndex: getIndex(action.data, state.data, state.sortIndex)
+      }
+    case "GET_ALL_DATA_SUB_KATEGORI":
+      return {
+        ...state,
+        subKategori: action.data,
+        allData: action.data,
+        totalRecords: action.data.length,
+        sortIndex: getIndex(action.data, state.data, state.sortIndex)
+      }
+    case "GET_ALL_DATA_UNIT":
+      return {
+        ...state,
+        satuan: action.data,
         allData: action.data,
         totalRecords: action.data.length,
         sortIndex: getIndex(action.data, state.data, state.sortIndex)

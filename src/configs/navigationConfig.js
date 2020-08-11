@@ -1,33 +1,6 @@
 import React from "react"
 import * as Icon from "react-feather"
-const navigationConfig = [
-  // {
-  //   id: "dashboard",
-  //   title: "Dashboard",
-  //   type: "collapse",
-  //   icon: <Icon.Home size={20} />,
-  //   badge: "warning",
-  //   badgeText: "2",
-  //   children: [
-  //     {
-  //       id: "analyticsDash",
-  //       title: "Analytics",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/"
-  //     },
-  //     {
-  //       id: "eCommerceDash",
-  //       title: "eCommerce",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin"],
-  //       navLink: "/ecommerce-dashboard"
-  //     }
-  //   ]
-  // },
-
+const apgMenu = [
   {
     type: "groupHeader",
     groupTitle: "APG"
@@ -38,7 +11,7 @@ const navigationConfig = [
     type: "item",
     icon: <Icon.Home size={20} />,
     navLink: "/apg/dashboard",
-    permissions: ["admin", "editor"]
+    permissions: ["apg"]
   },
   {
     id: "vendor-apg",
@@ -54,7 +27,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/vendor-aktif",
-        permissions: ["admin", "editor"]
+        permissions: ["apg"]
       },
       {
         id: "vendor-apg-review",
@@ -62,7 +35,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/vendor-review",
-        permissions: ["admin"]
+        permissions: ["apg"]
       },
       {
         id: "vendor-apg-bermasalah",
@@ -70,7 +43,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/vendor-bermasalah",
-        permissions: ["admin"]
+        permissions: ["apg"]
       },
       {
         id: "vendor-apg-kategori",
@@ -78,7 +51,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/vendor-kategori",
-        permissions: ["admin"]
+        permissions: ["apg"]
       },
       {
         id: "vendor-apg-kelas",
@@ -86,7 +59,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/vendor-kelas",
-        permissions: ["admin"]
+        permissions: ["apg"]
       },
       {
         id: "vendor-apg-sbu",
@@ -94,7 +67,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/vendor-sbu",
-        permissions: ["admin"]
+        permissions: ["apg"]
       }
     ]
   },
@@ -110,7 +83,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/items-semua",
-        permissions: ["admin", "editor"]
+        permissions: ["apg"]
       },
       {
         id: "tambahItem",
@@ -118,7 +91,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/items-tambah",
-        permissions: ["admin"]
+        permissions: ["apg"]
       },
       {
         id: "kategoriItem",
@@ -126,7 +99,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/items-kategori",
-        permissions: ["admin"]
+        permissions: ["apg"]
       },
       {
         id: "subKategoriItem",
@@ -134,7 +107,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/items-sub-kategori",
-        permissions: ["admin"]
+        permissions: ["apg"]
       },
       {
         id: "satuanItem",
@@ -142,7 +115,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/items-satuan",
-        permissions: ["admin"]
+        permissions: ["apg"]
       }
     ]
   },
@@ -160,7 +133,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/katalog-semua",
-        permissions: ["admin", "editor"]
+        permissions: ["apg"]
       },
       {
         id: "detailKatalog",
@@ -168,7 +141,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/katalog-detail",
-        permissions: ["admin", "editor"]
+        permissions: ["apg"]
       },
       {
         id: "pemesananKatalog",
@@ -176,7 +149,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/katalog-pemesanan",
-        permissions: ["admin"]
+        permissions: ["apg"]
       },
       {
         id: "po-expired",
@@ -184,7 +157,7 @@ const navigationConfig = [
         type: "item",
         icon: <Icon.Circle size={10} />,
         navLink: "/apg/katalog-po-expired",
-        permissions: ["admin"]
+        permissions: ["apg"]
       }
     ]
   },
@@ -194,7 +167,7 @@ const navigationConfig = [
     type: "item",
     icon: <Icon.Home size={16} />,
     navLink: "/apg/pengguna-apg",
-    permissions: ["admin", "editor"]
+    permissions: ["apg"]
   },
   {
     id: "hak-akses-apg",
@@ -202,256 +175,91 @@ const navigationConfig = [
     type: "item",
     icon: <Icon.Home size={16} />,
     navLink: "/apg/hak-akses-apg",
-    permissions: ["admin", "editor"]
+    permissions: ["apg"]
   },
-  // {
-  //   id: "email",
-  //   title: "Email",
-  //   type: "item",
-  //   icon: <Icon.Home size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/vendor/dashboard",
-  // },
-
+  /* hanya untuk mencegah agar tidak bisa diakses oleh apg */
+  {type: "item", navLink: "/vendor/dashboard", permissions: ["vendor"]},
+  {type: "item", navLink: "/vendor/profil", permissions: ["vendor"]},
+  {type: "item", navLink: "/vendor/semua-item", permissions: ["vendor"]},
+  {type: "item", navLink: "/vendor/semua-item", permissions: ["vendor"]},
+  {type: "item", navLink: "/vendor/stok-kurang", permissions: ["vendor"]},
+  {type: "item", navLink: "/vendor/pemesanan", permissions: ["vendor"]},
+]
+const vendorMenu = [
   {
     type: "groupHeader",
     groupTitle: "VENDOR"
+  },
+  {
+    id: "dashboard-vendor",
+    title: "Dashboard",
+    type: "item",
+    icon: <Icon.Home size={20} />,
+    navLink: "/vendor/dashboard",
+    permissions: ["vendor"]
   },
   {
     id: "profileVendor",
     title: "Profil",
     type: "item",
     icon: <Icon.User size={20} />,
-    permissions: ["admin", "editor"],
+    permissions: ["vendor"],
     navLink: "/vendor/profil",
   },
-  // {
-  //   id: "profileVendor",
-  //   title: "Profil",
-  //   type: "collapse",
-  //   icon: <Icon.User size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/vendor/profil",
-  //   children: [
-  //     {
-  //       id: "profile",
-  //       title: "Profil Akun",
-  //       type: "item",
-  //       icon: <Icon.Circle size={10} />,
-  //       navLink: "/vendor/profil",
-  //       permissions: ["admin", "editor"]
-  //     },
-  //     {
-  //       id: "editProfile",
-  //       title: "Ubah Profil",
-  //       type: "item",
-  //       icon: <Icon.Circle size={10} />,
-  //       navLink: "/vendor/ubah-profil",
-  //       permissions: ["admin", "editor"]
-  //     },
-  //     {
-  //       id: "dokumen",
-  //       title: "Dokumen",
-  //       type: "item",
-  //       icon: <Icon.Circle size={10} />,
-  //       navLink: "/vendor/dokumen",
-  //       permissions: ["admin", "editor"]
-  //     },
-  //   ]
-  // },
-
-{
-  id: "itemBarang",
-  title: "Item Barang",
-  type: "collapse",
-  icon: <Icon.Box size={20} />,
-  permissions: ["admin", "editor"],
-  navLink: "/vendor/semua-item",
-  children: [
-    // {
-    //   id: "tambahItem",
-    //   title: "Tambah Item",
-    //   type: "item",
-    //   icon: <Icon.Circle size={10} />,
-    //   navLink: "/vendor/tambah-item",
-    //   permissions: ["admin", "editor"]
-    // },
-    {
-      id: "semuaItem",
-      title: "Semua Barang",
-      type: "item",
-      icon: <Icon.Circle size={10} />,
-      navLink: "/vendor/semua-item",
-      permissions: ["admin", "editor"]
-    },
-    {
-      id: "stokKurang",
-      title: "Stok Kurang",
-      type: "item",
-      icon: <Icon.Circle size={10} />,
-      navLink: "/vendor/stok-kurang",
-      permissions: ["admin", "editor"]
-    },
-  ]
+  {
+    id: "itemBarang",
+    title: "Item Barang",
+    type: "collapse",
+    icon: <Icon.Box size={20} />,
+    permissions: ["vendor"],
+    navLink: "/vendor/semua-item",
+    children: [
+      {
+        id: "semuaItem",
+        title: "Semua Barang",
+        type: "item",
+        icon: <Icon.Circle size={10} />,
+        navLink: "/vendor/semua-item",
+        permissions: ["vendor"]
+      },
+      {
+        id: "stokKurang",
+        title: "Stok Kurang",
+        type: "item",
+        icon: <Icon.Circle size={10} />,
+        navLink: "/vendor/stok-kurang",
+        permissions: ["vendor"]
+      },
+    ]
   },
   {
     id: "pemesananVendor",
     title: "Pemesanan",
     type: "item",
     icon: <Icon.ShoppingBag size={20} />,
-    permissions: ["admin", "editor"],
+    permissions: ["vendor"],
     navLink: "/vendor/pemesanan",
   },
-  // {
-  //   id: "knowledgeBase",
-  //   title: "Knowledge Base",
-  //   type: "item",
-  //   icon: <Icon.Info size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/pages/knowledge-base",
-  //   parentOf: [
-  //     "/pages/knowledge-base/category/questions",
-  //     "/pages/knowledge-base/category"
-  //   ]
-  // },
-  // {
-  //   id: "search",
-  //   title: "Search",
-  //   type: "item",
-  //   icon: <Icon.Search size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/pages/search"
-  // },
-
-  // {
-  //   id: "invoice",
-  //   title: "Invoice",
-  //   type: "item",
-  //   icon: <Icon.File size={20} />,
-  //   permissions: ["admin", "editor"],
-  //   navLink: "/pages/invoice"
-  // },
-  // {
-  //   id: "authentication",
-  //   title: "Authentication",
-  //   type: "collapse",
-  //   icon: <Icon.Unlock size={20} />,
-  //   children: [
-  //     {
-  //       id: "login",
-  //       title: "Login",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/pages/login",
-  //       newTab: true
-  //     },
-  //     {
-  //       id: "register",
-  //       title: "Register",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/pages/register",
-  //       newTab: true
-  //     },
-  //     {
-  //       id: "forgotPassword",
-  //       title: "Forgot Password",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/pages/forgot-password",
-  //       newTab: true
-  //     },
-  //     {
-  //       id: "resetPassword",
-  //       title: "Reset Password",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/pages/reset-password",
-  //       newTab: true
-  //     },
-  //     {
-  //       id: "lockScreen",
-  //       title: "Lock Screen",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/pages/lock-screen",
-  //       newTab: true
-  //     }
-  //   ]
-  // },
-  // {
-  //   id: "miscellaneous",
-  //   title: "Miscellaneous",
-  //   type: "collapse",
-  //   icon: <Icon.FileText size={20} />,
-  //   children: [
-  //     {
-  //       id: "comingSoon",
-  //       title: "Coming Soon",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/misc/coming-soon",
-
-  //       newTab: true
-  //     },
-  //     {
-  //       id: "error",
-  //       title: "Error",
-  //       type: "collapse",
-  //       icon: <Icon.Circle size={12} />,
-  //       children: [
-  //         {
-  //           id: "404",
-  //           title: "404",
-  //           type: "item",
-
-  //           icon: <Icon.Circle size={12} />,
-  //           permissions: ["admin", "editor"],
-  //           navLink: "/misc/error/404",
-
-  //           newTab: true
-  //         },
-  //         {
-  //           id: "500",
-  //           title: "500",
-  //           type: "item",
-
-  //           icon: <Icon.Circle size={12} />,
-  //           permissions: ["admin", "editor"],
-  //           navLink: "/misc/error/500",
-
-  //           newTab: true
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       id: "notAuthorized",
-  //       title: "Not Authorized",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/misc/not-authorized",
-
-  //       newTab: true
-  //     },
-  //     {
-  //       id: "maintenance",
-  //       title: "Maintenance",
-  //       type: "item",
-  //       icon: <Icon.Circle size={12} />,
-  //       permissions: ["admin", "editor"],
-  //       navLink: "/misc/maintenance",
-
-  //       newTab: true
-  //     }
-  //   ]
-  // }
+  /* hanya untuk mencegah agar tidak bisa diakses oleh vendor */
+  {type: "item", navLink: "/apg/dashboard", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/vendor-aktif", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/vendor-review", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/vendor-bermasalah", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/vendor-kategori", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/vendor-kelas", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/vendor-sbu", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/items-semua", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/items-tambah", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/items-kategori", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/items-sub-kategori", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/items-satuan", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/katalog-semua", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/katalog-detail", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/katalog-pemesanan", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/katalog-po-expired", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/pengguna-apg", permissions: ["apg"]},
+  {type: "item", navLink: "/apg/hak-akses-apg", permissions: ["apg"]},
 ]
+const navigationConfig = {apgMenu: apgMenu, vendorMenu: vendorMenu}
 
 export default navigationConfig

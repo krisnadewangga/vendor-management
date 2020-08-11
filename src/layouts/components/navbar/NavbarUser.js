@@ -71,24 +71,25 @@ const UserDropdown = props => {
         href="/pages/login"
         onClick={e => {
           e.preventDefault()
-          if (isAuthenticated) {
-            return logout({
-              returnTo: window.location.origin + process.env.REACT_APP_PUBLIC_PATH
-            })
-          } else {
-            const provider = props.loggedInWith
-            if (provider !== null) {
-              if (provider === "jwt") {
-                return props.logoutWithJWT()
-              }
-              if (provider === "firebase") {
-                return props.logoutWithFirebase()
-              }
-            } else {
-              history.push("/pages/login")
-              localStorage.clear()  
-            }
-          }
+          localStorage.clear()
+          return props.logoutWithJWT()
+          // if (isAuthenticated) {
+          //   return logout({
+          //     returnTo: window.location.origin + process.env.REACT_APP_PUBLIC_PATH
+          //   })
+          // } else {
+          //   const provider = props.loggedInWith
+          //   if (provider !== null) {
+          //     if (provider === "jwt") {
+          //       return props.logoutWithJWT()
+          //     }
+          //     if (provider === "firebase") {
+          //       return props.logoutWithFirebase()
+          //     }
+          //   } else {
+          //     history.push("/pages/login")
+          //   }
+          // }
 
         }}
       >

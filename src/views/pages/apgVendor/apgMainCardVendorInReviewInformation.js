@@ -6,7 +6,7 @@ class ListView extends React.Component {
   render() {
     return (
         <Row>
-          <ApgVendorAktifDetailInformation inreview={true} />
+          <ApgVendorAktifDetailInformation vendor="review" id={this.props.location.pathname.split('/').pop()}/>
         </Row>
     )
   }

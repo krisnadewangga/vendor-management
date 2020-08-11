@@ -25,14 +25,14 @@ import {
 } from "react-feather"
 import { connect } from "react-redux"
 import {
-  getData,
-  getInitialData,
-  deleteData,
-  updateData,
-  addData,
+  getDataVendorKategori as getData,
+  getInitialDataVendorKategori as getInitialData,
+  deleteDataVendorKategori as deleteData,
+  updateDataVendorKategori as updateData,
+  addDataVendorKategori as addData,
   filterData
-} from "../../../redux/actions/data-list"
-import Sidebar from "./DataListSidebar"
+} from "../../../redux/actions/apgVendor"
+import Sidebar from "./DataListVendorKategoriSidebar"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
@@ -167,15 +167,30 @@ class DataListConfig extends Component {
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
-            {row.name}
+          <p title={row.id} className="text-truncate text-bold-500 mb-0">
+            {row.id}
           </p>
         )
       },
       {
         name: "Kategori",
-        selector: "category",
-        sortable: true
+        selector: "kategori",
+        sortable: true,
+        cell: row => (
+          <p title={row.nama} className="text-truncate text-bold-500 mb-0">
+            {row.nama}
+          </p>
+        )
+      },
+      {
+        name: "Keterangan",
+        selector: "keterangan",
+        sortable: true,
+        cell: row => (
+          <p title={row.keterangan} className="text-truncate text-bold-500 mb-0">
+            {row.keterangan}
+          </p>
+        )
       },
       {
         name: "Actions",
@@ -206,8 +221,8 @@ class DataListConfig extends Component {
   thumbView = this.props.thumbView
 
   componentDidMount() {
-    this.props.getData(this.props.parsedFilter)
     this.props.getInitialData()
+    this.props.getData(this.props.parsedFilter)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -220,15 +235,30 @@ class DataListConfig extends Component {
           sortable: true,
           minWidth: "250px",
           cell: row => (
-            <p title={row.name} className="text-truncate text-bold-500 mb-0">
-              {row.name}
+            <p title={row.id} className="text-truncate text-bold-500 mb-0">
+              {row.id}
             </p>
           )
         },
         {
           name: "Kategori",
-          selector: "category",
-          sortable: true
+          selector: "kategori",
+          sortable: true,
+          cell: row => (
+            <p title={row.nama} className="text-truncate text-bold-500 mb-0">
+              {row.nama}
+            </p>
+          )
+        },
+        {
+          name: "Keterangan",
+          selector: "keterangan",
+          sortable: true,
+          cell: row => (
+            <p title={row.keterangan} className="text-truncate text-bold-500 mb-0">
+              {row.keterangan}
+            </p>
+          )
         },
         {
           name: "Actions",
@@ -259,7 +289,7 @@ class DataListConfig extends Component {
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
     history.push(`/apg/vendor-kategori/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
-    getData({ page: parsedFilter.page, perPage: value })
+    getData({ page: page, perPage: value })
   }
 
   handleSidebar = (boolean, addNew = false) => {
@@ -401,7 +431,7 @@ class DataListConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    dataList: state.apgVendor
   }
 }
 

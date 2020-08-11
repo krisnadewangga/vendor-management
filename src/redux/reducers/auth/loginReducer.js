@@ -1,4 +1,13 @@
-export const login = (state = { userRole: "admin" }, action) => {
+function role() {
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
+  if (loggedInUser) {
+    return loggedInUser.user.role.type
+  }
+
+  return '-'
+}
+export const login = (state = { userRole: role() }, action) => {
   switch (action.type) {
     case "LOGIN_WITH_EMAIL": {
       return { ...state, values: action.payload }

@@ -19,9 +19,47 @@ import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import userImg from "../../../assets/img/portrait/small/avatar-s-3.jpg"
 import "../../../assets/scss/pages/users.scss"
+import {
+  getDataVendorById as getData,
+  updateDataVendorAktif as updateData
+} from "../../../redux/actions/apgVendor"
+import { connect } from "react-redux"
+import { history } from "../../../history"
 
 class VendorProfile extends React.Component {
+  componentDidMount() {
+    this.props.getData(this.props)
+  }
+
+  handleVendorBermasalah() {
+    let { data } = this.props.dataList
+    let obj = {
+      id : data.id,
+      problem : true
+    }
+    this.props.updateData(obj)
+    history.push('/apg/vendor-aktif')
+  }
+
   render() {
+    let { data } = this.props.dataList
+    let linkTo;
+    switch (this.props.vendor) {
+      case 'aktif':
+        linkTo = `/apg/vendor-aktif-detail/${data.id}`
+        break
+
+      case 'review':
+        linkTo = `/apg/vendor-in-review-detail/${data.id}`
+        break
+
+      case 'bermasalah':
+        linkTo = `/apg/vendor-bermasalah-detail/${data.id}`
+        break
+
+      default:
+        break
+    }
     return (
       <React.Fragment>
         <Col sm="12">
@@ -37,27 +75,36 @@ class VendorProfile extends React.Component {
                         className="img-fluid img-border rounded-circle box-shadow-1"
                       />
                     </Media>
-                    <Media body className="ml-2 just align-self-center"> 
+                    <Media body className="ml-2 just align-self-center">
                       <Row>
                         <Col>
                           <div className="users-page-view-table">
                             <div className="d-flex user-info">
                               <div className="user-info-title font-weight-bold">
-                                <h3>CV Maju Makmur</h3>
+                                <h3>{data.nama_perusahaan}</h3>
                               </div>
                             </div>
                               <div className="user-info-title font-weight-bold">
                                 <Row>
                                 <Col sm={8}>
                                   <Button.Ripple className="mr-1" color="primary" outline>
-                                    <Link to="/apg/vendor-aktif-detail">
+                                    <Link to={linkTo}>
                                       <Edit size={15} />
                                       <span className="align-middle ml-50">Dokumen</span>
                                     </Link>
                                   </Button.Ripple>
                                   <span className="align-middle ml-50 mr-1">Skor:</span>
-                                  <span className="align-middle ml-50 mr-1">{this.props.inreview ? "-" : "60 %"}</span>
+                                  <span className="align-middle ml-50 mr-1">{this.props.vendor === 'review' ? "-" : data.score === null ? '0 %' : `${data.score} %`}</span>
                                   <span className="align-middle ml-50 mr-1">Rating:</span>
+                                  {this.props.vendor === 'review' ?
+                                  <span>
+                                    <Star size={20} fill="#fff" stroke="#b8c2cc" />
+                                    <Star size={20} fill="#fff" stroke="#b8c2cc" />
+                                    <Star size={20} fill="#fff" stroke="#b8c2cc" />
+                                    <Star size={20} fill="#fff" stroke="#b8c2cc" />
+                                    <Star size={20} fill="#fff" stroke="#b8c2cc" />
+                                  </span>
+                                  :
                                   <span>
                                     <Star size={20} fill="#ff9f43" stroke="#ff9f43" />
                                     <Star size={20} fill="#ff9f43" stroke="#ff9f43" />
@@ -65,15 +112,16 @@ class VendorProfile extends React.Component {
                                     <Star size={20} fill="#ff9f43" stroke="#ff9f43" />
                                     <Star size={20} fill="#fff" stroke="#b8c2cc" />
                                   </span>
+                                  }
                                 </Col>
+                                {this.props.vendor === 'aktif' ?
                                 <Col sm={4}>
-                                  <Button.Ripple className="float-right" color="primary" outline>
-                                    <Link to="/vendor/ubah-profil">
-                                      <Edit size={15} />
-                                      <span className="align-middle ml-50">Pindahkan ke Vendor Bermasalah</span>
-                                    </Link>
+                                  <Button.Ripple className="float-right" color="primary" outline onClick={() => this.handleVendorBermasalah()}>
+                                    <Edit size={15} />
+                                    <span className="align-middle ml-50">Pindahkan ke Vendor Bermasalah</span>
                                   </Button.Ripple>
                                 </Col>
+                                : ''}
                                 </Row>
                               </div>
                           </div>
@@ -99,70 +147,53 @@ class VendorProfile extends React.Component {
                 <tbody>
                   <tr>
                     <th>Nama Perusahaan</th>
-                    <th>PT SURYA TATA ALAM RAYA</th>
+                    <th>{data.nama_perusahaan}</th>
                   </tr>
                   <tr>
                     <th>Alamat</th>
-                    <th>Grand Aries Naga Jl. Taman Aries Utama Blok G1 No IV Jakarta Barat</th>
+                    <th>{data.alamat}</th>
                   </tr>
                   <tr>
                     <th>Kota</th>
-                    <th>Jakarta Selatan</th>
+                    <th>{data.kota ? data.kota.nama : '-'}</th>
                   </tr>
                   <tr>
                     <th>Propinsi</th>
-                    <th>DKI Jakarta</th>
+                    <th>{data.provinsi ? data.provinsi.nama : '-'}</th>
                   </tr>
                   <tr>
                     <th>Nomor Telepon</th>
-                    <th>(021) 721 0000</th>
+                    <th>{data.nomor_telepon}</th>
                   </tr>
                   <tr>
                     <th>Nomor Fax</th>
-                    <th>(021) 725 8003</th>
+                    <th>{data.nomor_fax}</th>
                   </tr>
                   <tr>
                     <th>Email</th>
-                    <th>abdullah@starvendor.com</th>
+                    <th>{data.user ? data.user.email : '-'}</th>
                   </tr>
                   <tr>
                     <th>Website</th>
-                    <th>www.majumakmur.com</th>
+                    <th>{data.website}</th>
                   </tr>
                   <tr>
                     <th>Kontak</th>
-                    <th>Abudllah</th>
+                    <th>{data.nama_cp}</th>
                   </tr>
                   <tr>
                     <th>Industri Vendor</th>
                     <th>
-                      <span>
-                        <Chip
-                          className="mr-1"
-                          text={"Listrik"}
-                        />
-                      </span>
-                      <span>
-                        <Chip
-                          className="mr-1"
-                          text={"Bahan Bangunan"}
-                        />
-                      </span>
-                      <span>
-                        <Chip
-                          className="mr-1"
-                          text={"Pipa"}
-                        />
-                      </span>
+                      { data.vendor_industries ? data.vendor_industries.map(x => <span> <Chip className="mr-1" text={x.nama} key={x.id} /> </span>) : '-'}
                     </th>
                   </tr>
                   <tr>
                     <th>Kelas Vendor</th>
-                    <th>Perdagangan Besar Bahan dan Perlengkapan Bangunan</th>
+                    <th>{data.vendor_class ? data.vendor_class.kegiatan : '-'}</th>
                   </tr>
                   <tr>
                     <th>Sertifikat Badan Usaha</th>
-                    <th>BG004 - Jasa Pelaksana Konstruksi Bangunan Komersial</th>
+                    <th>{data.sbu ? `${data.sbu.kode} - ${data.sbu.sub_bidang}` : '-'}</th>
                   </tr>
                 </tbody>
               </Table>
@@ -173,4 +204,14 @@ class VendorProfile extends React.Component {
     )
   }
 }
-export default VendorProfile
+
+const mapStateToProps = state => {
+  return {
+    dataList: state.apgVendor
+  }
+}
+
+export default connect(mapStateToProps, {
+  getData,
+  updateData
+})(VendorProfile)

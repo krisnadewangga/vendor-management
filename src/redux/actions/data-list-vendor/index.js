@@ -74,3 +74,46 @@ export const addData = obj => {
       })
   }
 }
+
+export const getDataStokKurang = params => {
+  return async dispatch => {
+    let startItem
+    let limitItem
+
+    if (Object.entries(params).length !== 0) {
+      startItem = (params.page - 1) * params.perPage
+      limitItem = params.perPage
+
+      params = {
+        _start : startItem,
+        _limit: limitItem
+      }
+    } else {
+      params = {
+        _start : 0,
+        _limit: 4
+      }
+    }
+
+    await api.get('/item-stok-kurang').then(response => {
+      dispatch({
+        type: "VENDOR_GET_DATA_STOK_KURANG",
+        data: response.data,
+        totalPages: response.data.length,
+        params
+      })
+    })
+  }
+}
+
+export const getInitialDataStokKurang = () => {
+  return async dispatch => {
+    await api.get("/item-stok-kurang").then(response => {
+      dispatch({ type: "VENDOR_GET_ALL_DATA_STOK_KURANG", data: response.data })
+    })
+  }
+}
+
+export const filterDataStokKurang = value => {
+  return dispatch => dispatch({ type: "VENDOR_FILTER_DATA_STOK_KURANG", value })
+}

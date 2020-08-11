@@ -10,7 +10,7 @@ class OrderCard extends React.Component {
         iconRight
         icon={<ShoppingCart className="success" size={22} />}
         iconBg="info"
-        stat="4 PO"
+        stat={`${this.props.data} PO`}
         statTitle="Pemesanan"
         hideChart
       />

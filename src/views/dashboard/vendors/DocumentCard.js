@@ -10,7 +10,7 @@ class DocumentCard extends React.Component {
         iconRight
         icon={<FileText className="primary" size={22} />}
         iconBg="danger"
-        stat="5 Dokumen"
+        stat={`${this.props.data} Dokumen`}
         statTitle="Dokumen belum lengkap"
         hideChart
       />

@@ -10,7 +10,7 @@ class DocumentCard extends React.Component {
         iconRight
         icon={<Box className="primary" size={24} />}
         iconBg="warning"
-        stat="5 Item Barang"
+        stat={`${this.props.data} Item Barang`}
         statTitle="Stok kurang"
         hideChart
       />

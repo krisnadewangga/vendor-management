@@ -361,6 +361,9 @@ class DataListConfig extends Component {
 
   handleCurrentData = obj => {
     this.setState({ currentData: obj })
+    /* menggunakan window.location.href agar fungsi di componentDidUpdate apgInputForm berjalan normal */
+    window.location.href = `/apg/items-tambah/${obj.id}`
+    // history.push(`/apg/items-tambah/${obj.id}`)
     // this.handleSidebar(true)
   }
 

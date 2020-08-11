@@ -4,48 +4,63 @@ import { Row, Col, Card, CardHeader, CardTitle, CardBody, Form } from "reactstra
 import InputForm from "../../ui-elements/cards/apg-product/tambah-item/apgInputForm"
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb"
 import {
-  addDataItems,
+  getInitialDataKategori,
+  getInitialDataSatuan,
+  getInitialDataSubKategori,
+  addDataItem,
+  getDataItemById,
+  updateDataItem
 } from "../../../redux/actions/data-list-apg"
 import { connect } from "react-redux"
-
+import { history } from "../../../history"
 
 import "../../../assets/scss/plugins/extensions/dropzone.scss"
 
 class MainCards extends React.Component {
-  // componentDidMount() {
-  //   this.state.files.forEach(file => URL.revokeObjectURL(file.preview))
-  // }
+  static getDerivedStateFromProps(props, state) {
+    const id = props.location.pathname.split('/').pop();
+    if (!isNaN(id)) {
+      return {
+        currentData: props.data
+      }
+    }
 
-  constructor() {
-    super();
-    this.onDrop = (files) => {
-      this.setState({files: files.map(file =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file)
-        })
-      )})
-      
-    };
-    this.state = {
-      files: [],
-      name: "KODOK"
-    };
+    // Return null if the state hasn't changed
+    return null
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(this.state)
+  state = {
+    file: "",
+    currentData: null
+  }
+
+  componentDidMount() {
+    this.props.getInitialDataKategori()
+    this.props.getInitialDataSubKategori()
+    this.props.getInitialDataSatuan()
+
+    const id = this.props.location.pathname.split('/').pop();
+    if (!isNaN(id)) {
+      this.props.getDataItemById(id)
+    }
+  }
+
+  handleSubmit = obj => {
+    console.log(obj);
+    if (obj.update) {
+      this.props.updateDataItem(obj)
+    }else {
+      this.props.addDataItem(obj)
+    }
+  }
+
+  passImage = file => {
+    this.setState({ file:file })
   }
 
   render() {
-    const thumbs = this.state.files.map(file => (
-      <div className="dz-thumb" key={file.name}>
-        <div className="dz-thumb-inner">
-          <img src={file.preview} className="dz-img" alt={file.name} />
-        </div>
-      </div>
-    ))
-
+    let { kategori, subKategori, satuan } = this.props
+    let { file, currentData } = this.state
     return (
       <React.Fragment>
         <Breadcrumbs
@@ -55,25 +70,13 @@ class MainCards extends React.Component {
           />
         <Card>
         <CardBody>
-          <Form className="mt-2" onSubmit={this.handleSubmit}>
+          <Form className="mt-2" >
             <Row>
               <Col lg="6" sm="12">
-              <Dropzone onDrop={this.onDrop}>
-                {({getRootProps, getInputProps}) => (
-                  <section>
-                  <div {...getRootProps({ className: "dropzone" })}>
-                    <input {...getInputProps()} />
-                    <p className="mx-1">
-                      Drag 'n' drop some files here, or click to select files
-                    </p>
-                  </div>
-                  <aside className="thumb-container">{thumbs}</aside>
-                </section>
-                )}
-              </Dropzone>
+                  <ImageUpload passImage={this.passImage} data={currentData} />
               </Col>
               <Col lg="6" sm="12">
-                  <InputForm state={this.state} />
+                  <InputForm sendData={this.handleSubmit} kategori={kategori} subKategori={subKategori} satuan={satuan} image={file} data={currentData} />
               </Col>
             </Row>
           </Form>
@@ -84,13 +87,20 @@ class MainCards extends React.Component {
   }
 }
 
-
 const mapStateToProps = state => {
   return {
-    dataListApg: state.dataListApg
+    kategori: state.dataListApg.kategori,
+    subKategori: state.dataListApg.subKategori,
+    satuan: state.dataListApg.satuan,
+    data: state.dataListApg.dataById
   }
 }
 
 export default connect(mapStateToProps, {
-  addDataItems
+  getInitialDataKategori,
+  getInitialDataSatuan,
+  getInitialDataSubKategori,
+  addDataItem,
+  getDataItemById,
+  updateDataItem
 })(MainCards)

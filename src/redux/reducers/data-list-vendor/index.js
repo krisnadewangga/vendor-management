@@ -36,7 +36,7 @@ const getIndex = (arr, arr2, arr3, params = {}) => {
 
 const DataListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "VENDOR_GET_DATA":
+    case "VENDOR_GET_DATA":{
       let total_items = state.allData.length
       let limit = action.params._limit
       let totalPages = Math.ceil(total_items/limit)
@@ -52,14 +52,16 @@ const DataListReducer = (state = initialState, action) => {
           action.params
         )
       }
-    case "VENDOR_GET_ALL_DATA":
+    }
+    case "VENDOR_GET_ALL_DATA":{
       return {
         ...state,
         allData: action.data,
         totalRecords: action.data.length,
         sortIndex: getIndex(action.data, state.data, state.sortIndex)
       }
-    case "VENDOR_FILTER_DATA":
+    }
+    case "VENDOR_FILTER_DATA":{
       let value = action.value
       let filteredData = []
       if (value.length) {
@@ -89,7 +91,8 @@ const DataListReducer = (state = initialState, action) => {
         filteredData = state.data
         return { ...state, filteredData }
       }
-    case "VENDOR_ADD_DATA":
+    }
+    case "VENDOR_ADD_DATA":{
       let id = state.data.slice(-1)[0].id + 1
       state.data.push({
         ...action.obj,
@@ -107,7 +110,8 @@ const DataListReducer = (state = initialState, action) => {
         totalRecords: state.allData.length,
         sortIndex: getIndex(state.allData, state.data, state.sortIndex)
       }
-    case "VENDOR_UPDATE_DATA":
+    }
+    case "VENDOR_UPDATE_DATA":{
       state.data.find(item => {
         if (item.id === action.obj.id) {
           // let popularity = determinePopularity(action.obj.popularity.popValue)
@@ -118,7 +122,8 @@ const DataListReducer = (state = initialState, action) => {
         }
       })
       return { ...state }
-    case "VENDOR_DELETE_DATA":
+    }
+    case "VENDOR_DELETE_DATA":{
       let index = state.data.findIndex(item => item.id === action.obj.id)
       let updatedData = [...state.data]
       updatedData.splice(index, 1)
@@ -133,6 +138,63 @@ const DataListReducer = (state = initialState, action) => {
           state.params
         )
       }
+    }
+    case "VENDOR_GET_DATA_STOK_KURANG":{
+      let total_items = state.allData.length
+      let limit = action.params._limit
+      let totalPages = Math.ceil(total_items/limit)
+      return {
+        ...state,
+        data: action.data,
+        totalPages: totalPages === 0 ? action.totalPages : totalPages,
+        params: action.params,
+        sortIndex: getIndex(
+          state.allData,
+          action.data,
+          state.sortIndex,
+          action.params
+        )
+      }
+    }
+    case "VENDOR_GET_ALL_DATA_STOK_KURANG":{
+      return {
+        ...state,
+        allData: action.data,
+        totalRecords: action.data.length,
+        sortIndex: getIndex(action.data, state.data, state.sortIndex)
+      }
+    }
+    case "VENDOR_FILTER_DATA_STOK_KURANG":{
+      let value = action.value
+      let filteredData = []
+      if (value.length) {
+        filteredData = state.allData
+          .filter(item => {
+            let startsWithCondition =
+              item.name.toLowerCase().startsWith(value.toLowerCase()) ||
+              item.category.toLowerCase().startsWith(value.toLowerCase()) ||
+              item.price.toLowerCase().startsWith(value.toLowerCase()) ||
+              item.order_status.toLowerCase().startsWith(value.toLowerCase())
+
+            let includesCondition =
+              item.name.toLowerCase().includes(value.toLowerCase()) ||
+              item.category.toLowerCase().includes(value.toLowerCase()) ||
+              item.price.toLowerCase().includes(value.toLowerCase()) ||
+              item.order_status.toLowerCase().includes(value.toLowerCase())
+
+            if (startsWithCondition) {
+              return startsWithCondition
+            } else if (!startsWithCondition && includesCondition) {
+              return includesCondition
+            } else return null
+          })
+          .slice(state.params.page - 1, state.params.perPage)
+        return { ...state, filteredData }
+      } else {
+        filteredData = state.data
+        return { ...state, filteredData }
+      }
+    }
     default:
       return state
   }
