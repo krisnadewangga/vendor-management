@@ -29,6 +29,7 @@ class FloatingLabels extends React.Component {
               type="text"
               id="nama"
               placeholder="Nama Item"
+              defaultValue={this.props.state.name}
             />
           </FormGroup>
         </Col>
@@ -103,7 +104,6 @@ class FloatingLabels extends React.Component {
               color="primary"
               type="submit"
               className="mb-1"
-              onClick={e => e.preventDefault()}
             >
               Simpan
             </Button.Ripple>

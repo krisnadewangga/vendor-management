@@ -336,3 +336,27 @@ export const addDataSatuan = obj => {
     }
   }
 }
+
+export const addDataItems = obj => {
+  return (dispatch, getState) => {
+    let params = getState().dataListApg.params
+    if(obj.nama_item === ""){
+      alert("Nama barang tidak boleh kosong")
+    }
+    else{
+      api
+        .post("/items", 
+          obj
+        )
+        .then(response => {
+        alert("Unit berhasil ditambahkan")
+          dispatch({ type: "ADD_DATA", obj })
+          dispatch(getData({params}))
+        })
+        .catch(response => {
+          console.log(obj)
+          console.log(response.response)
+        })
+    }
+  }
+}
