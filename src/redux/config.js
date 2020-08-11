@@ -1,12 +1,6 @@
 import axios from "axios";
 import loginAction from "./actions/auth" 
 
-<<<<<<< HEAD
-const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-const token = loggedInUser ? ("Bearer "+ loggedInUser.jwt) : "";
-
-console.log(loginAction, loggedInUser, token)
-=======
 const getToken = () => {
   try {
     const serializedState = localStorage.getItem('loggedInUser')
@@ -18,7 +12,6 @@ const getToken = () => {
     return null
   }
 }
->>>>>>> origin/dev
 
 export const api = axios.create({
   baseURL: process.env.REACT_APP_URI_API,
