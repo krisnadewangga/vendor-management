@@ -15,6 +15,9 @@ import {
 } from "../../../../redux/actions/profil"
 import { connect } from "react-redux"
 
+const defaultCurrent = { value: "-", label: "-", color: "#BF1E2E" }
+
+
 const colourStyles = {
   control: styles => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -79,13 +82,28 @@ class UserInfoTab extends React.Component {
       vendorIndustri: [],
       vendorKelas: [],
       vendorSBU: [],
-      currentKota: { value: "-", label: "-", color: "#BF1E2E" },
-      currentProvinsi: { value: "-", label: "-", color: "#BF1E2E" },
-      currentVendorIndustri: { value: "-", label: "-", color: "#BF1E2E" },
-      currentVendorKelas: { value: "-", label: "-", color: "#BF1E2E" },
-      currentVendorSBU: { value: "-", label: "-", color: "#BF1E2E" },
+      currentKota: defaultCurrent,
+      currentProvinsi: defaultCurrent,
+      currentVendorIndustri: [],
+      currentVendorKelas: defaultCurrent,
+      currentVendorSBU: defaultCurrent,
     }
     if (!_.isEmpty(props.data)) {
+      let currentProvinsi, currentKota, currentVendorIndustri, currentVendorKelas, currentVendorSBU
+
+      if (_.isEmpty(props.data.provinsi)) currentProvinsi = defaultCurrent
+      else currentProvinsi = { value: props.data.provinsi.id, label: props.data.provinsi.nama, color: "#BF1E2E" }
+      if (_.isEmpty(props.data.kota)) currentKota = defaultCurrent
+      else currentKota = { value: props.data.kota.id, label: props.data.kota.nama, color: "#BF1E2E" }
+      if (_.isEmpty(props.data.vendor_industries)) currentVendorIndustri = []
+      else currentVendorIndustri = props.data.vendor_industries.map( v => {
+        return { value: v.id, label: v.nama , color: "#BF1E2E" }
+      })
+      if (_.isEmpty(props.data.vendor_class)) currentVendorKelas = defaultCurrent
+      else currentVendorKelas = { value: props.data.vendor_class.id, label: `(${props.data.vendor_class.kbli}) ${props.data.vendor_class.kegiatan}`, color: "#BF1E2E" }
+      if (_.isEmpty(props.data.sbu)) currentVendorSBU = defaultCurrent
+      else currentVendorSBU = { value: props.data.sbu.id, label: props.data.sbu.sub_bidang, color: "#BF1E2E" }
+
       this.state = {
         nama_perusahaan: props.nama_perusahaan,
         alamat: props.alamat,
@@ -109,13 +127,11 @@ class UserInfoTab extends React.Component {
         vendorSBU: props.vendorSBU.map( v => {
           return { value: v.id, label: v.sub_bidang, color: "#BF1E2E" }
         }),
-        currentProvinsi: { value: props.data.provinsi.id, label: props.data.provinsi.nama, color: "#BF1E2E" },
-        currentKota: { value: props.data.kota.id, label: props.data.kota.nama, color: "#BF1E2E" },
-        currentVendorIndustri: props.data.vendor_industries.map( v => {
-          return { value: v.id, label: v.nama , color: "#BF1E2E" }
-        }),
-        currentVendorKelas: { value: props.data.vendor_class.id, label: `(${props.data.vendor_class.kbli}) ${props.data.vendor_class.kegiatan}`, color: "#BF1E2E" },
-        currentVendorSBU: { value: props.data.sbu.id, label: props.data.sbu.sub_bidang, color: "#BF1E2E" },
+        currentProvinsi: currentProvinsi,
+        currentKota: currentKota,
+        currentVendorIndustri: currentVendorIndustri,
+        currentVendorKelas: currentVendorKelas,
+        currentVendorSBU: currentVendorSBU,
       }
     }
   }
@@ -154,13 +170,25 @@ class UserInfoTab extends React.Component {
 
   handleSubmit = (obj) => (e) => {
     e.preventDefault()
+
+    let provinsi, kota, vendor_industries, vendor_class, sbu
+    provinsi = Number.isInteger(obj.currentProvinsi.value) ? obj.currentProvinsi.value : null
+    kota = Number.isInteger(obj.currentKota.value) ? obj.currentKota.value : null
+    if (obj.currentVendorIndustri) {
+      if (!_.isEmpty(obj.currentVendorIndustri.map(v => { return v.value }))) {
+        vendor_industries = obj.currentVendorIndustri.map(v => { return v.value })
+      } else { vendor_industries = null }
+    } else { vendor_industries = null }
+    vendor_class = Number.isInteger(obj.currentVendorKelas.value) ? obj.currentVendorKelas.value : null
+    sbu = Number.isInteger(obj.currentVendorSBU.value) ? obj.currentVendorSBU.value : null
+
     obj = {
       ...obj,
-      provinsi : obj.currentProvinsi.value,
-      kota : obj.currentKota.value,
-      vendor_industries: obj.currentVendorIndustri.map(v => { return v.value }),
-      vendor_class: obj.currentVendorKelas.value,
-      sbu: obj.currentVendorSBU.value
+      provinsi : provinsi,
+      kota : kota,
+      vendor_industries: vendor_industries,
+      vendor_class: vendor_class,
+      sbu: sbu
     }
 
     obj = _.pick(obj,
@@ -179,6 +207,16 @@ class UserInfoTab extends React.Component {
       )
 
     this.props.updateInfo(obj)
+  }
+
+  handleReset = (e) => {
+    e.preventDefault()
+    // this.setState({
+    //   username: "",
+    //   oldPassword: "",
+    //   password: "",
+    //   passwordConfirmation: ""
+    // })
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -210,7 +248,7 @@ class UserInfoTab extends React.Component {
       if (this.props.data.kota !== null && prevState.currentKota.value === "-") {
         this.setState({ currentKota: { value: this.props.data.kota.id, label: this.props.data.kota.nama, color: "#BF1E2E" } })
       }
-      if (this.props.data.vendor_industries !== null && prevState.currentVendorIndustri.value === "-") {
+      if (this.props.data.vendor_industries !== null && _.isEmpty(prevState.currentVendorIndustri)) {
         this.setState({ currentVendorIndustri: this.props.data.vendor_industries.map( v => {
             return { value: v.id, label: v.nama , color: "#BF1E2E" }
           })
@@ -249,6 +287,7 @@ class UserInfoTab extends React.Component {
       currentVendorKelas,
       currentVendorSBU
     } = this.state
+      console.log(this.state);
     return (
       <Form onSubmit={this.handleSubmit(this.state)}>
         <Row className="mt-1">
@@ -371,7 +410,7 @@ class UserInfoTab extends React.Component {
             <Button.Ripple className="mr-1" color="primary" type="submit">
               Simpan Perubahan
             </Button.Ripple>
-            <Button.Ripple color="flat-warning">Reset</Button.Ripple>
+            <Button.Ripple color="flat-warning" onClick={e => this.handleReset(e)}>Reset</Button.Ripple>
           </Col>
         </Row>
       </Form>
