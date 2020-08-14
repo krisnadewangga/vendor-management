@@ -7,7 +7,8 @@ import Spinner from "./components/@vuexy/spinner/Loading-spinner"
 import knowledgeBaseCategory from "./views/pages/knowledge-base/Category"
 import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions"
 import { ContextLayout } from "./utility/context/Layout"
-
+import SweetAlert from 'react-bootstrap-sweetalert';
+import {getVisibleAlert} from "../src/redux/reducers/notification";
 
 // APG ROUTES
 const apgDashboard = lazy(() => import("./views/dashboard/apg/ApgDashboard"))
@@ -221,7 +222,7 @@ const accessControl = lazy(() =>
   import("./extensions/access-control/AccessControl")
 )
 // Set Layout and Component Using App Route
-const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
+const RouteConfig = ({ component: Component, fullLayout, visibleAlert, ...rest }) => (
   <Route
     {...rest}
     render={props => {
@@ -239,6 +240,7 @@ const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
                 <Suspense fallback={<Spinner />}>
                   <Component {...props} />
                 </Suspense>
+              {visibleAlert && <SweetAlert {...visibleAlert}>{visibleAlert.content}</SweetAlert>}
               </LayoutTag>
             )
           }}
@@ -249,7 +251,8 @@ const RouteConfig = ({ component: Component, fullLayout, ...rest }) => (
 )
 const mapStateToProps = state => {
   return {
-    user: state.auth.login.userRole
+    user: state.auth.login.userRole,
+    visibleAlert: getVisibleAlert(state.notification),
   }
 }
 
