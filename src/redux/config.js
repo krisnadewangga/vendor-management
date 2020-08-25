@@ -12,6 +12,18 @@ const getToken = () => {
   }
 }
 
+export const getLoggedInUser = () => {
+  try {
+    const serializedState = localStorage.getItem('loggedInUser')
+    if (serializedState === null) {
+      return null
+    }
+    return JSON.parse(serializedState)
+  } catch (err) {
+    return null
+  }
+}
+
 export const api = axios.create({
   baseURL: process.env.REACT_APP_URI_API,
   headers: { "Content-type": "application/json" }
