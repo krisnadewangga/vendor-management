@@ -3,9 +3,11 @@ import { Row, Col } from "reactstrap"
 import DocumentCard from "./DocumentCard"
 import StockCard from "./StockCard"
 import OrderCard from "./OrderCard"
+import InfoCard from "./InfoCard"
 import "../../../assets/scss/pages/dashboard-analytics.scss"
 import { connect } from "react-redux"
 import { getDashboardVendor } from "../../../redux/actions/dashboard"
+import { getLoggedInUser } from "../../../redux/config"
 
 
 let $primary = "#7367F0",
@@ -21,23 +23,20 @@ let $primary = "#7367F0",
   $white = "#fff"
 
 class VendorDashboard extends React.Component {
-  state = {
-    doc: 0,
-    stock: 0,
-    order: 0
-  }
-
   componentDidMount() {
     this.props.getDashboardVendor()
   }
 
   render() {
-    let { doc, item, po } = this.props.dashboard
-    return (
-      <React.Fragment>
+    let view
+    let confirmed = getLoggedInUser().user.vendor.confirmed
+    let { doc, item, po, info } = this.props.dashboard
+
+    if (confirmed) {
+      view = (
         <Row className="match-height">
           <Col lg="4" md="12">
-            <DocumentCard data={doc} />
+              <DocumentCard data={doc} />
           </Col>
           <Col lg="4" md="6" sm="12">
             <StockCard data={item} />
@@ -46,6 +45,23 @@ class VendorDashboard extends React.Component {
             <OrderCard data={po} />
           </Col>
         </Row>
+      )
+    } else {
+      view = (
+        <Row className="match-height">
+          <Col lg="4" md="12">
+            <DocumentCard data={doc} />
+          </Col>
+          <Col lg="4" md="6" sm="12">
+            <InfoCard data={info} />
+          </Col>
+        </Row>
+      )
+    }
+
+    return (
+      <React.Fragment>
+        {view}
       </React.Fragment>
     )
   }
