@@ -1,22 +1,22 @@
 import React from "react"
 import StatisticsCard from "../../../components/@vuexy/statisticsCard/StatisticsCard"
-import { Box } from "react-feather"
+import { Archive } from "react-feather"
 import { Link } from "react-router-dom"
 
-class DocumentCard extends React.Component {
+class InfoCard extends React.Component {
   render() {
     return (
-      <Link to="/vendor/stok-kurang">
+      <Link to="/vendor/profil">
         <StatisticsCard
           iconRight
-          icon={<Box className="primary" size={24} />}
+          icon={<Archive className="primary" size={22} />}
           iconBg="warning"
-          stat={`${this.props.data} Item Barang`}
-          statTitle="Stok kurang"
+          stat={`${this.props.data} Informasi`}
+          statTitle="Profil belum lengkap"
           hideChart
         />
       </Link>
     )
   }
 }
-export default DocumentCard
+export default InfoCard
