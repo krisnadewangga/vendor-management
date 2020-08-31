@@ -12,6 +12,8 @@ import dataListVendor from "./data-list-vendor/"
 import apgVendor from "./apgVendor/"
 import apgKatalog from "./apgKatalog/"
 import dashboard from "./dashboard"
+import profil from "./profil"
+import notification from './notification';
 
 const rootReducer = combineReducers({
   calendar: calenderReducer,
@@ -26,7 +28,9 @@ const rootReducer = combineReducers({
   dataListVendor: dataListVendor,
   apgVendor: apgVendor,
   apgKatalog: apgKatalog,
-  dashboard: dashboard
+  dashboard: dashboard,
+  profil: profil,
+  notification,
 })
 
 export default rootReducer
