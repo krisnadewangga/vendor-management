@@ -163,14 +163,6 @@ const horizontalMenuConfig = [
             permissions: ["admin", "editor"]
           },
           {
-            id: "detailKatalog",
-            title: "Detail Katalog",
-            type: "item",
-            icon: <Icon.Circle size={10} />,
-            navLink: "/apg/katalog-detail",
-            permissions: ["admin", "editor"]
-          },
-          {
             id: "pemesananKatalog",
             title: "Pemesanan",
             type: "item",

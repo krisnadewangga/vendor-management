@@ -10,6 +10,7 @@ import dataList from "./data-list/"
 import dataListApg from "./data-list-apg/"
 import dataListVendor from "./data-list-vendor/"
 import apgVendor from "./apgVendor/"
+import apgKatalog from "./apgKatalog/"
 import dashboard from "./dashboard"
 
 const rootReducer = combineReducers({
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   dataListApg: dataListApg,
   dataListVendor: dataListVendor,
   apgVendor: apgVendor,
+  apgKatalog: apgKatalog,
   dashboard: dashboard
 })
 

@@ -1,9 +1,12 @@
 import React from "react"
 import { Row, Col } from "reactstrap"
-import MainCard from "../../ui-elements/cards/apg-product/semua/apgMainCardSemuaProduk"  
+import KatalogDetail from "../../ui-elements/cards/apg-product/semua/apgKatalogSemuaProduk"
+import KatalogFilter from "../../ui-elements/cards/apg-product/semua/apgKatalogFilter" 
 import "../../../assets/scss/pages/dashboard-analytics.scss"
+import "../../../assets/scss/pages/app-ecommerce-shop.scss"
 import Breacrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb"
-
+import queryString from "query-string"
+const mql = window.matchMedia(`(min-width: 992px)`)
 let $primary = "#7367F0",
   $danger = "#EA5455",
   $warning = "#FF9F43",
@@ -17,6 +20,11 @@ let $primary = "#7367F0",
   $white = "#fff"
 
 class KatalogSemuaProduct extends React.Component {
+  state = {
+    sidebarDocked: mql.matches,
+    sidebarOpen: false
+  }
+  
   render() {
     return (
       <React.Fragment>
@@ -26,7 +34,12 @@ class KatalogSemuaProduct extends React.Component {
           breadCrumbActive="Semua Produk"
         />
         <Row className="match-height">
-          <MainCard />
+          <Col sm="12">
+            <div className="ecommerce-application">
+              <KatalogFilter />
+              <KatalogDetail parsedFilter={queryString.parse(this.props.location.search)}/>
+            </div>
+          </Col>
         </Row>
       </React.Fragment>
     )

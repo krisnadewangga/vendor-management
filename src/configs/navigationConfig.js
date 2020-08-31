@@ -136,14 +136,6 @@ const apgMenu = [
         permissions: ["apg"]
       },
       {
-        id: "detailKatalog",
-        title: "Detail Katalog",
-        type: "item",
-        icon: <Icon.Circle size={10} />,
-        navLink: "/apg/katalog-detail",
-        permissions: ["apg"]
-      },
-      {
         id: "pemesananKatalog",
         title: "Pemesanan",
         type: "item",

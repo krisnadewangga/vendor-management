@@ -25,13 +25,11 @@ import {
 } from "react-feather"
 import { connect } from "react-redux"
 import {
-  getData,
-  getInitialData,
-  deleteData,
-  updateData,
-  addData,
-  filterData
-} from "../../../redux/actions/data-list"
+  getDataApgKatalogPemesanan as getData,
+  getInitialDataApgKatalogPemesanan as getInitialData,
+  filterDataApgKatalogPemesanan as filterData,
+  filterDataApgKatalogPemesananStatus as filterDataStatus
+} from "../../../redux/actions/apgKatalog"
 import Sidebar from "./DataListSidebar"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
@@ -40,10 +38,14 @@ import "../../../assets/scss/plugins/extensions/react-paginate.scss"
 import "../../../assets/scss/pages/data-list.scss"
 
 const chipColors = {
-  "on hold": "warning",
-  delivered: "success",
-  pending: "primary",
-  canceled: "danger"
+  "persetujuan": "dark",
+  "konfirmasi": "purple",
+  "diproses": "warning",
+  "dikirim": "info",
+  "diterima": "danger",
+  "expired": "danger",
+  "selesai": "success",
+
 }
 
 const selectedStyle = {
@@ -115,43 +117,43 @@ const CustomHeader = props => {
           <TabPane tabId="1">
             <div className="d-inline-block mr-1 mb-1">
               <Button.Ripple color="primary" outline={props.activeTab !== '1'}
-                onClick={() => {props.toggleTab("1")}}>
+                onClick={() => props.toggleTab("1", "")}>
                 Semua
               </Button.Ripple>
             </div>
             <div className="d-inline-block mr-1 mb-1" >
               <Button.Ripple color="primary" outline={props.activeTab !== '2'}
-                onClick={() => {props.toggleTab("2")}}>
+                onClick={() => props.toggleTab("2", "persetujuan")}>
                 Menunggu Persetujuan
               </Button.Ripple>
             </div>
             <div className="d-inline-block mr-1 mb-1">
               <Button.Ripple color="primary" outline={props.activeTab !== '3'}
-                onClick={() => {props.toggleTab("3")}}>
+                onClick={() => props.toggleTab("3", "konfirmasi")}>
                 Menunggu Konfirmasi
               </Button.Ripple>
             </div>
             <div className="d-inline-block mr-1 mb-1">
               <Button.Ripple color="primary" outline={props.activeTab !== '4'}
-                onClick={() => {props.toggleTab("4")}}>
+                onClick={() => props.toggleTab("4", "diproses")}>
                 Diproses
               </Button.Ripple>
             </div>
             <div className="d-inline-block mr-1 mb-1">
               <Button.Ripple color="primary" outline={props.activeTab !== '5'}
-                onClick={() => {props.toggleTab("5")}}>
+                onClick={() => props.toggleTab("5", "dikirim")}>
                 Dikirim
               </Button.Ripple>
             </div>
             <div className="d-inline-block mr-1 mb-1">
               <Button.Ripple color="primary" outline={props.activeTab !== '6'}
-                onClick={() => {props.toggleTab("6")}}>
+                onClick={() => props.toggleTab("6", "diterima")}>
                 Diterima
               </Button.Ripple>
             </div>
             <div className="d-inline-block mr-1 mb-1">
               <Button.Ripple color="primary" outline={props.activeTab !== '7'}
-                onClick={() => {props.toggleTab("7")}}>
+                onClick={() => props.toggleTab("7", "selesai")}>
                 Selesai
               </Button.Ripple>
             </div>
@@ -194,41 +196,60 @@ class DataListConfig extends Component {
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
-            {row.name}
+          <p title={row.nomor} className="text-truncate text-bold-500 mb-0">
+            {row.nomor}
           </p>
         )
       },
       {
         name: "Tanggal",
-        selector: "category",
-        sortable: true
+        selector: "tanggal",
+        sortable: true,
+        cell: row => (
+          <p title={row.created_at} className="text-truncate text-bold-500 mb-0">
+            {row.created_at}
+          </p>
+        )
       },
       {
         name: "Vendor",
-        selector: "category",
-        sortable: true
+        selector: "vendor",
+        sortable: true,
+        cell: row => (
+          <p title={row.kepada} className="text-truncate text-bold-500 mb-0">
+            {row.kepada}
+          </p>
+        )
       },
       {
         name: "Jatuh Tempo",
-        selector: "category",
-        sortable: true
+        selector: "jatuh-tempo",
+        sortable: true,
+        cell: row => (
+          <p title={row.tgl_penyerahan} className="text-truncate text-bold-500 mb-0">
+            {row.tgl_penyerahan}
+          </p>
+        )
       },
       {
         name: "Total Harga",
         selector: "total-harga",
         sortable: true,
-        cell: row => `$${row.price}`
+        cell: row => (
+          <p title={row.total} className="text-truncate text-bold-500 mb-0">
+            {row.total}
+          </p>
+        )      
       },
       {
         name: "Status",
-        selector: "order_status",
+        selector: "status",
         sortable: true,
         cell: row => (
           <Chip
             className="m-0"
-            color={chipColors[row.order_status]}
-            text={row.order_status}
+            color={chipColors[row.status && row.status.toLowerCase()]}
+            text={row.status}
           />
         )
       }
@@ -262,41 +283,60 @@ class DataListConfig extends Component {
           sortable: true,
           minWidth: "250px",
           cell: row => (
-            <p title={row.name} className="text-truncate text-bold-500 mb-0">
-              {row.name}
+            <p title={row.nomor} className="text-truncate text-bold-500 mb-0">
+              {row.nomor}
             </p>
           )
         },
         {
           name: "Tanggal",
-          selector: "category",
-          sortable: true
+          selector: "tanggal",
+          sortable: true,
+          cell: row => (
+            <p title={row.created_at} className="text-truncate text-bold-500 mb-0">
+              {row.created_at}
+            </p>
+          )
         },
         {
           name: "Vendor",
-          selector: "category",
-          sortable: true
+          selector: "vendor",
+          sortable: true,
+          cell: row => (
+            <p title={row.kepada} className="text-truncate text-bold-500 mb-0">
+              {row.kepada}
+            </p>
+          )
         },
         {
           name: "Jatuh Tempo",
-          selector: "category",
-          sortable: true
+          selector: "jatuh-tempo",
+          sortable: true,
+          cell: row => (
+            <p title={row.tgl_penyerahan} className="text-truncate text-bold-500 mb-0">
+              {row.tgl_penyerahan}
+            </p>
+          )
         },
         {
           name: "Total Harga",
-          selector: "price",
+          selector: "total-harga",
           sortable: true,
-          cell: row => `$${row.price}`
+          cell: row => (
+            <p title={row.total} className="text-truncate text-bold-500 mb-0">
+              {row.total}
+            </p>
+          )      
         },
         {
           name: "Status",
-          selector: "order_status",
+          selector: "status",
           sortable: true,
           cell: row => (
             <Chip
               className="m-0"
-              color={chipColors[row.order_status]}
-              text={row.order_status}
+              color={chipColors[row.status && row.status.toLowerCase()]}
+              text={row.status}
             />
           )
         },
@@ -306,8 +346,15 @@ class DataListConfig extends Component {
   }
 
   handleFilter = e => {
-    this.setState({ value: e.target.value })
+    this.setState({activeTab: "1", value: e.target.value })
     this.props.filterData(e.target.value)
+  }
+
+  toggleTab = (tab, status) => {
+    if (this.state.activeTab !== tab) {
+      this.setState({ activeTab: tab, value: status })
+      this.props.filterDataStatus(status)
+    }
   }
 
   handleRowsPerPage = value => {
@@ -356,12 +403,6 @@ class DataListConfig extends Component {
     this.setState({ currentPage: page.selected })
   }
 
-  toggleTab = tab => {
-    if (this.state.activeTab !== tab) {
-      this.setState({ activeTab: tab })
-    }
-  }
-
   render() {
     let {
       columns,
@@ -382,6 +423,10 @@ class DataListConfig extends Component {
           this.props.thumbView ? "thumb-view" : "list-view"
         }`}>
         <DataTable
+          onRowClicked={data => {
+            let url = `/apg/katalog-po-detail/${data.id}`
+            history.push(url)
+          }}
           columns={columns}
           data={value.length ? allData : data}
           pagination
@@ -457,15 +502,13 @@ class DataListConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    dataList: state.apgKatalog
   }
 }
 
 export default connect(mapStateToProps, {
   getData,
-  deleteData,
-  updateData,
-  addData,
   getInitialData,
-  filterData
+  filterData,
+  filterDataStatus
 })(DataListConfig)

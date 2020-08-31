@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import Dropzone from "react-dropzone"
 import { Row, Col, Card, CardHeader, CardTitle, CardBody, Form } from "reactstrap"
 import InputForm from "../../ui-elements/cards/apg-product/tambah-item/apgInputForm"
+import ImageUpload from "../../ui-elements/cards/apg-product/tambah-item/apgImageUpload"
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb"
 import {
   getInitialDataKategori,

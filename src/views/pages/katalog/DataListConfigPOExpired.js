@@ -25,14 +25,10 @@ import {
 } from "react-feather"
 import { connect } from "react-redux"
 import {
-  getData,
-  getInitialData,
-  deleteData,
-  updateData,
-  addData,
-  filterData
-} from "../../../redux/actions/data-list"
-import Sidebar from "./DataListSidebar"
+  getDataApgKatalogPOExpired as getData,
+  getInitialDataApgKatalogPOExpired as getInitialData,
+  filterDataApgKatalogExpired as filterData
+} from "../../../redux/actions/apgKatalog"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
 
@@ -57,27 +53,6 @@ const selectedStyle = {
       }
     }
   }
-}
-
-const ActionsComponent = props => {
-  return (
-    <div className="data-list-action">
-      <Edit
-        className="cursor-pointer mr-1"
-        size={20}
-        onClick={() => {
-          return props.currentData(props.row)
-        }}
-      />
-      <Trash
-        className="cursor-pointer"
-        size={20}
-        onClick={() => {
-          props.deleteRow(props.row)
-        }}
-      />
-    </div>
-  )
 }
 
 const CustomHeader = props => {
@@ -114,20 +89,20 @@ const CustomHeader = props => {
   )
 }
 
-class DataListConfig extends Component {
+class apgKatalogConfig extends Component {
   static getDerivedStateFromProps(props, state) {
     if (
-      props.dataList.data.length !== state.data.length ||
+      props.apgKatalog.data.length !== state.data.length ||
       state.currentPage !== props.parsedFilter.page
     ) {
       return {
-        data: props.dataList.data,
-        allData: props.dataList.filteredData,
-        totalPages: props.dataList.totalPages,
+        data: props.apgKatalog.data,
+        allData: props.apgKatalog.filteredData,
+        totalPages: props.apgKatalog.totalPages,
         currentPage: parseInt(props.parsedFilter.page) - 1,
         rowsPerPage: parseInt(props.parsedFilter.perPage),
-        totalRecords: props.dataList.totalRecords,
-        sortIndex: props.dataList.sortIndex
+        totalRecords: props.apgKatalog.totalRecords,
+        sortIndex: props.apgKatalog.sortIndex,
       }
     }
 
@@ -146,31 +121,50 @@ class DataListConfig extends Component {
         sortable: true,
         minWidth: "250px",
         cell: row => (
-          <p title={row.name} className="text-truncate text-bold-500 mb-0">
-            {row.name}
+          <p title={row.nomor} className="text-truncate text-bold-500 mb-0">
+            {row.nomor}
           </p>
         )
       },
       {
         name: "Tanggal",
-        selector: "category",
-        sortable: true
+        selector: "tanggal",
+        sortable: true,
+        cell: row => (
+          <p title={row.created_at} className="text-truncate text-bold-500 mb-0">
+            {row.created_at}
+          </p>
+        )
       },
       {
         name: "Vendor",
-        selector: "category",
-        sortable: true
+        selector: "vendor",
+        sortable: true,
+        cell: row => (
+          <p title={row.kepada} className="text-truncate text-bold-500 mb-0">
+            {row.kepada}
+          </p>
+        )
       },
       {
         name: "Jatuh Tempo",
-        selector: "category",
-        sortable: true
+        selector: "jatuh-tempo",
+        sortable: true,
+        cell: row => (
+          <p title={row.tgl_penyerahan} className="text-truncate text-bold-500 mb-0">
+            {row.tgl_penyerahan}
+          </p>
+        )
       },
       {
         name: "Total Harga",
         selector: "total-harga",
         sortable: true,
-        cell: row => `$${row.price}`
+        cell: row => (
+          <p title={row.total} className="text-truncate text-bold-500 mb-0">
+            {row.total}
+          </p>
+        )      
       }
     ],
     allData: [],
@@ -202,32 +196,51 @@ class DataListConfig extends Component {
           sortable: true,
           minWidth: "250px",
           cell: row => (
-            <p title={row.name} className="text-truncate text-bold-500 mb-0">
-              {row.name}
+            <p title={row.nomor} className="text-truncate text-bold-500 mb-0">
+              {row.nomor}
             </p>
           )
         },
         {
           name: "Tanggal",
-          selector: "category",
-          sortable: true
+          selector: "tanggal",
+          sortable: true,
+          cell: row => (
+            <p title={row.created_at} className="text-truncate text-bold-500 mb-0">
+              {row.created_at}
+            </p>
+          )
         },
         {
           name: "Vendor",
-          selector: "category",
-          sortable: true
+          selector: "vendor",
+          sortable: true,
+          cell: row => (
+            <p title={row.kepada} className="text-truncate text-bold-500 mb-0">
+              {row.kepada}
+            </p>
+          )
         },
         {
           name: "Jatuh Tempo",
-          selector: "category",
-          sortable: true
+          selector: "jatuh-tempo",
+          sortable: true,
+          cell: row => (
+            <p title={row.tgl_penyerahan} className="text-truncate text-bold-500 mb-0">
+              {row.tgl_penyerahan}
+            </p>
+          )
         },
         {
           name: "Total Harga",
-          selector: "price",
+          selector: "total-harga",
           sortable: true,
-          cell: row => `$${row.price}`
-        },
+          cell: row => (
+            <p title={row.total} className="text-truncate text-bold-500 mb-0">
+              {row.total}
+            </p>
+          )      
+        }
       ]
       this.setState({ columns })
     }
@@ -243,7 +256,7 @@ class DataListConfig extends Component {
     let page = parsedFilter.page !== undefined ? parsedFilter.page : 1
     history.push(`/apg/katalog-po-expired/list-view?page=${page}&perPage=${value}`)
     this.setState({ rowsPerPage: value })
-    getData({ page: parsedFilter.page, perPage: value })
+    getData({ page: page, perPage: value })
   }
 
   handleSidebar = (boolean, addNew = false) => {
@@ -310,6 +323,10 @@ class DataListConfig extends Component {
           this.props.thumbView ? "thumb-view" : "list-view"
         }`}>
         <DataTable
+          onRowClicked={data => {
+            let url = `/apg/katalog-po-detail/${data.id}`
+            history.push(url)
+          }}
           columns={columns}
           data={value.length ? allData : data}
           pagination
@@ -361,17 +378,6 @@ class DataListConfig extends Component {
             size: "sm"
           }}
         />
-        <Sidebar
-          show={sidebar}
-          data={currentData}
-          updateData={this.props.updateData}
-          addData={this.props.addData}
-          handleSidebar={this.handleSidebar}
-          thumbView={this.props.thumbView}
-          getData={this.props.getData}
-          dataParams={this.props.parsedFilter}
-          addNew={this.state.addNew}
-        />
         <div
           className={classnames("data-list-overlay", {
             show: sidebar
@@ -385,15 +391,12 @@ class DataListConfig extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataList: state.dataList
+    apgKatalog: state.apgKatalog
   }
 }
 
 export default connect(mapStateToProps, {
   getData,
-  deleteData,
-  updateData,
-  addData,
   getInitialData,
   filterData
-})(DataListConfig)
+})(apgKatalogConfig)

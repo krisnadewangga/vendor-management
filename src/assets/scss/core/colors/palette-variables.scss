@@ -11,6 +11,12 @@ $white: (
 $black: (
   "base": #000000
 );
+$purple: (
+  "base": #4f00b6
+);
+$pink: (
+  "base": #b6008f
+);
 $dark: (
   "base": theme-color("dark"),
   "gradient-bg": #640064
@@ -139,6 +145,8 @@ $danger: (
 $colors: (
   "white": $white,
   "black": $black,
+  "purple": $purple,
+  "pink": $pink,
   "dark": $dark,
   "light": $light,
   "primary": $primary,
@@ -146,5 +154,5 @@ $colors: (
   "success": $success,
   "info": $info,
   "warning": $warning,
-  "danger": $danger
+  "danger": $danger,
 );
