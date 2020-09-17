@@ -119,6 +119,11 @@ const DataListReducer = (state = initialState, action) => {
         ...state,
         data: action.data,
       }
+    case "KATALOG_PEMESANAN_GET_DATA_DIPROSES_BY_ID":
+      return {
+        ...state,
+        data: action.data,
+      }
     case "KATALOG_GET_DATA_BY_ID":
     return {
       ...state,
@@ -466,6 +471,12 @@ const DataListReducer = (state = initialState, action) => {
     //     sortIndex: getIndex(action.data, state.data, state.sortIndex)
     //   }
     case "KATALOG_PEMESANAN_KIRIM_PESANAN":{
+      return {
+        ...state,
+        data: state.data,
+      }
+    }
+    case "KATALOG_PEMESANAN_UPLOAD_PDF":{
       return {
         ...state,
         data: state.data,

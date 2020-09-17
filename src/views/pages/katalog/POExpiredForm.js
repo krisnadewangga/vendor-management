@@ -10,16 +10,28 @@ import {
 import { FileText, ArrowLeft } from "react-feather"
 import {
   getDataKatalogPemesananById as getData,
-  apgKatalogKirimPesanan as sendConfirmation
+  getDataKatalogPemesananDiprosesById as getProcessedData,
+  apgKatalogKirimPesanan as sendConfirmation,
+  apgKatalogUploadPdf as sendDatas
 } from "../../../redux/actions/apgKatalog"
 import { connect } from "react-redux"
 import { history } from "../../../history"
 import { AlertCircle } from "react-feather"
+import { useDropzone } from "react-dropzone"
 
+// function buildFileSelector(){
+//   const fileSelector = document.createElement('input');
+//   fileSelector.setAttribute('type', 'file');
+//   fileSelector.setAttribute('multiple', 'multiple');
+//   return fileSelector;
+// }
 
 class ListView extends React.Component {
   state = {
-    modal: null
+    modal: null,
+    files: [],
+    file: '',
+    imagePreviewUrl: ''
   }
 
   toggleModal = id => {
@@ -34,19 +46,56 @@ class ListView extends React.Component {
     }
   }
 
+  download = (data) => {
+    // fake server request, getting the file url as response
+    setTimeout(() => {
+      const response = {
+        file: process.env.REACT_APP_URI_API + data.pdf.url,
+      };
+      // server sent the url to the file!
+      // now, let's download:
+      window.open(response.file);
+      // you could also do:
+      // window.location.href = response.file;
+    }, 100);
+    
+  }
+
   handleSend = obj => {
     this.props.sendConfirmation(obj)
   }
 
+  sendData = (obj, data) => {
+    let formData = new FormData();
+    // let pdf_upload = true
+    formData.append('data', JSON.stringify({pdf_upload: true}))
+    formData.append('files.pdf', data)
+    this.props.sendDatas(obj, formData)
+  }
+
+  handleGetProcessedData = obj => {
+    this.props.getProcessedData(obj)
+  }
+    
   componentDidMount() {
     console.log(this.props)
     this.props.getData(this.props)
+    // this.fileSelector = buildFileSelector();
   }
+
   render() {
     let { data } = this.props.dataList
+    const { file } = this.state;
+    let imagePreview = null;
+    if (file) {
+      imagePreview = (<iframe title="FormLocal" src={file} width="100%" height="900px" />);
+    } else {
+      imagePreview = (<iframe title={data.pdf && data.pdf.name} src={data.pdf && process.env.REACT_APP_URI_API + data.pdf.url} width="100%" height="900px" />);
+    }
     return (
       <React.Fragment>
-        <iframe title={data.pdf && data.pdf.name} src={data.pdf && process.env.REACT_APP_URI_API + data.pdf.url} width="100%" height="900px" />
+        {imagePreview}
+        {/* <iframe title={data.pdf && data.pdf.name} src={data.pdf && process.env.REACT_APP_URI_API + data.pdf.url} width="100%" height="900px" /> */}
         <Col className="invoice-wrapper" sm="12">
           <div style={{textAlign: "center"}}>
           <Button.Ripple 
@@ -67,18 +116,27 @@ class ListView extends React.Component {
               <FileText size="15" />
               <span className="align-middle ml-50">Kirim Pesanan</span>
             </Button>
-            <Button
-              color="primary"
-              outline className="mr-1 mb-md-0 mb-1"
-              // onClick={() => window.print()}
-            >
+            <label
+              className="btn btn-outline-primary mr-1 mb-md-0 mb-1"
+              htmlFor="update-image"
+              color="primary">
               <FileText size="15" />
               <span className="align-middle ml-50">Unggah Dokumen</span>
-            </Button>
+              <input
+                type="file"
+                id="update-image"
+                hidden
+                onChange={e =>
+                  this.setState({
+                    file: URL.createObjectURL(e.target.files[0])
+                  }, this.sendData(data, e.target.files[0]))
+                }
+              />
+            </label>
             <Button
               color="primary"
               outline className="mr-1 mb-md-0 mb-1"
-            // onClick={() => window.print()}
+              onClick={() => this.download(data)}
             >
               <FileText size="15" />
               <span className="align-middle ml-50">Unduh Dokumen</span>
@@ -90,7 +148,7 @@ class ListView extends React.Component {
             <Button
               color="primary"
               className="mr-1 mb-md-0 mb-1"
-              // onClick={() => window.print()}
+              onClick={() => this.handleGetProcessedData(data)}
             >
               <FileText size="15" />
               <span className="align-middle ml-50">Barang Telah Diterima</span>
@@ -208,5 +266,7 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   getData,
-  sendConfirmation
+  sendConfirmation,
+  getProcessedData,
+  sendDatas
 })(ListView)

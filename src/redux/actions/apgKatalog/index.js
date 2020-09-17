@@ -153,6 +153,15 @@ export const getDataKatalogPemesananById = obj => {
   }
 }
 
+export const getDataKatalogPemesananDiprosesById = obj => {
+  return async dispatch => {
+    await api.get(`/po-dispatched/${obj.id}`).then(response => {
+      console.log(response)
+      dispatch({ type: "KATALOG_PEMESANAN_GET_DATA_DIPROSES_BY_ID", data: response.data })
+    })
+  }
+}
+
 export const filterDataApgKatalog = value => {
   return dispatch => dispatch({ type: "FILTER_DATA_APG_KATALOG", value })
 }
@@ -470,7 +479,7 @@ export const getInitialDataApgKatalogPemesanan = () => {
 //   }
 // }
 
-export const apgKatalogKirimPesanan = obj => {
+export const apgKatalogKirimPesanan = (obj) => {
   let status = "Konfirmasi"
 
   obj = {
@@ -479,8 +488,17 @@ export const apgKatalogKirimPesanan = obj => {
   }
   return async dispatch => {
     await api.put("/pos/" + obj.id, obj).then(response => {
-        console.log(response.response)
+      // console.log(response, "AWKOAKWOAKWOKWAOK")
         dispatch({ type: "KATALOG_PEMESANAN_KIRIM_PESANAN", obj })
+      })
+  }
+}
+
+export const apgKatalogUploadPdf = (obj, data) => {
+  console.log(obj, data)
+  return async dispatch => {
+    await api.put("/pos/" + obj.id, data).then(response => {
+        dispatch({ type: "KATALOG_PEMESANAN_UPLOAD_PDF", obj })
       })
   }
 }
