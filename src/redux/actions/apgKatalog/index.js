@@ -147,7 +147,7 @@ export const getDataKatalogById = obj => {
 export const getDataKatalogPemesananById = obj => {
   return async dispatch => {
     await api.get(`/pos/${obj.id}`).then(response => {
-      console.log(response)
+      console.log(response, "NAHINI")
       dispatch({ type: "KATALOG_PEMESANAN_GET_DATA_BY_ID", data: response.data })
     })
   }
@@ -158,6 +158,25 @@ export const getDataKatalogPemesananDiprosesById = obj => {
     await api.get(`/po-dispatched/${obj.id}`).then(response => {
       console.log(response)
       dispatch({ type: "KATALOG_PEMESANAN_GET_DATA_DIPROSES_BY_ID", data: response.data })
+    })
+  }
+}
+
+export const getDataKatalogPemesananShipping = obj => {
+  return async dispatch => {
+    console.log(obj, "PEMESANANSHIPPING")
+    await api.get(`/po-shipping-items/${obj.id}`).then(response => {
+      console.log(response, "PEMESANANSHIPPINGERSSSSS")
+      dispatch({ type: "KATALOG_PEMESANAN_GET_DATA_SHIPPING", data: response.data })
+    })
+  }
+}
+
+export const getDataKatalogPemesananDikirim = obj => {
+  return async dispatch => {
+    await api.get(`/po-send-items?po=${obj.id}&po_shipping_item=${obj.po_shipping_id}`).then(response => {
+      console.log(response, "aduh")
+      dispatch({ type: "KATALOG_PEMESANAN_GET_DATA_DIKIRIM", data: response.data })
     })
   }
 }
@@ -479,6 +498,21 @@ export const getInitialDataApgKatalogPemesanan = () => {
 //   }
 // }
 
+export const updateDataPesanan = (id, obj)=> {
+  return (dispatch, getState) => {
+    console.log(obj, "UWOOOOOOOOOOOOOOO")
+    api.put("/po-dispatch-receive/" + id, obj)
+      .then(response => {
+        alert("Berhasil update data")
+        window.location.replace("/apg/katalog-pemesanan")
+        dispatch({ type: "UPDATE_DATA", obj })
+      })
+      .catch(response => {
+        console.log(response.response)
+      })
+  }
+}
+
 export const apgKatalogKirimPesanan = (obj) => {
   let status = "Konfirmasi"
 
@@ -490,6 +524,21 @@ export const apgKatalogKirimPesanan = (obj) => {
     await api.put("/pos/" + obj.id, obj).then(response => {
       // console.log(response, "AWKOAKWOAKWOKWAOK")
         dispatch({ type: "KATALOG_PEMESANAN_KIRIM_PESANAN", obj })
+      })
+  }
+}
+
+export const apgKatalogPesananSelesai = (obj) => {
+  let status = "Selesai"
+
+  obj = {
+    ...obj,
+    status
+  }
+  return async dispatch => {
+    await api.put("/pos/" + obj.id, obj).then(response => {
+      // console.log(response, "AWKOAKWOAKWOKWAOK")
+        dispatch({ type: "KATALOG_PEMESANAN_SELESAI", obj })
       })
   }
 }

@@ -8,7 +8,8 @@ const initialState = {
   sortIndex: [],
   kategori: [],
   provinsi: [],
-  kota: []
+  kota: [],
+  nomor: ""
 }
 
 const determinePopularity = val => {
@@ -122,7 +123,19 @@ const DataListReducer = (state = initialState, action) => {
     case "KATALOG_PEMESANAN_GET_DATA_DIPROSES_BY_ID":
       return {
         ...state,
+        data: action.data.po_send_items,
+        nomor: action.data.nomor,
+      }
+    case "KATALOG_PEMESANAN_GET_DATA_SHIPPING":
+      return {
+        ...state,
         data: action.data,
+      }
+    case "KATALOG_PEMESANAN_GET_DATA_DIKIRIM":
+      return {
+        ...state,
+        nomor: action.data.nomor,
+        data: action.data.po_send_items,
       }
     case "KATALOG_GET_DATA_BY_ID":
     return {
@@ -476,6 +489,12 @@ const DataListReducer = (state = initialState, action) => {
         data: state.data,
       }
     }
+    case "KATALOG_PEMESANAN_SELESAI":{
+      return {
+        ...state,
+        data: state.data,
+      }
+    }
     case "KATALOG_PEMESANAN_UPLOAD_PDF":{
       return {
         ...state,
@@ -541,6 +560,15 @@ const DataListReducer = (state = initialState, action) => {
     //     ...state,
     //     kota: action.data
     //   }
+    case "UPDATE_DATA":
+      state.data.find(item => {
+        if (item.id === action.obj.id) {
+          return Object.assign(item, { ...action.obj })
+        } else {
+          return item
+        }
+      })
+      return { ...state }
     default:
       return state
   }

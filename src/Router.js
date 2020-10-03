@@ -20,6 +20,9 @@ const apgItemKategori = lazy(() => import("./views/pages/item-barang/apgKategori
 const apgItemSubKategori = lazy(() => import("./views/pages/item-barang/apgSubKategori"))
 const apgItemSatuan = lazy(() => import("./views/pages/item-barang/apgSatuan"))
 const apgKatalogPemesanan = lazy(() => import("./views/pages/katalog/Pemesanan"))
+const apgKatalogPemesananDiproses = lazy(() => import("./views/pages/katalog/PemesananDiproses"))
+const apgKatalogPemesananDikirim = lazy(() => import("./views/pages/katalog/PemesananDikirim"))
+const apgKatalogPemesananShipping = lazy(() => import("./views/pages/katalog/InformasiPemesananDikirim"))
 const apgKatalogPOExpired = lazy(() => import("./views/pages/katalog/POExpired"))
 const apgCheckout = lazy(() => import("./views/apps/apg/apgCart"))
 const VendorAktif = lazy(() => import("./views/pages/apgVendor/apgMainCardVendorAktif"))
@@ -277,6 +280,9 @@ class AppRouter extends React.Component {
           <AppRoute path="/apg/items-sub-kategori" component={apgItemSubKategori} />
           <AppRoute path="/apg/items-satuan" component={apgItemSatuan} />
           <AppRoute path="/apg/katalog-pemesanan" component={apgKatalogPemesanan} />
+          <AppRoute path="/apg/katalog-pemesanan-diproses" component={apgKatalogPemesananDiproses} />
+          <AppRoute path="/apg/katalog-pemesanan-dikirim" component={apgKatalogPemesananDikirim} />
+          <AppRoute path="/apg/katalog-informasi-pemesanan" component={apgKatalogPemesananShipping} />
           <AppRoute path="/apg/katalog-po-expired" component={apgKatalogPOExpired} />
           <AppRoute path="/apg/checkout" component={apgCheckout} />
           <AppRoute path="/apg/vendor-aktif" component={VendorAktif} />

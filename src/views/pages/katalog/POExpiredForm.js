@@ -10,8 +10,8 @@ import {
 import { FileText, ArrowLeft } from "react-feather"
 import {
   getDataKatalogPemesananById as getData,
-  getDataKatalogPemesananDiprosesById as getProcessedData,
   apgKatalogKirimPesanan as sendConfirmation,
+  apgKatalogPesananSelesai as finishConfirmation,
   apgKatalogUploadPdf as sendDatas
 } from "../../../redux/actions/apgKatalog"
 import { connect } from "react-redux"
@@ -65,6 +65,10 @@ class ListView extends React.Component {
     this.props.sendConfirmation(obj)
   }
 
+  handleSelesai = obj => {
+    this.props.finishConfirmation(obj)
+  }
+
   sendData = (obj, data) => {
     let formData = new FormData();
     // let pdf_upload = true
@@ -74,11 +78,23 @@ class ListView extends React.Component {
   }
 
   handleGetProcessedData = obj => {
-    this.props.getProcessedData(obj)
+    let url = `/apg/katalog-pemesanan-diproses/${obj.id}`
+    history.push(url)
   }
+
+  handleGetShippingInformation = obj => {
+    let url = `/apg/katalog-informasi-pemesanan/${obj.id}`
+    history.push(url)
+  } 
+
+  handleGetDeliverInformation = obj => {
+    // console.log(obj, "OM INI OM")
+    // /po-send-items?po=${obj.id}&po_shipping_item=${obj.po_shipping_item
+    let url = `/apg/katalog-pemesanan-dikirim/po=${obj.id}&po_shipping_item=${obj.po_shipping_item.id}`
+    history.push(url)
+  } 
     
   componentDidMount() {
-    console.log(this.props)
     this.props.getData(this.props)
     // this.fileSelector = buildFileSelector();
   }
@@ -160,7 +176,7 @@ class ListView extends React.Component {
             <Button
               color="primary"
               outline className="mr-1 mb-md-0 mb-1"
-              // onClick={() => window.print()}
+              onClick={() => this.handleGetShippingInformation(data)}
             >
               <FileText size="15" />
               <span className="align-middle ml-50">Informasi Pengiriman</span>
@@ -168,7 +184,7 @@ class ListView extends React.Component {
             <Button
               color="primary"
               className="mr-1 mb-md-0 mb-1"
-              // onClick={() => window.print()}
+              onClick={() => this.handleGetDeliverInformation(data)}
             >
               <FileText size="15" />
               <span className="align-middle ml-50">Barang Diterima</span>
@@ -181,7 +197,7 @@ class ListView extends React.Component {
             <Button
               color="primary"
               outline className="mr-1 mb-md-0 mb-1"
-              // onClick={() => window.print()}
+              onClick={() => this.handleGetProcessedData(data)}
             >
               <FileText size="15" />
               <span className="align-middle ml-50">Barang Telah Diterima</span>
@@ -189,7 +205,7 @@ class ListView extends React.Component {
             <Button
               color="primary"
               className="mr-1 mb-md-0 mb-1"
-              // onClick={() => window.print()}
+              onClick={() => this.toggleModal(data.id)}
             >
               <FileText size="15" />
               <span className="align-middle ml-50">Pesanan Selesai</span>
@@ -197,22 +213,12 @@ class ListView extends React.Component {
           </React.Fragment>
           }
 
-          {data.status === "Expired" && 
-          <Button
-            color="primary"
-            className="mr-1 mb-md-0 mb-1"
-            // onClick={() => window.print()}
-          >
-            <FileText size="15" />
-            <span className="align-middle ml-50">Barang Telah Diterima</span>
-          </Button>} 
-
           {data.status === "Selesai" && 
           <Button
             color="primary"
             className="mr-1 mb-md-0 mb-1"
-            // onClick={() => window.print()}
-          >
+            onClick={() => this.handleGetProcessedData(data)}
+            >
             <FileText size="15" />
             <span className="align-middle ml-50">Barang Telah Diterima</span>
           </Button>}
@@ -253,6 +259,40 @@ class ListView extends React.Component {
             </Button>
           </ModalFooter>
         </Modal>
+
+        <Modal
+          isOpen={this.state.modal === data.id && data.status === "Diterima"}
+          toggle={() => this.toggleModal(data.id)}
+          className='modal-dialog-centered'
+          key={data.id}
+        >
+          {/* <ModalHeader toggle={() => this.toggleModal(data.id)}>
+            {item.modalTitle}
+            {item.title}
+          </ModalHeader> */}
+          <ModalBody className="text-center">
+            <AlertCircle className="vx-icon" size={150} />
+            <h2>Pesanan Selesai</h2>
+            Anda yakin akan menutup pesanan ini ?
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              color="primary"
+              className="mr-1 mb-md-0 mb-1"
+              onClick={() => this.handleSelesai(data)}
+              outline
+            >
+              Ya
+            </Button>
+            <Button
+              color="primary"
+              className="mr-1 mb-md-0 mb-1"
+              onClick={() => this.toggleModal(data.id)}
+            >
+              Tidak
+            </Button>
+          </ModalFooter>
+        </Modal>
       </React.Fragment>
     )
   }
@@ -267,6 +307,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   getData,
   sendConfirmation,
-  getProcessedData,
+  finishConfirmation,
   sendDatas
 })(ListView)

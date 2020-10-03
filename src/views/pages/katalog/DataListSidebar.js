@@ -1,77 +1,60 @@
 import React, { Component } from "react"
-import { Label, Input, FormGroup, Button } from "reactstrap"
+import { Label, Input, FormGroup, Button, Form } from "reactstrap"
 import { X } from "react-feather"
 import PerfectScrollbar from "react-perfect-scrollbar"
 import classnames from "classnames"
 
 class DataListSidebar extends Component {
   state = {
-    id: "",
-    name: "",
-    category: "Audio",
-    order_status: "pending",
-    price: "",
-    img: "",
-    popularity: {
-      popValue: ""
-    }
+    id_po: "",
+    id_item: "",
+    nama_barang: "",
+    deskripsi: "",
+    no_dpb: "",
+    jumlah_terima: ""
   }
 
   addNew = false
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.data !== null && prevProps.data === null) {
+      if (this.props.id_po!== prevState.id) {
+        this.setState({ id_po: this.props.id_po })
+      }
       if (this.props.data.id !== prevState.id) {
-        this.setState({ id: this.props.data.id })
+        this.setState({ id_item: this.props.data.id })
       }
-      if (this.props.data.name !== prevState.name) {
-        this.setState({ name: this.props.data.name })
+      if (this.props.data.po_item !== prevState.po_item) {
+        this.setState({ nama_barang: this.props.data.po_item.nama_barang })
       }
-      if (this.props.data.category !== prevState.category) {
-        this.setState({ category: this.props.data.category })
+      if (this.props.data.po_item !== prevState.deskripsi) {
+        this.setState({ deskripsi: this.props.data.po_item.deskripsi })
       }
-      if (this.props.data.popularity.popValue !== prevState.popularity) {
-        this.setState({
-          popularity: {
-            ...this.state.popularity,
-            popValue: this.props.data.popularity.popValue
-          }
-        })
+      if (this.props.data.no_dpb !== prevState.no_dpb) {
+        this.setState({ no_dpb: this.props.data.no_dpb })
       }
-      if (this.props.data.order_status !== prevState.order_status) {
-        this.setState({ order_status: this.props.data.order_status })
-      }
-      if (this.props.data.price !== prevState.price) {
-        this.setState({ price: this.props.data.price })
-      }
-      if (this.props.data.img !== prevState.img) {
-        this.setState({ img: this.props.data.img })
+      if (this.props.data.jumlah_terima !== prevState.jumlah_terima) {
+        this.setState({ jumlah_terima: this.props.data.jumlah_terima })
       }
     }
     if (this.props.data === null && prevProps.data !== null) {
       this.setState({
-        id: "",
-        name: "",
-        category: "Audio",
-        order_status: "pending",
-        price: "",
-        img: "",
-        popularity: {
-          popValue: ""
-        }
+        id_po: "",
+        id_item: "",
+        nama_barang: "",
+        deskripsi: "",
+        no_dpb: "",
+        jumlah_terima: ""
       })
     }
     if (this.addNew) {
       this.setState({
-        id: "",
-        name: "",
-        category: "Audio",
-        order_status: "pending",
-        price: "",
-        img: "",
-        popularity: {
-          popValue: ""
-        }
+        id_po: "",
+        id_item: "",
+        nama_barang: "",
+        deskripsi: "",
+        no_dpb: "",
+        jumlah_terima: ""
       })
     }
     this.addNew = false
@@ -79,21 +62,20 @@ class DataListSidebar extends Component {
 
   handleSubmit = obj => {
     if (this.props.data !== null) {
-      this.props.updateData(obj)
-    } else {
-      this.addNew = true
-      this.props.addData(obj)
+      let temp = {
+        id_po: this.props.id_po,
+        id: obj.id_item,
+        no_dpb: obj.no_dpb,
+        jumlah_terima: obj.jumlah_terima
+      }
+      Object.assign(this.props.data, temp)
     }
-    let params = Object.keys(this.props.dataParams).length
-      ? this.props.dataParams
-      : { page: 1, perPage: 4 }
     this.props.handleSidebar(false, true)
-    this.props.getData(params)
   }
 
   render() {
     let { show, handleSidebar, data } = this.props
-    let { name, category, order_status, price, popularity, img } = this.state
+    let { nama_barang, deskripsi, no_dpb, jumlah_terima } = this.state
     return (
       <div
         className={classnames("data-list-sidebar", {
@@ -106,110 +88,32 @@ class DataListSidebar extends Component {
         <PerfectScrollbar
           className="data-list-fields px-2 mt-3"
           options={{ wheelPropagation: false }}>
-          {this.props.thumbView && img.length ? (
-            <FormGroup className="text-center">
-              <img className="img-fluid" src={img} alt={name} />
-              <div className="d-flex flex-wrap justify-content-between mt-2">
-                <label
-                  className="btn btn-flat-primary"
-                  htmlFor="update-image"
-                  color="primary">
-                  Upload Image
-                  <input
-                    type="file"
-                    id="update-image"
-                    hidden
-                    onChange={e =>
-                      this.setState({
-                        img: URL.createObjectURL(e.target.files[0])
-                      })
-                    }
-                  />
-                </label>
-                <Button
-                  color="flat-danger"
-                  onClick={() => this.setState({ img: "" })}>
-                  Remove Image
-                </Button>
-              </div>
-            </FormGroup>
-          ) : null}
           <FormGroup>
-            <Label for="data-name">Name</Label>
+            <h4>{nama_barang}</h4>
+          </FormGroup>
+          <FormGroup>
+            <h6>{deskripsi}</h6>
+          </FormGroup>
+          <FormGroup>
+            <Label for="data-name">No. DPB</Label>
             <Input
               type="text"
-              value={name}
-              placeholder="Apple IphoneX"
-              onChange={e => this.setState({ name: e.target.value })}
-              id="data-name"
+              value={no_dpb}
+              placeholder="Masukkan No. DPB"
+              onChange={e => this.setState({ no_dpb: e.target.value })}
+              id="data-dpb"
             />
           </FormGroup>
           <FormGroup>
-            <Label for="data-category">Category</Label>
+            <Label for="data-name">Jumlah Terima</Label>
             <Input
-              type="select"
-              id="data-category"
-              value={category}
-              onChange={e => this.setState({ category: e.target.value })}>
-              <option>Audio</option>
-              <option>Computers</option>
-              <option>Fitness</option>
-              <option>Appliances</option>
-            </Input>
-          </FormGroup>
-          <FormGroup>
-            <Label for="data-popularity">Popularity</Label>
-            <Input
-              type="number"
-              value={popularity.popValue}
-              id="data-popularity"
-              placeholder="0 - 100%"
-              onChange={e =>
-                this.setState({
-                  popularity: { popularity, popValue: e.target.value }
-                })
-              }
+              type="text"
+              value={jumlah_terima}
+              placeholder="Masukkan Jumlah Terima"
+              onChange={e => this.setState({ jumlah_terima: e.target.value })}
+              id="data-terima"
             />
           </FormGroup>
-          <FormGroup>
-            <Label for="data-status">Order Status</Label>
-            <Input
-              type="select"
-              id="data-status"
-              value={order_status}
-              onChange={e => this.setState({ order_status: e.target.value })}>
-              <option>pending</option>
-              <option>canceled</option>
-              <option>delivered</option>
-              <option>on hold</option>
-            </Input>
-          </FormGroup>
-          <FormGroup>
-            <Label for="data-price">Price</Label>
-            <Input
-              type="number"
-              value={price}
-              onChange={e => this.setState({ price: e.target.value })}
-              id="data-price"
-              placeholder="69.99"
-            />
-          </FormGroup>
-          {this.props.thumbView && img.length <= 0 ? (
-            <label
-              className="btn btn-primary"
-              htmlFor="upload-image"
-              color="primary">
-              Upload Image
-              <input
-                type="file"
-                id="upload-image"
-                hidden
-                onChange={e =>
-                  this.setState({ img: URL.createObjectURL(e.target.files[0]) })
-                }
-              />
-            </label>
-          ) : null}
         </PerfectScrollbar>
         <div className="data-list-sidebar-footer px-2 d-flex justify-content-start align-items-center mt-1">
           <Button color="primary" onClick={() => this.handleSubmit(this.state)}>
