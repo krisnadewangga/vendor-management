@@ -71,6 +71,8 @@ class DataListSidebar extends Component {
       Object.assign(this.props.data, temp)
     }
     this.props.handleSidebar(false, true)
+    // console.log(this.props.allData)
+    this.props.updateDataLocal(this.props.allData)
   }
 
   render() {

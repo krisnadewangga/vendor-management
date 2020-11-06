@@ -29,6 +29,7 @@ import { ArrowLeft } from "react-feather"
 import {
   getDataKatalogPemesananDikirim as getProcessedData,
   updateDataPesanan as updateData,
+  updateDataLocalPesanan as updateDataLocal
 } from "../../../redux/actions/apgKatalog"
 import Chip from "../../../components/@vuexy/chips/ChipComponent"
 import Checkbox from "../../../components/@vuexy/checkbox/CheckboxesVuexy"
@@ -88,6 +89,7 @@ const CustomHeader = props => {
 
 class apgKatalogConfig extends Component {
   static getDerivedStateFromProps(props, state) {
+    console.log(props.apgKatalog.data)
     if (
       props.apgKatalog.data.length !== state.data.length ||
       state.currentPage !== props.parsedFilter.page
@@ -110,6 +112,7 @@ class apgKatalogConfig extends Component {
   state = {
     data: [],
     poData: [],
+    update: false,
     totalPages: 0,
     currentPage: 0,
     columns : [
@@ -205,88 +208,6 @@ class apgKatalogConfig extends Component {
     this.props.getProcessedData(this.props)
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.thumbView) {
-      this.thumbView = false
-      let columns = [
-        {
-          name: "Nama Barang",
-          selector: "name",
-          sortable: true,
-          minWidth: "250px",
-          cell: row => (
-            <p title={row.po_item && row.po_item.nama_barang} className="text-truncate text-bold-500 mb-0">
-              {row.po_item && row.po_item.nama_barang}
-            </p>
-          )
-        },
-        {
-          name: "Spesifikasi",
-          selector: "spec",
-          sortable: true,
-          cell: row => (
-            <p title={row.po_item && row.po_item.deskripsi} className="text-truncate text-bold-500 mb-0">
-              {row.po_item && row.po_item.deskripsi}
-            </p>
-          )
-        },
-        {
-          name: "Jumlah Kirim",
-          selector: "kirim",
-          sortable: true,
-          cell: row => (
-            <p title={row.jumlah_kirim} className="text-truncate text-bold-500 mb-0">
-              {row.jumlah_kirim}
-            </p>
-          )
-        },
-        {
-          name: "Satuan",
-          selector: "total-harga",
-          sortable: true,
-          cell: row => (
-            <p title={row.po_item && row.po_item.unit} className="text-truncate text-bold-500 mb-0">
-              {row.po_item && row.po_item.unit}
-            </p>
-          )      
-        },
-        {
-          name: "No DPB",
-          selector: "total-harga",
-          sortable: true,
-          cell: row => (
-            <p title={row.no_dpb && row.no_dpb} className="text-truncate text-bold-500 mb-0">
-              {row.no_dpb && row.no_dpb}
-            </p>
-          )      
-        },
-        {
-          name: "Jumlah Diterima",
-          selector: "terima",
-          sortable: true,
-          cell: () => (
-            <p title={prevProps.data.jumlah_terima} className="text-truncate text-bold-500 mb-0">
-              {prevProps.data.jumlah_terima}
-            </p>
-          )      
-        },
-        {
-          name: "Actions",
-          sortable: true,
-          cell: row => (
-            <ActionsComponent
-              row={row}
-              getData={this.props.getData}
-              parsedFilter={this.props.parsedFilter}
-              currentData={this.handleCurrentData}
-            />
-          )
-        }
-      ]
-      this.setState({ columns })
-    }
-  }
-
   handleFilter = e => {
     this.setState({ value: e.target.value })
     this.props.filterData(e.target.value)
@@ -349,6 +270,11 @@ class apgKatalogConfig extends Component {
     this.setState({data: data})
   }
 
+  updateDataLocal = (dataUpdated) => {
+    this.props.updateDataLocal(dataUpdated)
+    this.setState({update: true})
+  }
+
   submitAll = () => {
     let finalData =[]
     let data = this.state.data
@@ -406,10 +332,6 @@ class apgKatalogConfig extends Component {
           subHeader
           responsive
           pointerOnHover
-          selectableRowsHighlight
-          onSelectedRowsChange={data =>
-            this.setState({ selected: data.selectedRows })
-          }
           customStyles={selectedStyle}
           subHeaderComponent={
             <CustomHeader
@@ -437,13 +359,13 @@ class apgKatalogConfig extends Component {
           show={sidebar}
           id_po={this.props.id}
           data={currentData}
-          updateData={this.props.updateData}
+          allData={data}
+          updateDataLocal={this.updateDataLocal}
           handleSidebar={this.handleSidebar}
           thumbView={this.props.thumbView}
           dataParams={this.props.parsedFilter}
           addNew={this.state.addNew}
           poData={this.state.poData}
-          // handleUpdate={this.handleUpdate}
         />
         <div
           className={classnames("data-list-overlay", {
@@ -465,5 +387,6 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, {
   getProcessedData,
-  updateData
+  updateData,
+  updateDataLocal
 })(apgKatalogConfig)

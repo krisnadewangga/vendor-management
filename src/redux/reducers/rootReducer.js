@@ -11,6 +11,7 @@ import dataListApg from "./data-list-apg/"
 import dataListVendor from "./data-list-vendor/"
 import apgVendor from "./apgVendor/"
 import apgKatalog from "./apgKatalog/"
+import apgCart from "./apgCart/"
 import dashboard from "./dashboard"
 import profil from "./profil"
 import notification from './notification';
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   dataListVendor: dataListVendor,
   apgVendor: apgVendor,
   apgKatalog: apgKatalog,
+  apgCart: apgCart,
   dashboard: dashboard,
   profil: profil,
   notification,

@@ -18,11 +18,15 @@ import NumericInput from "react-numeric-input"
 import { mobileStyle } from "../../forms/form-elements/number-input/InputStyles"
 import Breacrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb"
 import Wizard from "../../../components/@vuexy/wizard/WizardComponent"
-import { productsList } from "./cartData"
+// import { productsList } from "./cartData"
 import { AvInput, AvGroup, AvFeedback } from "availity-reactstrap-validation"
 import Select from "react-select"
 import { Info, FileText, File, ArrowLeft, X, ShoppingCart } from "react-feather"
 import logo from "../../../assets/img/logo/logo.png"
+import { connect } from "react-redux"
+import {
+  getDataApgCartList as getData
+} from "../../../redux/actions/apgCart"
 
 import "../../../assets/scss/pages/app-ecommerce-shop.scss"
 import "react-toastify/dist/ReactToastify.css"
@@ -37,8 +41,30 @@ const valueOptions = [
   { value: "opsi5", label: "Vendor Maju Manja" },
 ]
 
+// let options = this.props.apgCart.data && this.props.apgCart.data.map(function (value) {
+//   return { value: value.vendor, label: value.vendor };
+// })
+
 class Checkout extends React.Component {
+  static getDerivedStateFromProps(props, state) {
+    if (
+      props.apgCart.data.length !== state.productsList.length
+    ) {
+      return {
+        productsList: props.apgCart.data,
+      }
+    }
+
+    // Return null if the state hasn't changed
+    return null
+  }
+
+  componentDidMount() {
+    this.props.getData()
+  }
+
   state = {
+    productsList: [],
     activeStep: 0,
     steps: [
       {
@@ -46,17 +72,17 @@ class Checkout extends React.Component {
         content: (
           <div className="list-view product-checkout">
             <div className="checkout-items">
-              {productsList.map((item, i) => (
+              {this.props.apgCart.data && this.props.apgCart.data.map((item, i) => (
                 <Card className="ecommerce-card" key={i}>
                   <div className="card-content">
                     <div className="item-img text-center">
-                      <img src={item.img} alt="Product" />
+                      <img src={process.env.REACT_APP_URI_API + item.carts[0].gambar_item} width={200} alt="Product" />
                     </div>
                     <CardBody>
                       <div className="item-name">
                         <span>{item.name}</span>
                         <p className="item-company">
-                          By <span className="company-name">{item.by}</span>
+                          By <span className="company-name">{item.carts[0].vendor_item}</span>
                         </p>
                         <p className="stock-status-in">In Stock</p>
                         <div className="item-quantity">
@@ -82,7 +108,7 @@ class Checkout extends React.Component {
                           </Badge>
                         </div> */}
                         <div className="item-cost">
-                          <h6 className="item-price">{item.price}</h6>
+                          <h6 className="item-price">Rp {item.carts[0].harga_satuan_item}</h6>
                         </div>
                       </div>
                       <div className="wishlist">
@@ -108,9 +134,9 @@ class Checkout extends React.Component {
                       <Select
                         className="React"
                         classNamePrefix="select"
-                        defaultValue={valueOptions[0]}
+                        defaultValue={this.state.productsList[0].vendor}
                         name="color"
-                        options={valueOptions}
+                        options={this.state.productsList.vendor}
                       />
                     </FormGroup>
                     </Col>
@@ -620,4 +646,12 @@ class Checkout extends React.Component {
   }
 }
 
-export default Checkout
+const mapStateToProps = state => {
+  return {
+    apgCart: state.apgCart
+  }
+}
+
+export default connect(mapStateToProps, {
+  getData
+})(Checkout)

@@ -513,6 +513,13 @@ export const updateDataPesanan = (id, obj)=> {
   }
 }
 
+export const updateDataLocalPesanan = obj => {
+  return async dispatch => {
+    console.log(obj, "OBECLLECLELCLEE")
+      dispatch({ type: "KATALOG_PEMESANAN_GET_UPDATE", data: obj })
+    }
+}
+
 export const apgKatalogKirimPesanan = (obj) => {
   let status = "Konfirmasi"
 

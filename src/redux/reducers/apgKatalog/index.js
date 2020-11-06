@@ -142,6 +142,11 @@ const DataListReducer = (state = initialState, action) => {
       ...state,
       data: action.data,
     }
+    case "KATALOG_PEMESANAN_GET_UPDATE":
+    return {
+      ...state,
+      data: action.data,
+    }
     case "FILTER_DATA_APG_KATALOG":
     if (value.length) {
       filteredData = state.allData

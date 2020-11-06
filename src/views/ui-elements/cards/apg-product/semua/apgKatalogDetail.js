@@ -8,6 +8,9 @@ import {
 import {
   getDataKatalogById as getData,
 } from "../../../../../redux/actions/apgKatalog"
+import {
+  addDataCart as addData,
+} from "../../../../../redux/actions/apgCart"
 import { connect } from "react-redux"
 import NumericInput from "react-numeric-input"
 import "swiper/css/swiper.css"
@@ -52,7 +55,8 @@ class MainCards extends React.Component {
   state = {
     sidebarDocked: mql.matches,
     sidebarOpen: false,
-    selectedColor: 1
+    selectedColor: 1,
+    value: 0
   }
 
   componentDidMount() {
@@ -66,7 +70,6 @@ class MainCards extends React.Component {
     let { data } = this.props.dataList
     return (
       <React.Fragment>
-        {console.log(data)}
         <Card className="overflow-hidden app-ecommerce-details">
           <CardBody className="pb-0">
             <Row className="mb-5 mt-2">
@@ -118,11 +121,12 @@ class MainCards extends React.Component {
                   <NumericInput
                     min={0}
                     max={10}
-                    value={1}
+                    value={this.state.value}
+                    onChange={(value) => this.setState({value})}
                     mobile
                     style={mobileStyle}
                   />
-                  <span> Sak</span>
+                  <span> {data.satuan}</span>
                 </div>
                 <hr />
                 <p className="my-50">
@@ -131,7 +135,8 @@ class MainCards extends React.Component {
                   <span className="text-success">{data.stok_item}</span>
                 </p>
                 <div className="action-btns">
-                  <Button.Ripple className="mr-1 mb-1" color="primary">
+                  <Button.Ripple className="mr-1 mb-1" color="primary" 
+                    onClick={() => this.props.addData({jumlah: this.state.value, vendor_item: data.id})} >
                     <ShoppingCart size={15} />
                     <span className="align-middle ml-50">Tambahkan ke Keranjang</span>
                   </Button.Ripple>
@@ -151,6 +156,7 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps, {
-  getData
+  getData,
+  addData
 })(MainCards)
 
